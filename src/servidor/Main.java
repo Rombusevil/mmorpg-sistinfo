@@ -13,7 +13,7 @@ public class Main {
 		celdaActual = mundo.getEntradaMundo();
 		
 		
-		// Imprime matriz
+		// Imprime matriz		
 		for(int i=0; i<alto; i++){
 			for(int j=0; j<ancho; j++){
 				celdaActual.imprimeMyPos();
