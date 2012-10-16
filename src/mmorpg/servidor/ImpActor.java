@@ -1,4 +1,4 @@
-package servidor;
+package mmorpg.servidor;
 
 public abstract class ImpActor implements Actor {
 	private MovedorEnDireccion movedorEnDireccion;

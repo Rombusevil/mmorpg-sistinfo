@@ -1,4 +1,4 @@
-package servidor;
+package mmorpg.servidor;
 
 public interface Celda {
 	Celda dameCeldaArriba();

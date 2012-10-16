@@ -1,6 +1,6 @@
-package servidor;
+package mmorpg.servidor;
 
-public class MovedorAbajo implements MovedorEnDireccion {
+public class MovedorArriba implements MovedorEnDireccion {
 
 	@Override
 	public void mover(Actor a) {

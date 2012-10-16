@@ -1,4 +1,4 @@
-package servidor;
+package mmorpg.servidor;
 
 public class MundoElfico extends ImpMundo {
 	private Celda entradaMundo;
@@ -11,5 +11,6 @@ public class MundoElfico extends ImpMundo {
 	public Celda getEntradaMundo(){
 		return entradaMundo;
 	}
+
 
 }

@@ -1,4 +1,4 @@
-package servidor;
+package mmorpg.servidor;
 
 public class ImpCelda implements Celda {
 	private Dibujable ocupadoPor;
