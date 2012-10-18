@@ -13,28 +13,11 @@ public class Main {
 		celdaActual = mundo.getEntradaMundo();
 		
 		
-		// Imprime matriz		
-		for(int i=0; i<alto; i++){
-			for(int j=0; j<ancho; j++){
-				celdaActual.imprimeMyPos();
-				System.out.print(celdaActual.getOcupadoPor());
-				
-				if(j < ancho -1)
-					celdaActual = celdaActual.dameCeldaDer();
-			}
-			
-			//Voy una mÃ¡s abajo si no estoy en el lÃ­mite
-			if(i<alto-1)
-				celdaActual = celdaActual.dameCeldaAbajo();
-			
-			System.out.println();
-			
-			//Voy todo a la iz para empezar a imprimir de iz a der
-			for(int j=0; j<ancho-1; j++){				
-				celdaActual = celdaActual.dameCeldaIz();
-			}
-		}
-	}
+		// Imprime matriz, no sería mejor dejar el imprime Matriz como un metodo de ImpMundo y llamarlo en un bucle dentro del main??
+		
+		//muestraMundo(alto,ancho,celdaActual)
+		mundo.muestraMundo(alto, ancho, celdaActual);
+		//acá estaba el for antes.
 	
 	/** MÃ©todos para lista cuadruple enlazada **/
 	/*
@@ -51,4 +34,5 @@ public class Main {
 		return recorreDerechaHastaOcupado(c.dameCeldaAbajo());
 	}
 	*/
+	}
 }
