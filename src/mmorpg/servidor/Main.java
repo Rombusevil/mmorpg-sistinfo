@@ -5,19 +5,20 @@ package mmorpg.servidor;
 public class Main {	
 	public static void main(String[] args) {
 		int alto, ancho;
-		Mundo mundo = new MundoElfico();
+		Mundo mundo;
 		Celda celdaActual;
 		
-		alto = ancho = 3;
-		mundo.dimensionar(alto, ancho, mundo);
+		alto = ancho = 3;	//DimensiÃ³n del mundo
+		mundo = new ImpMundo(alto,ancho);
+		
 		celdaActual = mundo.getEntradaMundo();
 		
-		
-		// Imprime matriz, no sería mejor dejar el imprime Matriz como un metodo de ImpMundo y llamarlo en un bucle dentro del main??
-		
-		//muestraMundo(alto,ancho,celdaActual)
 		mundo.muestraMundo(alto, ancho, celdaActual);
-		//acá estaba el for antes.
+
+		
+		
+		
+		
 	
 	/** MÃ©todos para lista cuadruple enlazada **/
 	/*

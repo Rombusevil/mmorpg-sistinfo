@@ -1,23 +1,22 @@
 package mmorpg.servidor;
 
-public abstract class ImpMundo implements Mundo {
+public class ImpMundo implements Mundo {
 	private Celda entradaMundo;
+	private Celda[][] mundo;
 	
-	public Celda getEntradaMundo(){
+	//Constructor, dimensiona el mundo.
+	public ImpMundo(int alto, int ancho){
+		this.mundo = new ImpCelda[alto][ancho];		
+		this.dimensionar(alto,ancho);
 		
-		return entradaMundo;
+		this.entradaMundo = mundo[0][0];
+		
 	}
-	
-	public void setEntradaMundo(Celda c){
-		entradaMundo = c;
-	}
-	
-	// Recive el mundo por parámetro así cada implementación de esta clase abs. puede crearse igual
-	// 
-	public Mundo dimensionar(int alto, int ancho, Mundo mundo){
-		Celda[][] mundoMatrix = new ImpCelda[alto][ancho];
+
+	public void dimensionar(int alto, int ancho){
+		Celda[][] mundoMatrix = this.getMundo();
 		Celda celdaOcupada = new ImpCelda();
-		Dibujable oc = new OcupaCelda();
+		Dibujable oc = new CeldaOcupada(); //Cambiar por objetoSolido o algo así, la clase nueva
 		Dibujable libre = new CeldaLibre();
 		
 		celdaOcupada.setOcupadoPor(oc);
@@ -54,10 +53,6 @@ public abstract class ImpMundo implements Mundo {
 				else
 					mundoMatrix[i][j].setCeldaDer(mundoMatrix[i][j+1]);
 			}
-		
-		mundo.setEntradaMundo(mundoMatrix[0][0]);
-		
-		return mundo;
 	}
 	
 	@Override
@@ -65,10 +60,11 @@ public abstract class ImpMundo implements Mundo {
 		
 	}
 	
-	public Celda dameCelda(int x, int y, Mundo mundo){
-		
-		return entradaMundo;//?? devuelve otra vez la entrada al mundo? no es lo mismo que el getEntradaMundo??
+	public Celda dameCelda(int x, int y, Mundo mundo){		
+		return entradaMundo;
 	}
+	
+	
 	public void muestraMundo(int alto, int ancho, Celda celdaActual){
 		
 		for(int i=0; i<alto; i++){
@@ -93,4 +89,17 @@ public abstract class ImpMundo implements Mundo {
 		}
 	}
 
+	public Celda getEntradaMundo(){
+		
+		return entradaMundo;
+	}
+	
+	public void setEntradaMundo(Celda c){
+		entradaMundo = c;
+	}
+
+	public Celda[][] getMundo() {
+		return mundo;
+	}
+	
 }
