@@ -9,7 +9,9 @@ public class Main {
 		Celda entradaMundo;
 		Actor actor = new PJ();
 		MovedorDerecha movedorDer = new MovedorDerecha();
-		MovedorIzquierda movedorIz = new MovedorIzquierda();	
+		MovedorIzquierda movedorIz = new MovedorIzquierda();
+		MovedorArriba movedorArr = new MovedorArriba();
+		MovedorAbajo movedorAbj = new MovedorAbajo();
 			
 		
 		alto = ancho = 3;	//Dimensión del mundo
@@ -30,6 +32,16 @@ public class Main {
 		
 		movedorIz.mover(actor);
 		movedorIz.mover(actor);
+		
+		movedorAbj.mover(actor);
+		movedorAbj.mover(actor);
+		movedorAbj.mover(actor);
+		movedorAbj.mover(actor);
+		
+		movedorArr.mover(actor);
+		movedorArr.mover(actor);
+		movedorArr.mover(actor);
+		movedorArr.mover(actor);
 		
 		
 		mundo.muestraMundo(alto, ancho, entradaMundo);
