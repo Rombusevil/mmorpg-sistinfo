@@ -19,7 +19,7 @@ public class CeldaLibre implements Estado {
 		celda.setEstado(/*hablando mal y pronto:*/ new CeldaInaccesible());
 		
 		 //Pongo en libre la celda donde estaba el actor antes
-		/*** Acá crashea si el actor no tiene una celda actual, osea este método sirve para mover al actor
+		/** Acá crashea si el actor no tiene una celda actual, osea este método sirve para mover al actor
 		 * no para posicionarlo por primera vez.
 		 */
 		/** arreglando este problema mal y pronto: */

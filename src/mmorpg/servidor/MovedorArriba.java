@@ -2,10 +2,13 @@ package mmorpg.servidor;
 
 public class MovedorArriba implements MovedorEnDireccion {
 
-	@Override
-	public void mover(Actor a) {
-		// TODO Auto-generated method stub
+	public void mover(Actor actor){
+		Celda celdaActual, celdaDestino;
 		
+		celdaActual = actor.getCeldaActual();
+		celdaDestino = celdaActual.dameCeldaArriba();
+		
+		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, actor);
 	}
 
 }
