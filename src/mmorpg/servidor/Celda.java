@@ -9,8 +9,9 @@ public interface Celda {
 	void setCeldaAbajo(Celda c);
 	void setCeldaIz(Celda c);
 	void setCeldaDer(Celda c);
-	void setOcupadoPor(Dibujable d);
-	Dibujable getOcupadoPor();
+	void setEstado(Estado e);
+	Estado getEstado();
+	Celda getCelda();
 	void setMyPos(int x, int y);
 	void imprimeMyPos();	
 }

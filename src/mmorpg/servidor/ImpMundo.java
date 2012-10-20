@@ -3,12 +3,14 @@ package mmorpg.servidor;
 public class ImpMundo implements Mundo {
 	private Celda entradaMundo;
 	private Celda[][] mundo;
+//	private Celda celdaLimite; //Esto es por si sirve tener la celda límite que está flotando afuera de la matriz acá arriba.
 	
 	//Constructor, dimensiona el mundo.
 	public ImpMundo(int alto, int ancho){
-		this.mundo = new ImpCelda[alto][ancho];		
-		this.dimensionar(alto,ancho);
+		this.mundo = new ImpCelda[alto][ancho];
+//		this.celdaLimite = new ImpCelda();
 		
+		this.dimensionar(alto,ancho);		
 		this.entradaMundo = mundo[0][0];
 		
 	}
@@ -16,10 +18,11 @@ public class ImpMundo implements Mundo {
 	public void dimensionar(int alto, int ancho){
 		Celda[][] mundoMatrix = this.getMundo();
 		Celda celdaOcupada = new ImpCelda();
-		Dibujable oc = new CeldaOcupada(); //Cambiar por objetoSolido o algo así, la clase nueva
-		Dibujable libre = new CeldaLibre();
 		
-		celdaOcupada.setOcupadoPor(oc);
+		Estado inaccesible = new CeldaInaccesible(); 
+		Estado libre = new CeldaLibre();
+		
+		celdaOcupada.setEstado(inaccesible);
 		
 		
 		//Cargo la matriz con celdas
@@ -27,7 +30,7 @@ public class ImpMundo implements Mundo {
 			for(int j=0; j<ancho; j++){
 				mundoMatrix[i][j] = new ImpCelda();
 				mundoMatrix[i][j].setMyPos(i, j);
-				mundoMatrix[i][j].setOcupadoPor(libre);
+				mundoMatrix[i][j].setEstado(libre);
 			}
 		
 		//Enlazo las celdas de la matriz
@@ -55,9 +58,14 @@ public class ImpMundo implements Mundo {
 			}
 	}
 	
-	@Override
-	public void ponerDibujableEn(int x, int y, Dibujable dibujable, Mundo mundo) {
+	public void poneActorEn(int x, int y, Actor actor){
+		Celda celdaDestino = this.getCeldaPos(x,y);
 		
+		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, actor);
+		
+	}
+	public void ponerDibujableEn(int x, int y, Dibujable dibujable) {
+		/**/
 	}
 	
 	public Celda dameCelda(int x, int y, Mundo mundo){		
@@ -70,7 +78,7 @@ public class ImpMundo implements Mundo {
 		for(int i=0; i<alto; i++){
 			for(int j=0; j<ancho; j++){
 				celdaActual.imprimeMyPos();
-				System.out.print(celdaActual.getOcupadoPor());
+				System.out.print(celdaActual.getEstado());
 				
 				if(j < ancho -1)
 					celdaActual = celdaActual.dameCeldaDer();
@@ -85,8 +93,9 @@ public class ImpMundo implements Mundo {
 			//Voy todo a la iz para empezar a imprimir de iz a der
 			for(int j=0; j<ancho-1; j++){				
 				celdaActual = celdaActual.dameCeldaIz();
-			}
+			}			
 		}
+		System.out.println();
 	}
 
 	public Celda getEntradaMundo(){
@@ -100,6 +109,10 @@ public class ImpMundo implements Mundo {
 
 	public Celda[][] getMundo() {
 		return mundo;
+	}
+
+	public Celda getCeldaPos(int x, int y) {
+		return this.getMundo()[x][y];
 	}
 	
 }

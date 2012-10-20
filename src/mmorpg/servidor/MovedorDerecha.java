@@ -2,11 +2,12 @@ package mmorpg.servidor;
 
 public class MovedorDerecha implements MovedorEnDireccion {
 	
-	public void mover(Actor a){
+	public void mover(Actor actor){
 		Celda celdaActual, celdaDestino;
 		
-		celdaActual = a.getPosicion();
+		celdaActual = actor.getCeldaActual();
 		celdaDestino = celdaActual.dameCeldaDer();
-		a.setPosicion(celdaDestino);
+		
+		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, actor);
 	}
 }

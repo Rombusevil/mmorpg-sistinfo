@@ -1,6 +1,6 @@
 package mmorpg.servidor;
 
-public class LimiteMundo extends CeldaOcupada {
+public class LimiteMundo extends CeldaInaccesible {
 
 
 

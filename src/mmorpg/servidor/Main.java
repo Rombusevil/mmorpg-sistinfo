@@ -6,14 +6,25 @@ public class Main {
 	public static void main(String[] args) {
 		int alto, ancho;
 		Mundo mundo;
-		Celda celdaActual;
+		Celda entradaMundo;
+		Actor actor = new PJ();
+		MovedorDerecha movedorDer = new MovedorDerecha();
+			
+			
 		
 		alto = ancho = 3;	//Dimensión del mundo
 		mundo = new ImpMundo(alto,ancho);
+		entradaMundo = mundo.getEntradaMundo();
 		
-		celdaActual = mundo.getEntradaMundo();
+		mundo.poneActorEn(0, 1, actor);		
 		
-		mundo.muestraMundo(alto, ancho, celdaActual);
+		mundo.muestraMundo(alto, ancho, entradaMundo);
+		
+		movedorDer.mover(actor);
+		
+		
+		mundo.muestraMundo(alto, ancho, entradaMundo);
+		
 
 		
 		

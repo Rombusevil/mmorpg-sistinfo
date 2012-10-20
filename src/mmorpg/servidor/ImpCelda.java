@@ -1,7 +1,7 @@
 package mmorpg.servidor;
 
 public class ImpCelda implements Celda {
-	private Dibujable ocupadoPor;
+	private Estado estado;
 	private Celda celdaArriba;
 	private Celda celdaAbajo;
 	private Celda celdaIz;
@@ -10,13 +10,6 @@ public class ImpCelda implements Celda {
 	private int posY;
 	
 	
-
-	public void setOcupadoPor(Dibujable d){
-		ocupadoPor = d;
-	}
-	public Dibujable getOcupadoPor(){
-		return ocupadoPor;
-	}
 
 	@Override
 	public Celda dameCeldaArriba() {
@@ -69,6 +62,16 @@ public class ImpCelda implements Celda {
 	public void imprimeMyPos() {
 		System.out.print("["+this.posX+","+this.posY+"]");
 	}
-
+	@Override
+	public void setEstado(Estado e) {
+		this.estado = e;
+	}
+	public Estado getEstado(){
+		return this.estado;
+	}
+	
+	public Celda getCelda(){ /*?*/
+		return this;
+	}
 
 }

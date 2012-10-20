@@ -5,7 +5,8 @@ public interface Mundo {
 	void setEntradaMundo(Celda c);
 	void dimensionar(int alto, int ancho);
 	Celda getEntradaMundo();
-	void ponerDibujableEn(int x, int y, Dibujable dibujable, Mundo mundo);
-	Celda dameCelda(int x, int y, Mundo mundo);
+/**/	void ponerDibujableEn(int x, int y, Dibujable dibujable);
+	void poneActorEn(int x, int y, Actor a);
+	Celda getCeldaPos(int x, int y);
 
 }
