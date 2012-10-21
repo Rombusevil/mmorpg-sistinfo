@@ -8,8 +8,21 @@ public class ImpCelda implements Celda {
 	private Celda celdaDer;
 	private int posX;
 	private int posY;
+	private Mundo mundo;
 	
+	public ImpCelda(Mundo mundo){
+		this.setMundo(mundo);
+	}
 	
+	public ProveedorEstados getProveedorEstados(){
+		return this.getMundo().getProvedorEstados();
+	}
+	public Estado getEstadoLibre(){
+		return this.getProveedorEstados().getLibre();
+	}
+	public Estado getEstadoInaccesible(){
+		return this.getProveedorEstados().getInaccesible();
+	}
 
 	@Override
 	public Celda dameCeldaArriba() {
@@ -60,7 +73,9 @@ public class ImpCelda implements Celda {
 	}
 	@Override
 	public void imprimeMyPos() {
-		System.out.print("["+this.posX+","+this.posY+"]");
+		System.out.print("["+this.posX+","+this.posY);
+		this.getEstado().imprimite();
+		System.out.print("]");
 	}
 	@Override
 	public void setEstado(Estado e) {
@@ -72,6 +87,15 @@ public class ImpCelda implements Celda {
 	
 	public Celda getCelda(){ /*?*/
 		return this;
+	}
+
+	@Override
+	public Mundo getMundo() {
+
+		return mundo;
+	}
+	public void setMundo(Mundo mundo){
+		this.mundo = mundo;
 	}
 
 }

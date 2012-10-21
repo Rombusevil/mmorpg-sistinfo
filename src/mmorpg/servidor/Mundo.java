@@ -8,5 +8,6 @@ public interface Mundo {
 /**/	void ponerDibujableEn(int x, int y, Dibujable dibujable);
 	void poneActorEn(int x, int y, Actor a);
 	Celda getCeldaPos(int x, int y);
+	ProveedorEstados getProvedorEstados();
 
 }

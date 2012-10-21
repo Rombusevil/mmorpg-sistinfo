@@ -3,24 +3,27 @@ package mmorpg.servidor;
 public class ImpMundo implements Mundo {
 	private Celda entradaMundo;
 	private Celda[][] mundo;
-//	private Celda celdaLimite; //Esto es por si sirve tener la celda límite que está flotando afuera de la matriz acá arriba.
+	private ProveedorEstados provedoEstados;
 	
+
+
 	//Constructor, dimensiona el mundo.
 	public ImpMundo(int alto, int ancho){
 		this.mundo = new ImpCelda[alto][ancho];
-//		this.celdaLimite = new ImpCelda();
+		this.provedoEstados = new ImpProveedorEstados();
 		
 		this.dimensionar(alto,ancho);		
 		this.entradaMundo = mundo[0][0];
 		
 	}
 
+	//Crea la matriz, la llena con celdas de contenido libre y la rodea con una celda de contenido inaccesible.
 	public void dimensionar(int alto, int ancho){
 		Celda[][] mundoMatrix = this.getMundo();
-		Celda celdaOcupada = new ImpCelda();
+		Celda celdaOcupada = new ImpCelda(this);
 		
-		Estado inaccesible = new CeldaInaccesible(); 
-		Estado libre = new CeldaLibre();
+		Estado inaccesible = this.getProvedorEstados().getInaccesible(); 
+		Estado libre = this.getProvedorEstados().getLibre();
 		
 		celdaOcupada.setEstado(inaccesible);
 		
@@ -28,7 +31,7 @@ public class ImpMundo implements Mundo {
 		//Cargo la matriz con celdas
 		for(int i=0; i<alto; i++)
 			for(int j=0; j<ancho; j++){
-				mundoMatrix[i][j] = new ImpCelda();
+				mundoMatrix[i][j] = new ImpCelda(this);
 				mundoMatrix[i][j].setMyPos(i, j);
 				mundoMatrix[i][j].setEstado(libre);
 			}
@@ -61,7 +64,8 @@ public class ImpMundo implements Mundo {
 	public void poneActorEn(int x, int y, Actor actor){
 		Celda celdaDestino = this.getCeldaPos(x,y);
 		
-		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, actor);
+		celdaDestino.setEstado(celdaDestino.getEstadoInaccesible());
+		actor.setCeldaActual(celdaDestino);
 		
 	}
 	public void ponerDibujableEn(int x, int y, Dibujable dibujable) {
@@ -78,7 +82,6 @@ public class ImpMundo implements Mundo {
 		for(int i=0; i<alto; i++){
 			for(int j=0; j<ancho; j++){
 				celdaActual.imprimeMyPos();
-				System.out.print(celdaActual.getEstado());
 				
 				if(j < ancho -1)
 					celdaActual = celdaActual.dameCeldaDer();
@@ -115,4 +118,12 @@ public class ImpMundo implements Mundo {
 		return this.getMundo()[x][y];
 	}
 	
+	
+	public ProveedorEstados getProvedorEstados() {
+		return provedoEstados;
+	}
+
+	public void setProvedoEstados(ProveedorEstados provedoEstados) {
+		this.provedoEstados = provedoEstados;
+	}
 }
