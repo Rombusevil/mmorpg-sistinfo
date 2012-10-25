@@ -52,7 +52,8 @@ public class Main {
 		listaDeMoverdores.add(movedorDer);
 		listaDeMoverdores.add(movedorDer);
 		listaDeMoverdores.add(movedorDer);
-
+		
+		
 		Iterator<MovedorEnDireccion> iterator = listaDeMoverdores.iterator();
 		while (iterator.hasNext()) {
 
@@ -60,8 +61,8 @@ public class Main {
 			cadaMovedor.mover(actor);
 			mundo.muestraMundo(alto, ancho, entradaMundo);
 		}
-
-		// movedorDer.mover(actor);
+		
+		
 		// movedorAbj.mover(actor);
 		// movedorIz.mover(actor);
 		// movedorAbj.mover(actor);

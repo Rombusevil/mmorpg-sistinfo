@@ -15,6 +15,44 @@ public abstract class ImpActor implements Actor {
 		
 	}
 	
+	public void moveteDer(){
+		Celda celdaActual, celdaDestino;
+		
+		celdaActual = this.getCeldaActual();
+		celdaDestino = celdaActual.dameCeldaDer();
+		
+		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, this);
+	}
+	
+	public void moveteIzq(){
+		Celda celdaActual, celdaDestino;
+		
+		celdaActual = this.getCeldaActual();
+		celdaDestino = celdaActual.dameCeldaIz();
+		
+		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, this);
+		
+	}
+	
+	public void moveteAbajo(){
+		Celda celdaActual, celdaDestino;
+		
+		celdaActual = this.getCeldaActual();
+		celdaDestino = celdaActual.dameCeldaAbajo();
+		
+		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, this);
+		
+	}
+	public void moveteArriba(){
+		Celda celdaActual, celdaDestino;
+		
+		celdaActual = this.getCeldaActual();
+		celdaDestino = celdaActual.dameCeldaArriba();
+		
+		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, this);
+		
+	}
+	
 	public Celda getCeldaActual() {
 		return this.posicion;
 	}
