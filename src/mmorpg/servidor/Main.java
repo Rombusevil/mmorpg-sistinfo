@@ -13,28 +13,44 @@ public class Main {
 	public static void main(String[] args) {
 		int alto, ancho;
 		Mundo mundo;
-		Celda entradaMundo;
+//		Celda entradaMundo;
+		
 		Actor actor = new PJ();
+		ImpDibujo dbjActor = new ImpDibujoChar('x');
+		
 		Actor actor2 = new PJ();
+		ImpDibujo dbjActor2 = new ImpDibujoChar('y');
+		
+		
+		ImprimidorMundos cli = new ImpImprimidorMundosCLI();	// Como usamos CLI hay que crear 
+		ImpDibujoVacio vacio = new ImpDibujoCharVacio();		// un vacío CLI esto se puede hacer mejor... otro día.
+		
 		List<MovedorEnDireccion> listaDeMoverdores = new ArrayList<MovedorEnDireccion>();
+		
 
 		/** Movedores **/
 		MovedorDerecha movedorDer = new MovedorDerecha();
 		MovedorIzquierda movedorIz = new MovedorIzquierda();
 		MovedorArriba movedorArr = new MovedorArriba();
 		MovedorAbajo movedorAbj = new MovedorAbajo();
-
+		
+/*End Declarations*/
+		
 		/** Creo el mundo **/
 		alto = ancho = 3; // Dimensión del mundo
-		mundo = new ImpMundo(alto, ancho);
-		entradaMundo = mundo.getEntradaMundo();
+		mundo = new ImpMundo(alto, ancho, vacio);
+//		entradaMundo = mundo.getEntradaMundo();
 
-		/** Inicializo a los actores **/
-		mundo.poneActorEn(0, 1, actor); // Pone al actor en el mundo para poder
-										// moverlo
+		/** Asigno los dibujos a los actores **/
+		actor.setDibujo(dbjActor);
+		actor2.setDibujo(dbjActor2);
+		
+		/** Inicializo a los actores en el mundo **/
+		mundo.poneActorEn(0, 1, actor); // Pone al actor en el mundo para poder moverlo
 		mundo.poneActorEn(0, 0, actor2);
+		
+/*End Inicializacion*/
 
-		mundo.muestraMundo(alto, ancho, entradaMundo);
 
 		listaDeMoverdores.add(movedorDer);
 		listaDeMoverdores.add(movedorAbj);
@@ -53,13 +69,24 @@ public class Main {
 		listaDeMoverdores.add(movedorDer);
 		listaDeMoverdores.add(movedorDer);
 		
-		
+
+
 		Iterator<MovedorEnDireccion> iterator = listaDeMoverdores.iterator();
 		while (iterator.hasNext()) {
-
+			/* Refresca mundo*/
+			for (int i=0; i< 50; i++)
+				System.out.println();			
+			cli.imprimi(mundo);
+			
+			try {
+				Thread.sleep(800);
+			} catch (InterruptedException ie) {
+			}
+			
 			MovedorEnDireccion cadaMovedor = (MovedorEnDireccion) iterator.next();
 			cadaMovedor.mover(actor);
-			mundo.muestraMundo(alto, ancho, entradaMundo);
+			cadaMovedor.mover(actor2);
+			
 		}
 		
 		

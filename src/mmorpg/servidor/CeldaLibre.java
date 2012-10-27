@@ -7,12 +7,10 @@ public class CeldaLibre implements Estado {
 		Celda celdaAnterior = actor.getCeldaActual();
 		
 		actor.setCeldaActual(celda);
-		celda.setEstado(celda.getMundo().getProvedorEstados().getInaccesible());
-		celdaAnterior.setEstado(celda.getMundo().getProvedorEstados().getLibre());
+		celda.setEstado(celda.getProveedorEstados().getInaccesible());
+		celda.setDibujo(actor.getDibujo());
+		
+		celdaAnterior.setEstado(celda.getProveedorEstados().getLibre());
+		celdaAnterior.setDibujo(celda.getVacio());
 	}
-	
-	public void imprimite(){
-		System.out.print("[ ]");
-	}
-	
 }

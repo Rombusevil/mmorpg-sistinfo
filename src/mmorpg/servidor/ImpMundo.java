@@ -3,27 +3,27 @@ package mmorpg.servidor;
 public class ImpMundo implements Mundo {
 	private Celda entradaMundo;
 	private Celda[][] mundo;
-	private ProveedorEstados provedoEstados;
+	private int alto, ancho;
 	
 
 
 	//Constructor, dimensiona el mundo.
-	public ImpMundo(int alto, int ancho){
+	public ImpMundo(int alto, int ancho, ImpDibujoVacio vacio){
 		this.mundo = new ImpCelda[alto][ancho];
-		this.provedoEstados = new ImpProveedorEstados();
-		
-		this.dimensionar(alto,ancho);		
+		this.dimensionar(alto,ancho, vacio); // Enlaza las celdas, las pone a todas como libres, pone la imágen de vacío, etc
 		this.entradaMundo = mundo[0][0];
-		
+		this.alto = alto;
+		this.ancho = ancho;		
 	}
 
 	//Crea la matriz, la llena con celdas de contenido libre y la rodea con una celda de contenido inaccesible.
-	public void dimensionar(int alto, int ancho){
+	public void dimensionar(int alto, int ancho, ImpDibujoVacio vacio){
 		Celda[][] mundoMatrix = this.getMundo();
-		Celda celdaOcupada = new ImpCelda(this);
+		Celda celdaOcupada = new ImpCelda();
+		ProveedorEstados proveedorEstados = new ImpProveedorEstados();
 		
-		Estado inaccesible = this.getProvedorEstados().getInaccesible(); 
-		Estado libre = this.getProvedorEstados().getLibre();
+		Estado inaccesible = proveedorEstados.getInaccesible(); 
+		Estado libre = proveedorEstados.getLibre();
 		
 		celdaOcupada.setEstado(inaccesible);
 		
@@ -31,9 +31,12 @@ public class ImpMundo implements Mundo {
 		//Cargo la matriz con celdas
 		for(int i=0; i<alto; i++)
 			for(int j=0; j<ancho; j++){
-				mundoMatrix[i][j] = new ImpCelda(this);
+				mundoMatrix[i][j] = new ImpCelda();
 				mundoMatrix[i][j].setMyPos(i, j);
 				mundoMatrix[i][j].setEstado(libre);
+				mundoMatrix[i][j].setProveedorEstados(proveedorEstados); //A todas las celdas de este mundo les pongo el mismo proveedor de estados
+				mundoMatrix[i][j].setDibujo(vacio);	// Le pongo a todas las celdas el dibujo de vacío.
+				mundoMatrix[i][j].setVacio(vacio);
 			}
 		
 		//Enlazo las celdas de la matriz
@@ -63,10 +66,10 @@ public class ImpMundo implements Mundo {
 	
 	public void poneActorEn(int x, int y, Actor actor){
 		Celda celdaDestino = this.getCeldaPos(x,y);
-		
-		celdaDestino.setEstado(celdaDestino.getEstadoInaccesible());
-		actor.setCeldaActual(celdaDestino);
-		
+
+		celdaDestino.setEstado(celdaDestino.getEstadoInaccesible()); //Pongo como inaccesible la celda donde quiero ir.
+		celdaDestino.setDibujo(actor.getDibujo()); 	// Le pongo a la celda el dibujo del actor que se va a mover ahí.
+		actor.setCeldaActual(celdaDestino);			// Le digo al actor que se movió de celda.
 	}
 	public void ponerDibujableEn(int x, int y, Dibujable dibujable) {
 		/**/
@@ -118,12 +121,12 @@ public class ImpMundo implements Mundo {
 		return this.getMundo()[x][y];
 	}
 	
+	public int getAlto(){
+		return this.alto;
+	}
 	
-	public ProveedorEstados getProvedorEstados() {
-		return provedoEstados;
-	}
+	public int getAncho(){
+		return this.ancho;
+	}	
 
-	public void setProvedoEstados(ProveedorEstados provedoEstados) {
-		this.provedoEstados = provedoEstados;
-	}
 }

@@ -5,7 +5,9 @@ package mmorpg.servidor;
 public abstract class ImpActor implements Actor {
 	private MovedorEnDireccion movedorEnDireccion;
 	private Celda posicion;
+	private ImpDibujo dibujo;
 	
+
 	public void movete(){
 		MovedorEnDireccion movedor;
 		
@@ -22,6 +24,7 @@ public abstract class ImpActor implements Actor {
 		celdaDestino = celdaActual.dameCeldaDer();
 		
 		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, this);
+		
 	}
 	
 	public void moveteIzq(){
@@ -68,5 +71,11 @@ public abstract class ImpActor implements Actor {
 	}	
 	public void setMovedorEnDireccion(MovedorEnDireccion movedorEnDireccion) {
 		this.movedorEnDireccion = movedorEnDireccion;
+	}
+	public void setDibujo(ImpDibujo dibujo){
+		this.dibujo  = dibujo;
+	}
+	public ImpDibujo getDibujo(){
+		return this.dibujo;
 	}
 }

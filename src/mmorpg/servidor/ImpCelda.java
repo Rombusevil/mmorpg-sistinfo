@@ -8,15 +8,26 @@ public class ImpCelda implements Celda {
 	private Celda celdaDer;
 	private int posX;
 	private int posY;
-	private Mundo mundo;
+	private Dibujo dibujo;
+	private ImpDibujoVacio vacio;
 	
-	public ImpCelda(Mundo mundo){
-		this.setMundo(mundo);
+	
+	public ImpDibujoVacio getVacio() {
+		return vacio;
 	}
+	public void setVacio(ImpDibujoVacio vacio) {
+		this.vacio = vacio;
+	}
+
+	private ProveedorEstados proveedorEstados;
 	
 	public ProveedorEstados getProveedorEstados(){
-		return this.getMundo().getProvedorEstados();
+		return this.proveedorEstados;
 	}
+	public void setProveedorEstados(ProveedorEstados pe){
+		this.proveedorEstados = pe;
+	}
+	
 	public Estado getEstadoLibre(){
 		return this.getProveedorEstados().getLibre();
 	}
@@ -74,7 +85,7 @@ public class ImpCelda implements Celda {
 	@Override
 	public void imprimeMyPos() {
 		System.out.print("["+this.posX+","+this.posY);
-		this.getEstado().imprimite();
+		this.getDibujo().imprimeDibujo();
 		System.out.print("]");
 	}
 	@Override
@@ -90,12 +101,17 @@ public class ImpCelda implements Celda {
 	}
 
 	@Override
-	public Mundo getMundo() {
-
-		return mundo;
+	public Dibujo getDibujo() {		
+		return this.dibujo;
 	}
-	public void setMundo(Mundo mundo){
-		this.mundo = mundo;
+	
+	public void setDibujo(Dibujo dibujo){
+		this.dibujo = dibujo;
+	}
+
+	@Override
+	public void imprimite() {
+		this.getDibujo().imprimeDibujo();
 	}
 
 }

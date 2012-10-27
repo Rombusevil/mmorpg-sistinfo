@@ -7,12 +7,16 @@ public interface Actor {
 	MovedorEnDireccion getMovedorEnDireccion();
 	void setMovedorEnDireccion(MovedorEnDireccion movedorEnDireccion);
 	
-	public void moveteDer();
-	public void moveteIzq();
-	public void moveteAbajo();
-	public void moveteArriba();
+	void moveteDer();
+	void moveteIzq();
+	void moveteAbajo();
+	void moveteArriba();
 	
-	public Celda getCeldaActual();
-	public void setCeldaActual(Celda celda);
+	void setDibujo(ImpDibujo dibujo);
+	Dibujo getDibujo();
+	
+	Celda getCeldaActual();
+	void setCeldaActual(Celda celda);
+	
 	
 }

@@ -11,13 +11,14 @@ public class ImpProveedorDeMovedores implements ProveedorDeMovedores {
 		this.arriba = new MovedorArriba();
 		this.der = new MovedorDerecha();
 		this.izq = new MovedorIzquierda();
-		
 	}
 	
-	public MovedorEnDireccion decodificaStringADire(String comando){
-		return dameArriba(); //esto lo puse por mientras para que no tire error.
-	}
-	
+/* Esto va en ImpControladorJugadores */
+//	public MovedorEnDireccion decodificaStringADire(String comando){
+//		// TO DO
+//		return dameArriba(); //esto lo puse por mientras para que no tire error.
+//	}
+//	
 	//Devuelven direcciones 
 	public MovedorEnDireccion dameAbajo(){
 		return getAbajo();

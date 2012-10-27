@@ -14,8 +14,13 @@ public interface Celda {
 	Celda getCelda();
 	void setMyPos(int x, int y);
 	void imprimeMyPos();
-	Mundo getMundo();
 	ProveedorEstados getProveedorEstados();
 	Estado getEstadoLibre();
 	Estado getEstadoInaccesible();
+	Dibujo getDibujo();
+	ImpDibujoVacio getVacio();
+	void setVacio(ImpDibujoVacio vacio);
+	void setDibujo(Dibujo dibujo);
+	void imprimite();
+	void setProveedorEstados(ProveedorEstados pe);
 }

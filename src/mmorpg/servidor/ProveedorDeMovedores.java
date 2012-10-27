@@ -5,6 +5,4 @@ public interface ProveedorDeMovedores {
 	public MovedorEnDireccion dameAbajo();
 	public MovedorEnDireccion dameIzq();
 	public MovedorEnDireccion dameDer();
-	public MovedorEnDireccion decodificaStringADire(String comando);
-
 }
