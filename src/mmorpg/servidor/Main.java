@@ -15,11 +15,15 @@ public class Main {
 		Mundo mundo;
 //		Celda entradaMundo;
 		
+		/*Crear un actor, crear un dibujo y despues asignarlo al actor.*/
 		Actor actor = new PJ();
 		ImpDibujo dbjActor = new ImpDibujoChar('x');
 		
 		Actor actor2 = new PJ();
 		ImpDibujo dbjActor2 = new ImpDibujoChar('y');
+		
+		Actor actor3 = new PJ();
+		ImpDibujo dbjActor3 = new ImpDibujoChar('g');
 		
 		
 		ImprimidorMundos cli = new ImpImprimidorMundosCLI();	// Como usamos CLI hay que crear 
@@ -37,17 +41,19 @@ public class Main {
 /*End Declarations*/
 		
 		/** Creo el mundo **/
-		alto = ancho = 3; // Dimensión del mundo
+		alto = ancho = 8; // Dimensión del mundo
 		mundo = new ImpMundo(alto, ancho, vacio);
 //		entradaMundo = mundo.getEntradaMundo();
 
 		/** Asigno los dibujos a los actores **/
 		actor.setDibujo(dbjActor);
 		actor2.setDibujo(dbjActor2);
+		actor3.setDibujo(dbjActor3);
 		
 		/** Inicializo a los actores en el mundo **/
 		mundo.poneActorEn(0, 1, actor); // Pone al actor en el mundo para poder moverlo
 		mundo.poneActorEn(0, 0, actor2);
+		mundo.poneActorEn(3, 6, actor3);
 		
 /*End Inicializacion*/
 
@@ -85,7 +91,11 @@ public class Main {
 			
 			MovedorEnDireccion cadaMovedor = (MovedorEnDireccion) iterator.next();
 			cadaMovedor.mover(actor);
-			cadaMovedor.mover(actor2);
+			
+			movedorDer.mover(actor2);			
+			movedorArr.mover(actor3);
+			
+
 			
 		}
 		
