@@ -1,10 +1,10 @@
 package mmorpg.servidor;
 
 public class ImpProveedorDeMovedores implements ProveedorDeMovedores {
-	private MovedorEnDireccion abajo;
-	private MovedorEnDireccion arriba;
-	private MovedorEnDireccion der;
-	private MovedorEnDireccion izq;
+	private MovedorAbajo abajo;
+	private MovedorArriba arriba;
+	private MovedorDerecha der;
+	private MovedorIzquierda izq;
 	
 	public ImpProveedorDeMovedores(){
 		this.abajo = new MovedorAbajo();
@@ -20,45 +20,20 @@ public class ImpProveedorDeMovedores implements ProveedorDeMovedores {
 //	}
 //	
 	//Devuelven direcciones 
-	public MovedorEnDireccion dameAbajo(){
-		return getAbajo();
+	public MovedorAbajo dameAbajo(){
+		return this.abajo;
 	}
-	public MovedorEnDireccion dameArriba(){
-		return getArriba();
+	public MovedorArriba dameArriba(){
+		return this.arriba;
 	}
-	public MovedorEnDireccion dameIzq(){
-		return getIzq();
+	public MovedorIzquierda dameIzq(){
+		return this.izq;
 	}
-	public MovedorEnDireccion dameDer(){
-		return getDer();
+	public MovedorDerecha dameDer(){
+		return this.der;
 	}
 	
 	
-	//Seters y geters
-	public MovedorEnDireccion getAbajo() {
-		return abajo;
-	}
-	public void setAbajo(MovedorAbajo abajo) {
-		this.abajo = abajo;
-	}
-	public MovedorEnDireccion getArriba() {
-		return arriba;
-	}
-	public void setArriba(MovedorArriba arriba) {
-		this.arriba = arriba;
-	}
-	public MovedorEnDireccion getDer() {
-		return der;
-	}
-	public void setDer(MovedorDerecha der) {
-		this.der = der;
-	}
-	public MovedorEnDireccion getIzq() {
-		return izq;
-	}
-	public void setIzq(MovedorIzquierda izq) {
-		this.izq = izq;
-	}
 	
 	
 	/*

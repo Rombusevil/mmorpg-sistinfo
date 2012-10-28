@@ -1,66 +1,41 @@
 package mmorpg.servidor;
 
-import java.util.HashMap;
 
 public class ImpControladorJugadores implements ControladorJugadores{
-	private ProveedorDeMovedores movimientos;
-	private HashMap<Integer, Actor> mapaPjs;//sacado de aca:https://gist.github.com/644307
-	private int num_jugadores;//sería como un contador.
+	ImpProveedorDeMovedores movimientos=new ImpProveedorDeMovedores();
 	
-	
-	public ImpControladorJugadores(){
-		this.setMapaPjs(new HashMap<Integer, Actor>());
-		this.setMovimientos(new ImpProveedorDeMovedores());
-		setNum_jugadores(0);
-	}
-	
-	
+	public void decodificaMovimientoDeJugador(char comando, Actor unJugador ){
+		switch(comando){
+		case 'a': movimientos.dameIzq().mover(unJugador);
 
-	public void CargarJugador(Actor unActor){//
-		getMapaPjs().put((getNum_jugadores()), unActor);
+				break;
+		
+		case 'd': movimientos.dameDer().mover(unJugador);
+				
+				break;
+		case 's': movimientos.dameAbajo().mover(unJugador);
+				
+				break;
+		case 'w': movimientos.dameArriba().mover(unJugador);
+				
+				break;
+		default:
+			
+			System.out.println("tecla incorrecta");
+			break;
+			
+		}
+		
 		
 	}
-	public void decodificaIdPj(String mensaje){
-		//si fuera por socket tendriamos que definir como seria el formato del mensaje para extrer el id, por ejemplo
-		//los primeros 2 char del mje seria el id.
+
+	@Override
+	public void CargarJugador(Actor unActor) {
+		// TODO Auto-generated method stub
 		
-		
 	}
 	
 	
-	
-	
-	//seters y geters 
-
-	public HashMap<Integer, Actor> getMapaPjs() {
-		return mapaPjs;
-	}
-
-	public void setMapaPjs(HashMap<Integer, Actor> mapaPjs) {
-		this.mapaPjs = mapaPjs;
-	}
-
-
-	public ProveedorDeMovedores getMovimientos() {
-		return movimientos;
-	}
-
-
-	public void setMovimientos(ProveedorDeMovedores movimientos) {
-		this.movimientos = movimientos;
-	}
-
-
-
-	public int getNum_jugadores() {
-		return num_jugadores++;
-	}
-
-
-
-	public void setNum_jugadores(int num_jugadores) {
-		this.num_jugadores = num_jugadores;
-	}
 
 }
 	
