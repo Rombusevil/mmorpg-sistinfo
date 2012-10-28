@@ -2,10 +2,20 @@ package mmorpg.servidor;
 
 /* El actor cuando se construye tiene que tener una posición, sino el programa crashea más adelante */
 
-public abstract class ImpActor implements Actor {
-	private Celda posicion;
-	private ImpDibujo dibujo;
-	
+public abstract class ImpActor extends ImpEnteAtacable implements Actor{
+	public void atacaDer(){
+		//TO DO
+	}
+	public void atacaIzq(){
+		//TO DO
+	}
+	public void atacaAbajo(){
+		//TO DO
+	}
+	public void atacaArriba(){
+		//TO DO
+	}
+
 	public void moveteDer(){
 		Celda celdaActual, celdaDestino;
 		
@@ -45,21 +55,5 @@ public abstract class ImpActor implements Actor {
 		
 	}
 	
-	public Celda getCeldaActual() {
-		return this.posicion;
-	}
-	public void setCeldaActual(Celda celda){
-		this.posicion = celda;
-	}
 
-	public void setPosicion(Celda posicion) {
-		this.posicion = posicion;
-	}
-
-	public void setDibujo(ImpDibujo dibujo){
-		this.dibujo  = dibujo;
-	}
-	public ImpDibujo getDibujo(){
-		return this.dibujo;
-	}
 }

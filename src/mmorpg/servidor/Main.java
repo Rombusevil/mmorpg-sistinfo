@@ -18,14 +18,14 @@ public class Main {
 		//Celda entradaMundo;
 		
 		/*Crear un actor, crear un dibujo y despues asignarlo al actor.*/
-		Actor actor = new PJ();
+		ImpActor actor = new PJ();
 		ImpDibujo dbjActor = new ImpDibujoChar('x');
 		
 		
-		Actor actor2 = new PJ();
+		ImpActor actor2 = new PJ();
 		ImpDibujo dbjActor2 = new ImpDibujoChar('y');
 		
-		Actor actor3 = new PJ();
+		ImpActor actor3 = new PJ();
 		ImpDibujo dbjActor3 = new ImpDibujoChar('z');
 		
 		

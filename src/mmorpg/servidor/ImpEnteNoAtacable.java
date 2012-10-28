@@ -1,8 +1,9 @@
 package mmorpg.servidor;
 
-public class CeldaInaccesible implements Estado {
+public class ImpEnteNoAtacable implements Ente {
 
-	public void ocupaCeldaCon(Celda celda, ImpActor actor) {
+	@Override
+	public void sosAtacado(int daño) {
 		//
 		//	    _-`````-,           ,- '- .
 		//	  .'   .- - |          | - -.  `.
@@ -22,6 +23,30 @@ public class CeldaInaccesible implements Estado {
 		//	               ''/''/''
 		//	                 '/'/'
 		//	                  `;
+	}
+
+	@Override
+	public void setDibujo(ImpDibujo dibujo) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Dibujo getDibujo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Celda getCeldaActual() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCeldaActual(Celda celda) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

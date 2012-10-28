@@ -8,11 +8,8 @@ public interface Actor {
 	void moveteAbajo();
 	void moveteArriba();
 	
-	void setDibujo(ImpDibujo dibujo);
-	Dibujo getDibujo();
-	
-	Celda getCeldaActual();
-	void setCeldaActual(Celda celda);
-	
-	
+	void atacaDer();
+	void atacaIzq();
+	void atacaAbajo();
+	void atacaArriba();
 }

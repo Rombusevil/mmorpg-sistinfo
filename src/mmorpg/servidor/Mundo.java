@@ -6,7 +6,7 @@ public interface Mundo {
 	void dimensionar(int alto, int ancho, ImpDibujoVacio vacio);
 	Celda getEntradaMundo();
 /**/	void ponerDibujableEn(int x, int y, Dibujable dibujable); //Esto tiene sentido para poner árboles, pierdas etc en el mapa
-	void poneActorEn(int x, int y, Actor a);
+	void poneActorEn(int x, int y, ImpActor a);
 	Celda getCeldaPos(int x, int y);
 	int getAlto();
 	int getAncho();

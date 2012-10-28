@@ -21,11 +21,13 @@ public class ImpMundo implements Mundo {
 		Celda[][] mundoMatrix = this.getMundo();
 		Celda celdaOcupada = new ImpCelda();
 		ProveedorEstados proveedorEstados = new ImpProveedorEstados();
+		ImpEnteNoAtacable enteNoAtacable = new ImpEnteNoAtacable();
 		
 		Estado inaccesible = proveedorEstados.getInaccesible(); 
 		Estado libre = proveedorEstados.getLibre();
 		
 		celdaOcupada.setEstado(inaccesible);
+		
 		
 		
 		//Cargo la matriz con celdas
@@ -36,7 +38,9 @@ public class ImpMundo implements Mundo {
 				mundoMatrix[i][j].setEstado(libre);
 				mundoMatrix[i][j].setProveedorEstados(proveedorEstados); //A todas las celdas de este mundo les pongo el mismo proveedor de estados
 				mundoMatrix[i][j].setDibujo(vacio);	// Le pongo a todas las celdas el dibujo de vacío.
-				mundoMatrix[i][j].setVacio(vacio);
+				mundoMatrix[i][j].setVacio(vacio); // Le pongo a todas las celdas cual es el dibujo de vacío que van a usar
+				mundoMatrix[i][j].setEnteNoAtacable(enteNoAtacable);	// Le pongo a todas las celdas cual es su ente no atacable
+				mundoMatrix[i][j].setEnte(enteNoAtacable);	// Le pongo a todas las celdas libres, el ente no atacable
 			}
 		
 		//Enlazo las celdas de la matriz
@@ -64,12 +68,15 @@ public class ImpMundo implements Mundo {
 			}
 	}
 	
-	public void poneActorEn(int x, int y, Actor actor){
+	// Esto se usa para incializar un actor en el mapa, para mover se usan los estados de celda
+	public void poneActorEn(int x, int y, ImpActor actor){
 		Celda celdaDestino = this.getCeldaPos(x,y);
 
 		celdaDestino.setEstado(celdaDestino.getEstadoInaccesible()); //Pongo como inaccesible la celda donde quiero ir.
 		celdaDestino.setDibujo(actor.getDibujo()); 	// Le pongo a la celda el dibujo del actor que se va a mover ahí.
+		celdaDestino.setEnte(actor);				// Le pongo a la celda el actor
 		actor.setCeldaActual(celdaDestino);			// Le digo al actor que se movió de celda.
+		
 	}
 	public void ponerDibujableEn(int x, int y, Dibujable dibujable) {
 		/**/

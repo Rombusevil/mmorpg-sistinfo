@@ -23,4 +23,8 @@ public interface Celda {
 	void setDibujo(Dibujo dibujo);
 	void imprimite();
 	void setProveedorEstados(ProveedorEstados pe);
+	void setEnte(Ente ente);
+	Ente getEnte();
+	void setEnteNoAtacable(Ente ente);
+	Ente getEnteNoAtacable();
 }

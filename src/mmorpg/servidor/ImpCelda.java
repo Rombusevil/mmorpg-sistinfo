@@ -9,7 +9,9 @@ public class ImpCelda implements Celda {
 	private int posX;
 	private int posY;
 	private Dibujo dibujo;
+	private Ente ente;
 	private ImpDibujoVacio vacio;
+	private Ente enteNoAtacable;
 	
 	
 	public ImpDibujoVacio getVacio() {
@@ -113,5 +115,20 @@ public class ImpCelda implements Celda {
 	public void imprimite() {
 		this.getDibujo().imprimeDibujo();
 	}
-
+	
+	public Ente getEnte(){
+		return this.ente;
+	}
+	
+	public void setEnte(Ente ente){
+		this.ente = ente;
+	}
+	
+	public void setEnteNoAtacable(Ente ente){
+		this.enteNoAtacable = ente;
+	}
+	
+	public Ente getEnteNoAtacable(){
+		return this.enteNoAtacable;
+	}
 }
