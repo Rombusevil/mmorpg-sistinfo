@@ -3,19 +3,8 @@ package mmorpg.servidor;
 /* El actor cuando se construye tiene que tener una posición, sino el programa crashea más adelante */
 
 public abstract class ImpActor implements Actor {
-	private MovedorEnDireccion movedorEnDireccion;
 	private Celda posicion;
 	private ImpDibujo dibujo;
-	
-
-	public void movete(){
-		MovedorEnDireccion movedor;
-		
-		movedor = this.getMovedorEnDireccion();
-		
-		movedor.mover(this);
-		
-	}
 	
 	public void moveteDer(){
 		Celda celdaActual, celdaDestino;
@@ -66,12 +55,7 @@ public abstract class ImpActor implements Actor {
 	public void setPosicion(Celda posicion) {
 		this.posicion = posicion;
 	}
-	public MovedorEnDireccion getMovedorEnDireccion(){
-		return movedorEnDireccion;
-	}	
-	public void setMovedorEnDireccion(MovedorEnDireccion movedorEnDireccion) {
-		this.movedorEnDireccion = movedorEnDireccion;
-	}
+
 	public void setDibujo(ImpDibujo dibujo){
 		this.dibujo  = dibujo;
 	}

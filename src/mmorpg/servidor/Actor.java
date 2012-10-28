@@ -1,11 +1,7 @@
 package mmorpg.servidor;
 
 public interface Actor {
-	void movete();
 	void setPosicion(Celda posicion);
-	
-	MovedorEnDireccion getMovedorEnDireccion();
-	void setMovedorEnDireccion(MovedorEnDireccion movedorEnDireccion);
 	
 	void moveteDer();
 	void moveteIzq();
