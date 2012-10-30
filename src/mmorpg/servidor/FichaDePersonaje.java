@@ -3,13 +3,9 @@ package mmorpg.servidor;
 import java.util.List; //Manejo de listas
 
 /*
- * TODO: Todo lo referente al AtkSpd.
- * 		 DamageTaken
- * 		 Todo lo referente al HP
+ * TODO: FichaDePersonaje
  * 		 Testing de que los calculos esten bien! <-- Se necesita crear la clase Skill
- * 		 Se necesita crear la clase de los items para implementar Gear
- *   
- * 
+ * 		 Se necesita crear la clase de los items para implementar Gear * 
  * */
 
 public class FichaDePersonaje {
@@ -17,8 +13,7 @@ public class FichaDePersonaje {
 	/* Items Equipados del personaje -> GEAR */
 	Gear gear;
 
-	/* Lista de Skills del Personaje */
-	List<Skill> skillList;
+
 
 	/* Atributos Primarios */
 	int str; // produce armor
@@ -27,6 +22,8 @@ public class FichaDePersonaje {
 	String primaryAtt; // Atributo primario, depende de cada pj, otorga dmg
 
 	/* Atributos Secundarios o Derivados */
+	
+	int armor;
 
 	int lvl; // Nivel del personaje
 	int xp; // Experiencia acumulada
@@ -35,7 +32,7 @@ public class FichaDePersonaje {
 	int currentHp; // HP actual, que va variando
 
 	int skillDmg; // dmg proveniente del skill utilizado
-	double atkSpd; //cantidad de ataques por segundo
+	double atkSpd; // cantidad de ataques por segundo
 
 	/**
 	 * CONSTRUCTOR. Metodo que inicializa la hoja de personaje. Se debe ejecutar
@@ -55,10 +52,10 @@ public class FichaDePersonaje {
 		setDex(8);
 		setVit(9);
 		setPrimaryAtt("str");
-		
+
 		setMaxHp();
 		setCurrentHp(getMaxHp());
-		
+
 	}
 
 	/**
@@ -66,12 +63,15 @@ public class FichaDePersonaje {
 	 * 
 	 * @return
 	 */
-	int getPrimaryAttValue() {
+	private int getPrimaryAttValue() {
 		if (getPrimaryAtt() == "str") {
 			return getStr();
 		}
 		if (getPrimaryAtt() == "dex") {
 			return getDex();
+		}
+		else{
+			return 0;
 		}
 	}
 
@@ -79,13 +79,16 @@ public class FichaDePersonaje {
 	/*
 	 * Formula Total Armor: strArmor + Armor
 	 * 
+	 * Se debe recalcular cada vez que se cambia de equipo
+	 * O el atributo STR cambia
+	 * 
 	 */
-	public int getTotalArmor() {
+	private void calcTotalArmor() {
 		int totalArmor = 0;
 		totalArmor += getGear().getTotalGearArmor(); // Armor del equipo.
 		totalArmor += getStr(); // Sumado al armor 1:1 de la Str.
 
-		return totalArmor;
+		setArmor(totalArmor);
 	}
 
 	/**
@@ -94,11 +97,11 @@ public class FichaDePersonaje {
 	 * 
 	 * @return el % de reduccion de dmg.
 	 */
-	public int getDamageReduction(int attackerLevel) {
+	private int getDamageReduction(int attackerLevel) {
 		int dmgRed = 0;
-		int numerador = getTotalArmor();
+		int numerador = getArmor();
 		int denominador = 50 * attackerLevel;
-		denominador += getTotalArmor();
+		denominador += getArmor();
 		denominador *= 100;
 		dmgRed = numerador / denominador;
 
@@ -112,18 +115,18 @@ public class FichaDePersonaje {
 	 * @param wpnDmgPercent
 	 *            porcentaje (en base al wpnDmg) de dmg del skill
 	 */
-	public void setSkillDamage(int wpnDmgPercent) {
+	private void setSkillDamage(int wpnDmgPercent) {
 		int wpnDmg = getGear().getWpnDmg();
 		setSkillDmg((wpnDmgPercent * wpnDmg) / 100);
 	}
 
 	/**
-	 * DAMAGE Formula: ( WpnDmg * SkillDmg ) * ( 1 + (PrimartySt / 100) )
-	 * ANTES DE LLAMAR a getDmg() se debe llamar a setSkillDamage(int wpnDmgPercent)
+	 * DAMAGE Formula: ( WpnDmg * SkillDmg ) * ( 1 + (PrimartySt / 100) ) ANTES
+	 * DE LLAMAR a getDmg() se debe llamar a setSkillDamage(int wpnDmgPercent)
 	 * 
 	 * @return
 	 */
-	public int getDmg() {
+	private int getDmg() {
 		int skillDmg = getSkillDmg();
 		int wpnDmg = getGear().getWpnDmg();
 		int damage = 0;
@@ -132,41 +135,45 @@ public class FichaDePersonaje {
 
 		return damage;
 	}
-	
+
 	/**
-	 * FORMULA DexAtkSpd: Dex * 0.1%
-	 * FORMULA AtkSpd:  WpnAtkSpd * ( 1 + DexAtkSpd )
+	 * FORMULA DexAtkSpd: Dex * 0.1% FORMULA AtkSpd: WpnAtkSpd * ( 1 + DexAtkSpd
+	 * )
+	 * 
 	 * @return
 	 */
-	public double getAndSetAtkSpd(){
+	private double getAndSetAtkSpd() {
 		double wpnAtkSpd = gear.getWpnAtkSpd();
-		double dexAtkSpd = ( 0.1 * getDex() ) / 100 ; 
-		
+		double dexAtkSpd = (0.1 * getDex()) / 100;
+
 		setAtkSpd(wpnAtkSpd * (1 + dexAtkSpd));
-		return round( (wpnAtkSpd * (1 + dexAtkSpd)), 2);		
+		return round((wpnAtkSpd * (1 + dexAtkSpd)), 2);
 	}
-	
+
 	/**
 	 * 
 	 * Formula: Dmg - (Dmg*DmgRed%)
-	 * @param dmg --> dmg es pasado por el jugador atacante
+	 * 
+	 * @param dmg
+	 *            --> dmg es pasado por el jugador atacante
 	 * @return el dmg real que es restado a la HP.
 	 */
-	public int getDamageTaken(int dmg, int attackerLvl){
+	private int getDamageTaken(int dmg, int attackerLvl) {
 		int dmgRed = getDamageReduction(attackerLvl);
-		int dmgTaken = dmg - ( (dmgRed * dmg) / 100);
+		int dmgTaken = dmg - ((dmgRed * dmg) / 100);
 		int hp = getCurrentHp();
 		hp -= dmgTaken;
 		setCurrentHp(hp);
+		return dmgTaken;
 	}
-	
+
 	/**
 	 * 
 	 * Formula Hit Points: 36 + (4*LVL) + (10 * VIT)
 	 */
-	public void setMaxHp(){
+	private void setMaxHp() {
 		int maxHp;
-		maxHp = 36 + (4 * getLvl() + (10 + getVit()) );
+		maxHp = 36 + (4 * getLvl() + (10 + getVit()));
 		this.maxHp = maxHp;
 	}
 
@@ -181,7 +188,7 @@ public class FichaDePersonaje {
 	 *            cantidad de decimales
 	 * @return el numero ya redondeado.
 	 */
-	public double round(double numero, int decimales) {
+	private double round(double numero, int decimales) {
 		return Math.round(numero * Math.pow(10, decimales))
 				/ Math.pow(10, decimales);
 	}
@@ -235,31 +242,39 @@ public class FichaDePersonaje {
 		this.skillDmg = skillDmg;
 	}
 
-	public double getAtkSpd() {
+	private double getAtkSpd() {
 		return atkSpd;
 	}
 
-	public void setAtkSpd(double atkSpd) {
+	private void setAtkSpd(double atkSpd) {
 		this.atkSpd = atkSpd;
 	}
 
-	public int getLvl() {
+	private int getLvl() {
 		return lvl;
 	}
 
-	public void setLvl(int lvl) {
+	private void setLvl(int lvl) {
 		this.lvl = lvl;
 	}
 
-	public int getCurrentHp() {
+	private int getCurrentHp() {
 		return currentHp;
 	}
 
-	public void setCurrentHp(int currentHp) {
+	private void setCurrentHp(int currentHp) {
 		this.currentHp = currentHp;
 	}
 
-	public int getMaxHp() {
+	private int getMaxHp() {
 		return maxHp;
+	}
+
+	private int getArmor() {
+		return armor;
+	}
+
+	private void setArmor(int armor) {
+		this.armor = armor;
 	}
 }
