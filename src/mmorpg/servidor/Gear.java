@@ -6,34 +6,22 @@ package mmorpg.servidor;
  * para que se actualice.
  * 
  * El gear cuenta con 6 espacios: Casco, Pechera, Botas, Guantes, MainHand (Arma), OffHand (Escudo)
+ * 
+ * Por ahora solo esta implementada la MainHand (Espada)
  */
 public class Gear {
 
 	/* Espacios del Gear */
-	Casco casco;
-	Pechera pechera;
-	Botas botas;
-	Guantes guantes;
+
 	MainHand mainHand;
-	OffHand offHand;
 
 	/**
 	 * CONSTRUCTOR. Inicializa los espacios sin items.
 	 * 
 	 */
 	Gear() {
-		this.casco = new Casco();
-		this.pechera = new Pechera();
-		this.botas = new Botas();
-		this.guantes = new Guantes();
 		this.mainHand = new MainHand();
-		this.offHand = new OffHand();
 	}
-
-	/*
-	 * Atributos y calculos derivados del equipo como la Armadura sumada de
-	 * todos los items y el dmg del arma.
-	 */
 
 	/**
 	 * Metodo que calcula la suma total de la armadura del Gear
@@ -43,11 +31,8 @@ public class Gear {
 	 */
 	int getTotalGearArmor() {
 		int sumaArmor = 0;
-		sumaArmor += getCasco().getArmor();
-		sumaArmor += getPechera().getArmor();
-		sumaArmor += getGuantes().getArmor();
-		sumaArmor += getBotas().getArmor();
-		sumaArmor += getOffHand().getArmor();
+
+		sumaArmor += getMainHand().getArmor();
 		return sumaArmor;
 	}
 
@@ -74,37 +59,6 @@ public class Gear {
 	}
 
 	/* GETTERS Y SETTERS */
-	private Casco getCasco() {
-		return casco;
-	}
-
-	private void setCasco(Casco casco) {
-		this.casco = casco;
-	}
-
-	private Pechera getPechera() {
-		return pechera;
-	}
-
-	private void setPechera(Pechera pechera) {
-		this.pechera = pechera;
-	}
-
-	private Botas getBotas() {
-		return botas;
-	}
-
-	private void setBotas(Botas botas) {
-		this.botas = botas;
-	}
-
-	private Guantes getGuantes() {
-		return guantes;
-	}
-
-	private void setGuantes(Guantes guantes) {
-		this.guantes = guantes;
-	}
 
 	private MainHand getMainHand() {
 		return mainHand;
@@ -112,14 +66,6 @@ public class Gear {
 
 	private void setMainHand(MainHand mainHand) {
 		this.mainHand = mainHand;
-	}
-
-	private OffHand getOffHand() {
-		return offHand;
-	}
-
-	private void setOffHand(OffHand offHand) {
-		this.offHand = offHand;
 	}
 
 }
