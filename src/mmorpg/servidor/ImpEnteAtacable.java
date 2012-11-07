@@ -5,7 +5,7 @@ public class ImpEnteAtacable implements Ente {
 	private ImpDibujo dibujo;
 
 	@Override
-	public void sosAtacado(int daño) {
+	public void sosAtacado(int dmg) {
 		// TODO Auto-generated method stub
 		/** Hacer el cálculo de perder vida según atributos **/
 

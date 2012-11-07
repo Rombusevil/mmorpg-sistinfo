@@ -10,7 +10,7 @@ public class ImpMundo implements Mundo {
 	//Constructor, dimensiona el mundo.
 	public ImpMundo(int alto, int ancho, ImpDibujoVacio vacio){
 		this.mundo = new ImpCelda[alto][ancho];
-		this.dimensionar(alto,ancho, vacio); // Enlaza las celdas, las pone a todas como libres, pone la imágen de vacío, etc
+		this.dimensionar(alto,ancho, vacio); // Enlaza las celdas, las pone a todas como libres, pone la imagen de vacio, etc
 		this.entradaMundo = mundo[0][0];
 		this.alto = alto;
 		this.ancho = ancho;		
@@ -21,7 +21,7 @@ public class ImpMundo implements Mundo {
 		Celda[][] mundoMatrix = this.getMundo();
 		Celda celdaOcupada = new ImpCelda();
 		ProveedorEstados proveedorEstados = new ImpProveedorEstados();
-		ImpEnteNoAtacable enteNoAtacable = new ImpEnteNoAtacable();
+		//ImpEnteNoAtacable enteNoAtacable = new ImpEnteNoAtacable();
 		
 		Estado inaccesible = proveedorEstados.getInaccesible(); 
 		Estado libre = proveedorEstados.getLibre();
@@ -39,8 +39,8 @@ public class ImpMundo implements Mundo {
 				mundoMatrix[i][j].setProveedorEstados(proveedorEstados); //A todas las celdas de este mundo les pongo el mismo proveedor de estados
 				mundoMatrix[i][j].setDibujo(vacio);	// Le pongo a todas las celdas el dibujo de vacío.
 				mundoMatrix[i][j].setVacio(vacio); // Le pongo a todas las celdas cual es el dibujo de vacío que van a usar
-				mundoMatrix[i][j].setEnteNoAtacable(enteNoAtacable);	// Le pongo a todas las celdas cual es su ente no atacable
-				mundoMatrix[i][j].setEnte(enteNoAtacable);	// Le pongo a todas las celdas libres, el ente no atacable
+				//mundoMatrix[i][j].setEnteNoAtacable(enteNoAtacable);	// Le pongo a todas las celdas cual es su ente no atacable
+				//mundoMatrix[i][j].setEnte(enteNoAtacable);	// Le pongo a todas las celdas libres, el ente no atacable
 			}
 		
 		//Enlazo las celdas de la matriz

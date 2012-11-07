@@ -1,18 +1,26 @@
 package mmorpg.servidor;
 
 import java.io.IOException;
+import java.awt.BorderLayout;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 
 public class Main {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		int alto, ancho;
 		Mundo mundo;
 		
 		ImpControladorJugadores contJugador=new ImpControladorJugadores();
-		ControladorTecladoServer contTeclado=new ControladorTecladoServer(); //temporalmente le pasamos un actor para que ande.
+		 //temporalmente le pasamos un actor para que ande.
 		
 		
 		//Celda entradaMundo;
@@ -53,11 +61,13 @@ public class Main {
 		actor3.setDibujo(dbjActor3);
 		
 		
+		
+		
 		/** Inicializo a los actores en el mundo **/
 		mundo.poneActorEn(0, 1, actor); // Pone al actor en el mundo para poder moverlo
 		mundo.poneActorEn(0, 0, actor2);
 		mundo.poneActorEn(3, 6, actor3);
-
+		cli.imprimi(mundo);
 /*End Inicializacion*/
 
 
@@ -81,12 +91,12 @@ public class Main {
 
 
 
-		
-		while(true){
+		ControladorTecladoServer Teclado =new ControladorTecladoServer(actor,contJugador);
+		while(true){//una forma paisana de movimiento en "tiempo real"
 			cli.imprimi(mundo);
-			contTeclado.pedirAccion(contJugador, actor3);
+			Thread.sleep(300);
 		}
-
+		
 		
 		// movedorAbj.mover(actor);
 		// movedorIz.mover(actor);

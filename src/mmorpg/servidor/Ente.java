@@ -1,7 +1,7 @@
 package mmorpg.servidor;
 
 public interface Ente {
-	void sosAtacado(int daño);
+	void sosAtacado(int dmg);
 	
 	void setDibujo(ImpDibujo dibujo);
 	Dibujo getDibujo();

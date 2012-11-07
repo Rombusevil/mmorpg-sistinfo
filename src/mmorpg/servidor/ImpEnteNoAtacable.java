@@ -3,7 +3,7 @@ package mmorpg.servidor;
 public class ImpEnteNoAtacable implements Ente {
 
 	@Override
-	public void sosAtacado(int daño) {
+	public void sosAtacado(int dmg) {
 		//
 		//	    _-`````-,           ,- '- .
 		//	  .'   .- - |          | - -.  `.
