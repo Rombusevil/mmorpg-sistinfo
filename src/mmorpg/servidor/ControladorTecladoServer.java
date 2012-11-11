@@ -21,7 +21,7 @@ public class ControladorTecladoServer extends JFrame implements KeyListener{
 	
 	/*
 	por ahora estos parametros creo son correctos tambien del lado del cliente
-	porque un Controlador de teclado debería conocer su jugador y 
+	porque un Controlador de teclado deberï¿½a conocer su jugador y 
 	tambien conocer el "ControladorJugadores"(una sola instancia) del lado del servidor
 	*/
 	
@@ -31,7 +31,7 @@ public class ControladorTecladoServer extends JFrame implements KeyListener{
 		this.unActor=unActor;
 		this.contJugador=contJugador;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(200,200);
+		this.setSize(200,80);
 		this.setVisible(true);
 	}
 	

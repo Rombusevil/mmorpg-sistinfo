@@ -1,17 +1,18 @@
 package mmorpg.servidor;
 
 import java.io.IOException;
-import java.awt.BorderLayout;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+//FIXME Todos estos imports comentados deberían estar acá?
+//import java.awt.BorderLayout;
+//
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
+//
+//import javax.swing.JFrame;
+//import javax.swing.JLabel;
+//
+//import java.util.ArrayList;
+//import java.util.Iterator;
+//import java.util.List;
 
 
 public class Main {
@@ -90,9 +91,9 @@ public class Main {
 //		
 
 
-
+		
 		ControladorTecladoServer Teclado =new ControladorTecladoServer(actor,contJugador);
-		while(true){//una forma paisana de movimiento en "tiempo real"
+			while(true){//una forma paisana de movimiento en "tiempo real"
 			cli.imprimi(mundo);
 			Thread.sleep(300);
 		}

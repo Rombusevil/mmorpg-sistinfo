@@ -3,7 +3,7 @@ package mmorpg.servidor;
 import java.util.List; //Manejo de listas
 
 /*
- * TODO: FichaDePersonaje
+ * TODO: FichaDePersonaje, Clase SKILL y Clase de los Items
  * 		 Testing de que los calculos esten bien! <-- Se necesita crear la clase Skill
  * 		 Se necesita crear la clase de los items para implementar Gear * 
  * */
@@ -38,12 +38,13 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 	
 	@Override
 	public void recibiDmg(int dmg, int attackerLvl) {
+		//FIXME Acá estás usando una variable local al método. No debería ser una variable a nivel del objeto?
 		int dmgTaken = getDamageTaken(dmg, attackerLvl);
 	}
 
 	@Override
 	public int dameDmg() {
-		setSkillDamage(100);  //FIXME OJO VALOR HARDCODED
+		setSkillDamage(100);  //FIXME OJO, VALOR HARDCODED
 		int dmg = getDmg();
 		return dmg;
 	}
@@ -77,13 +78,6 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 		int xp = getXp();
 		return xp;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

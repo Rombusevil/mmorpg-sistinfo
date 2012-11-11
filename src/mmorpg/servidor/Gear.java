@@ -11,61 +11,77 @@ package mmorpg.servidor;
  */
 public class Gear {
 
-	/* Espacios del Gear */
+	public int getTotalGearArmor() {
+		// TODO Implementar getTotalGearArmor()
+		return 0;
+	}
+//	TODO implementar MainHand (ctrl+shift+c comenta o descomenta una porcion de código seleccionada)
 
-	MainHand mainHand;
-
-	/**
-	 * CONSTRUCTOR. Inicializa los espacios sin items.
-	 * 
-	 */
-	Gear() {
-		this.mainHand = new MainHand();
+	public int getWpnDmg() {
+		// TODO Implementar getWpnDmg()
+		return 0;
 	}
 
-	/**
-	 * Metodo que calcula la suma total de la armadura del Gear
-	 * 
-	 * @return la suma de todo el armor de casco, pechera, guantes, botas y
-	 *         offhand
-	 */
-	int getTotalGearArmor() {
-		int sumaArmor = 0;
-
-		sumaArmor += getMainHand().getArmor();
-		return sumaArmor;
+	public double getWpnAtkSpd() {
+		// TODO Implementar getWpnAtkDmg()
+		return 0;
 	}
 
-	/**
-	 * Metodo que calcula el dmg del gear equipado (MainHand)
-	 * 
-	 * @return el dmg del arma en la MainHand
-	 */
-	int getWpnDmg() {
-		int sumaArmor = 0;
-		sumaArmor += getMainHand.getDmg();
-		return sumaArmor;
-	}
-
-	/**
-	 * Obtiene la AtkSpd del arma equipada en la MainHand
-	 * 
-	 * @return atkSpd del arma.
-	 */
-	double getWpnAtkSpd() {
-		double wpnAtkSpd = 0;
-		wpnAtkSpd += getMainHand().getAtkSpd();
-		return wpnAtkSpd;
-	}
-
-	/* GETTERS Y SETTERS */
-
-	private MainHand getMainHand() {
-		return mainHand;
-	}
-
-	private void setMainHand(MainHand mainHand) {
-		this.mainHand = mainHand;
-	}
+//	/* Espacios del Gear */
+//
+//	MainHand mainHand;
+//
+//	/**
+//	 * CONSTRUCTOR. Inicializa los espacios sin items.
+//	 * 
+//	 */
+//	Gear() {
+//		this.mainHand = new MainHand();
+//	}
+//
+//	/**
+//	 * Metodo que calcula la suma total de la armadura del Gear
+//	 * 
+//	 * @return la suma de todo el armor de casco, pechera, guantes, botas y
+//	 *         offhand
+//	 */
+//	int getTotalGearArmor() {
+//		int sumaArmor = 0;
+//
+//		sumaArmor += getMainHand().getArmor();
+//		return sumaArmor;
+//	}
+//
+//	/**
+//	 * Metodo que calcula el dmg del gear equipado (MainHand)
+//	 * 
+//	 * @return el dmg del arma en la MainHand
+//	 */
+//	int getWpnDmg() {
+//		int sumaArmor = 0;
+//		sumaArmor += getMainHand.getDmg();
+//		return sumaArmor;
+//	}
+//
+//	/**
+//	 * Obtiene la AtkSpd del arma equipada en la MainHand
+//	 * 
+//	 * @return atkSpd del arma.
+//	 */
+//	double getWpnAtkSpd() {
+//		double wpnAtkSpd = 0;
+//		wpnAtkSpd += getMainHand().getAtkSpd();
+//		return wpnAtkSpd;
+//	}
+//
+//	/* GETTERS Y SETTERS */
+//
+//	private MainHand getMainHand() {
+//		return mainHand;
+//	}
+//
+//	private void setMainHand(MainHand mainHand) {
+//		this.mainHand = mainHand;
+//	}
 
 }
