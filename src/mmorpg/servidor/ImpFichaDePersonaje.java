@@ -1,6 +1,5 @@
 package mmorpg.servidor;
 
-//Probando encoding transpoce linux win árbol oración hipocampo ñoññoñoñoñoo á é í ó ú
 
 import java.util.List; //Manejo de listas
 
@@ -201,6 +200,8 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 	/**
 	 * 
 	 * Formula: Dmg - (Dmg*DmgRed%)
+	 * 
+	 * Este metodo tambien se encarga de restar la vida al personaje. 
 	 * 
 	 * @param dmg
 	 *            --> dmg es pasado por el jugador atacante
