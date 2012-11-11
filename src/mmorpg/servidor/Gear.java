@@ -1,5 +1,7 @@
 package mmorpg.servidor;
 
+//FIXME GEAR está todo comentado
+
 /*
  * GEAR son los items que tiene el personaje equipado.
  * Cada vez que se equipa algo diferente, se debe mandar un mensaje al gear
@@ -10,12 +12,7 @@ package mmorpg.servidor;
  * Por ahora solo esta implementada la MainHand (Espada)
  */
 public class Gear {
-
-	public int getTotalGearArmor() {
-		// TODO Implementar getTotalGearArmor()
-		return 0;
-	}
-//	TODO implementar MainHand (ctrl+shift+c comenta o descomenta una porcion de código seleccionada)
+	//TODO implementar MainHand (ctrl+shift+c comenta o descomenta una porcion de código seleccionada)
 
 	public int getWpnDmg() {
 		// TODO Implementar getWpnDmg()
@@ -24,6 +21,11 @@ public class Gear {
 
 	public double getWpnAtkSpd() {
 		// TODO Implementar getWpnAtkDmg()
+		return 0;
+	}
+
+	public int getTotalGearArmor() {
+		// TODO Implementar getTotalGearArmor()
 		return 0;
 	}
 
