@@ -1,5 +1,7 @@
 package mmorpg.servidor;
 
+//Probando encoding transpoce linux win árbol oración hipocampo ñoññoñoñoñoo á é í ó ú
+
 import java.util.List; //Manejo de listas
 
 /*
