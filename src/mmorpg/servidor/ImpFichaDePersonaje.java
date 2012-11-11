@@ -38,7 +38,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 	
 	@Override
 	public void recibiDmg(int dmg, int attackerLvl) {
-		//FIXME Acá estás usando una variable local al método. No debería ser una variable a nivel del objeto?
+		//getDamageTaken se encarga también de restarte vida.
 		int dmgTaken = getDamageTaken(dmg, attackerLvl);
 	}
 
@@ -78,11 +78,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 		int xp = getXp();
 		return xp;
 	}
-	
-	
-	
-	
-	
+		
 	
 	/**
 	 * CONSTRUCTOR. Metodo que inicializa la hoja de personaje. Se debe ejecutar
