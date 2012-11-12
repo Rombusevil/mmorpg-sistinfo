@@ -1,14 +1,35 @@
 package mmorpg.servidor;
 
-public class ImpEnteAtacable implements Ente {
+public abstract class ImpEnteAtacable implements Ente {
 	private Celda posicion;
 	private ImpDibujo dibujo;
 
 	@Override
-	public void sosAtacado(int dmg) {
-		// TODO Auto-generated method stub
-		/** Hacer el cálculo de perder vida según atributos **/
-
+	public void sosAtacado(int dmg,int lvlAtacante) {
+		// FIXME sos atacado le manda el mensaje de sosAtacado a su subclase. 
+		//O es que ya lo hace automáticamente dejando esto sin implementar?
+		//por las dudas tiro GNU
+		
+		/*
+		    _-`````-,           ,- '- .
+		  .'   .- - |          | - -.  `.
+		 /.'  /                     `.   \
+		:/   :      _...   ..._      ``   :
+		::   :     /._ .`:'_.._\.    ||   :
+		::    `._ ./  ,`  :    \ . _.''   .
+		`:.      /   |  -.  \-. \\_      /
+		  \:._ _/  .'   .@)  \@) ` `\ ,.'
+		     _/,--'       .- .\,-.`--`.
+		       ,'/''     (( \ `  )    
+		        /'/'  \    `-'  (      
+		         '/''  `._,-----'
+		          ''/'    .,---'
+		           ''/'      ;:
+		             ''/''  ''/
+		               ''/''/''
+		                 '/'/'
+		                  `;		 
+	 */
 	}
 
 	public Celda getCeldaActual() {
