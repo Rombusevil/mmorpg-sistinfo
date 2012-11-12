@@ -56,4 +56,10 @@ public interface FichaDePersonaje {
 	 * @return total de Xp.
 	 */
 	int dameXp();
+	
+	/**
+	 * Equipa un item
+	 * @param item el item a equipar.
+	 */
+	void equipaItem(ItemEquipable item);
 }

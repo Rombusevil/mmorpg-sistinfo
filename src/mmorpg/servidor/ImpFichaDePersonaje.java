@@ -1,21 +1,11 @@
 package mmorpg.servidor;
 
-
-
 import java.util.List; //Manejo de listas
 
-/*
- * TODO: FichaDePersonaje, Clase SKILL y Clase de los Items
- * 		 Testing de que los calculos esten bien! <-- Se necesita crear la clase Skill
- * 		 Se necesita crear la clase de los items para implementar Gear * 
- * */
-
-public class ImpFichaDePersonaje implements FichaDePersonaje{
+public class ImpFichaDePersonaje implements FichaDePersonaje {
 
 	/* Items Equipados del personaje -> GEAR */
-	Gear gear;
-
-
+	InventarioGear gear;
 
 	/* Atributos Primarios */
 	int str; // produce armor
@@ -24,7 +14,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 	String primaryAtt; // Atributo primario, depende de cada pj, otorga dmg
 
 	/* Atributos Secundarios o Derivados */
-	
+
 	int armor;
 
 	int lvl; // Nivel del personaje
@@ -35,25 +25,27 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 
 	int skillDmg; // dmg proveniente del skill utilizado
 	double atkSpd; // cantidad de ataques por segundo
-		
-	/* OVERRIDE */
 	
+	int dmg;
+
+	/* OVERRIDE */
+
+	@SuppressWarnings("unused")
 	@Override
 	public void recibiDmg(int dmg, int attackerLvl) {
-		//getDamageTaken se encarga también de restarte vida.
+		// getDamageTaken se encarga tambien de restarte vida.
 		int dmgTaken = getDamageTaken(dmg, attackerLvl);
 	}
 
 	@Override
 	public int dameDmg() {
-		setSkillDamage(100);  //FIXME OJO, VALOR HARDCODED
 		int dmg = getDmg();
 		return dmg;
 	}
 
 	@Override
 	public double dameAtkSpd() {
-		double atkSpd = getAndSetAtkSpd();
+		double atkSpd = getAtkSpd();
 		return atkSpd;
 	}
 
@@ -80,8 +72,18 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 		int xp = getXp();
 		return xp;
 	}
-		
-	
+
+	@Override
+	public void equipaItem(ItemEquipable item) {
+		getGear().equipaItem(item);
+
+		// Debo calcular mi nueva cantidad de armadura y dmg
+		// cada vez que me equipo algo nuevo
+		calcTotalArmor();
+		calcDmg();
+		calcAtkSpd();
+	}
+
 	/**
 	 * CONSTRUCTOR. Metodo que inicializa la hoja de personaje. Se debe ejecutar
 	 * una vez durante la creacion del personaje. Le da al personaje un GEAR e
@@ -90,7 +92,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 	 */
 	public ImpFichaDePersonaje() {
 		// Inicializao el Gear
-		this.gear = new Gear();
+		this.gear = new ImpInventarioGear(); 
 
 		// Si se agregan clases de PJ
 		// Los atributos se deben iniciarlizar
@@ -117,8 +119,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 		}
 		if (getPrimaryAtt() == "dex") {
 			return getDex();
-		}
-		else{
+		} else {
 			return 0;
 		}
 	}
@@ -127,13 +128,14 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 	/*
 	 * Formula Total Armor: strArmor + Armor
 	 * 
-	 * Se debe recalcular cada vez que se cambia de equipo
-	 * O el atributo STR cambia
-	 * 
+	 * Se debe recalcular cada vez que se cambia de equipo O el atributo STR
+	 * cambia
 	 */
 	private void calcTotalArmor() {
 		int totalArmor = 0;
-		totalArmor += getGear().getTotalGearArmor(); // Armor del equipo.
+		totalArmor += getGear().dameStat("MainHand", "Armor");
+		// totalArmor += getGear().dameStat("Casco", "Armor");
+		// totalArmor += getGear().dameStat("Armadura", "Armor");
 		totalArmor += getStr(); // Sumado al armor 1:1 de la Str.
 
 		setArmor(totalArmor);
@@ -164,7 +166,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 	 *            porcentaje (en base al wpnDmg) de dmg del skill
 	 */
 	private void setSkillDamage(int wpnDmgPercent) {
-		int wpnDmg = getGear().getWpnDmg();
+		int wpnDmg = (int) getGear().dameStat("MainHand", "Dmg"); //Saca el dmg del arma
 		setSkillDmg((wpnDmgPercent * wpnDmg) / 100);
 	}
 
@@ -174,35 +176,36 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 	 * 
 	 * @return
 	 */
-	private int getDmg() {
+	private void calcDmg() {
+		setSkillDamage(100); // FIXME OJO, VALOR HARDCODED
+		
 		int skillDmg = getSkillDmg();
-		int wpnDmg = getGear().getWpnDmg();
+		int wpnDmg = (int) getGear().dameStat("MainHand", "Dmg"); //Saca el dmg del arma
 		int damage = 0;
 		damage = skillDmg * wpnDmg;
 		damage *= (1 + (getPrimaryAttValue() / 100));
 
-		return damage;
+		setDmg(damage);
 	}
 
 	/**
 	 * FORMULA DexAtkSpd: Dex * 0.1% FORMULA AtkSpd: WpnAtkSpd * ( 1 + DexAtkSpd
 	 * )
-	 * 
-	 * @return
 	 */
-	private double getAndSetAtkSpd() {
-		double wpnAtkSpd = gear.getWpnAtkSpd();
+	private void calcAtkSpd() {
+		double atkspd;
+		double wpnAtkSpd = getGear().dameStat("MainHand", "AtkSpd");
 		double dexAtkSpd = (0.1 * getDex()) / 100;
 
-		setAtkSpd(wpnAtkSpd * (1 + dexAtkSpd));
-		return round((wpnAtkSpd * (1 + dexAtkSpd)), 2);
+		atkspd = round((wpnAtkSpd * (1 + dexAtkSpd)), 2);
+		setAtkSpd(atkspd);
 	}
 
 	/**
 	 * 
 	 * Formula: Dmg - (Dmg*DmgRed%)
 	 * 
-	 * Este metodo tambien se encarga de restar la vida al personaje. 
+	 * Este metodo tambien se encarga de restar la vida al personaje.
 	 * 
 	 * @param dmg
 	 *            --> dmg es pasado por el jugador atacante
@@ -276,11 +279,11 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 		this.primaryAtt = primaryAtt;
 	}
 
-	private Gear getGear() {
+	private InventarioGear getGear() {
 		return gear;
 	}
 
-	private void setGear(Gear gear) {
+	private void setGear(InventarioGear gear) {
 		this.gear = gear;
 	}
 
@@ -336,5 +339,12 @@ public class ImpFichaDePersonaje implements FichaDePersonaje{
 		this.xp = xp;
 	}
 
+	private void setDmg(int dmg) {
+		this.dmg = dmg;
+	}
 	
+	private int getDmg(){
+		return dmg;
+	}
+
 }
