@@ -6,10 +6,6 @@ public abstract class ImpEnteAtacable implements Ente {
 
 	@Override
 	public void sosAtacado(int dmg,int lvlAtacante) {
-		// FIXME sos atacado le manda el mensaje de sosAtacado a su subclase. 
-		//O es que ya lo hace automáticamente dejando esto sin implementar?
-		//por las dudas tiro GNU
-		
 		/*
 		    _-`````-,           ,- '- .
 		  .'   .- - |          | - -.  `.
