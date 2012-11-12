@@ -1,6 +1,11 @@
 package mmorpg.servidor;
+/** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! **/
+//FIXME le mandaste private a casi todos los métodos. Puse publics los getters y setters que se que tienen que ser public
+// y los estoy usando ahora fijate de verlo y ponerle public a los que sean public B-)
+//Edit: Le mandé public a todo (supongo que así debe ser), si no está bien cabia los que tengan que ser private.
 
-import java.util.List; //Manejo de listas
+//Esto parece que no se usa.
+//import java.util.List; //Manejo de listas
 
 public class ImpFichaDePersonaje implements FichaDePersonaje {
 
@@ -113,7 +118,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * 
 	 * @return
 	 */
-	private int getPrimaryAttValue() {
+	public int getPrimaryAttValue() {
 		if (getPrimaryAtt() == "str") {
 			return getStr();
 		}
@@ -131,7 +136,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * Se debe recalcular cada vez que se cambia de equipo O el atributo STR
 	 * cambia
 	 */
-	private void calcTotalArmor() {
+	public void calcTotalArmor() {
 		int totalArmor = 0;
 		totalArmor += getGear().dameStat("MainHand", "Armor");
 		// totalArmor += getGear().dameStat("Casco", "Armor");
@@ -147,7 +152,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * 
 	 * @return el % de reduccion de dmg.
 	 */
-	private int getDamageReduction(int attackerLevel) {
+	public int getDamageReduction(int attackerLevel) {
 		int dmgRed = 0;
 		int numerador = getArmor();
 		int denominador = 50 * attackerLevel;
@@ -165,7 +170,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * @param wpnDmgPercent
 	 *            porcentaje (en base al wpnDmg) de dmg del skill
 	 */
-	private void setSkillDamage(int wpnDmgPercent) {
+	public void setSkillDamage(int wpnDmgPercent) {
 		int wpnDmg = (int) getGear().dameStat("MainHand", "Dmg"); //Saca el dmg del arma
 		setSkillDmg((wpnDmgPercent * wpnDmg) / 100);
 	}
@@ -176,7 +181,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * 
 	 * @return
 	 */
-	private void calcDmg() {
+	public void calcDmg() {
 		setSkillDamage(100); // FIXME OJO, VALOR HARDCODED
 		
 		int skillDmg = getSkillDmg();
@@ -192,7 +197,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * FORMULA DexAtkSpd: Dex * 0.1% FORMULA AtkSpd: WpnAtkSpd * ( 1 + DexAtkSpd
 	 * )
 	 */
-	private void calcAtkSpd() {
+	public void calcAtkSpd() {
 		double atkspd;
 		double wpnAtkSpd = getGear().dameStat("MainHand", "AtkSpd");
 		double dexAtkSpd = (0.1 * getDex()) / 100;
@@ -211,7 +216,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 *            --> dmg es pasado por el jugador atacante
 	 * @return el dmg real que es restado a la HP.
 	 */
-	private int getDamageTaken(int dmg, int attackerLvl) {
+	public int getDamageTaken(int dmg, int attackerLvl) {
 		int dmgRed = getDamageReduction(attackerLvl);
 		int dmgTaken = dmg - ((dmgRed * dmg) / 100);
 		int hp = getCurrentHp();
@@ -224,7 +229,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * 
 	 * Formula Hit Points: 36 + (4*LVL) + (10 * VIT)
 	 */
-	private void setMaxHp() {
+	public void setMaxHp() {
 		int maxHp;
 		maxHp = 36 + (4 * getLvl() + (10 + getVit()));
 		this.maxHp = maxHp;
@@ -241,109 +246,109 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 *            cantidad de decimales
 	 * @return el numero ya redondeado.
 	 */
-	private double round(double numero, int decimales) {
+	public double round(double numero, int decimales) {
 		return Math.round(numero * Math.pow(10, decimales))
 				/ Math.pow(10, decimales);
 	}
 
 	/* GETTERS Y SETTERS */
-	private int getStr() {
+	public int getStr() {
 		return str;
 	}
 
-	private void setStr(int str) {
+	public void setStr(int str) {
 		this.str = str;
 	}
 
-	private int getDex() {
+	public int getDex() {
 		return dex;
 	}
 
-	private void setDex(int dex) {
+	public void setDex(int dex) {
 		this.dex = dex;
 	}
 
-	private int getVit() {
+	public int getVit() {
 		return vit;
 	}
 
-	private void setVit(int vit) {
+	public void setVit(int vit) {
 		this.vit = vit;
 	}
 
-	private String getPrimaryAtt() {
+	public String getPrimaryAtt() {
 		return primaryAtt;
 	}
 
-	private void setPrimaryAtt(String primaryAtt) {
+	public void setPrimaryAtt(String primaryAtt) {
 		this.primaryAtt = primaryAtt;
 	}
 
-	private InventarioGear getGear() {
+	public InventarioGear getGear() {
 		return gear;
 	}
 
-	private void setGear(InventarioGear gear) {
+	public void setGear(InventarioGear gear) {
 		this.gear = gear;
 	}
 
-	private int getSkillDmg() {
+	public int getSkillDmg() {
 		return skillDmg;
 	}
 
-	private void setSkillDmg(int skillDmg) {
+	public void setSkillDmg(int skillDmg) {
 		this.skillDmg = skillDmg;
 	}
 
-	private double getAtkSpd() {
+	public double getAtkSpd() {
 		return atkSpd;
 	}
 
-	private void setAtkSpd(double atkSpd) {
+	public void setAtkSpd(double atkSpd) {
 		this.atkSpd = atkSpd;
 	}
 
-	private int getLvl() {
+	public int getLvl() {
 		return lvl;
 	}
 
-	private void setLvl(int lvl) {
+	public void setLvl(int lvl) {
 		this.lvl = lvl;
 	}
 
-	private int getCurrentHp() {
+	public int getCurrentHp() {
 		return currentHp;
 	}
 
-	private void setCurrentHp(int currentHp) {
+	public void setCurrentHp(int currentHp) {
 		this.currentHp = currentHp;
 	}
 
-	private int getMaxHp() {
+	public int getMaxHp() {
 		return maxHp;
 	}
 
-	private int getArmor() {
+	public int getArmor() {
 		return armor;
 	}
 
-	private void setArmor(int armor) {
+	public void setArmor(int armor) {
 		this.armor = armor;
 	}
 
-	private int getXp() {
+	public int getXp() {
 		return xp;
 	}
 
-	private void setXp(int xp) {
+	public void setXp(int xp) {
 		this.xp = xp;
 	}
 
-	private void setDmg(int dmg) {
+	public void setDmg(int dmg) {
 		this.dmg = dmg;
 	}
 	
-	private int getDmg(){
+	public int getDmg(){
 		return dmg;
 	}
 

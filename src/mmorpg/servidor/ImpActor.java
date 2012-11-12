@@ -3,7 +3,6 @@ package mmorpg.servidor;
 /* El actor cuando se construye tiene que tener una posición, sino el programa crashea más adelante */
 
 public abstract class ImpActor extends ImpEnteAtacable implements Actor{
-	//TODO inicializar ficha de personaje
 	//TODO que sume XP matar a alguien, 
 	FichaDePersonaje fp;
 	
@@ -12,28 +11,50 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 		int dmg = this.fp.dameDmg();
 		int lvl = this.fp.dameLvl();
 		
-		enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+		//NOTA: el mundo no está cargado con entesNoAtacables. Ahora lo cargo, también se podría usar try-catch
+		//Catcheamos cuando ente es null y significa que no tiene a nadie adentro.
+		//Usamos patron state en el diseño, pero en la implementación realmente con un try catch ya estamos listos...
+		//Gangnam style niggas _|m|
+
+		try{
+			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+		}catch (NullPointerException npe){
+			//LOL
+		}
+		
 	}
 	public void atacaIzq(){
 		Ente enemigo = this.getCeldaActual().dameCeldaIz().getEnte();
 		int dmg = this.fp.dameDmg();
 		int lvl = this.fp.dameLvl();
 		
-		enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+		try{
+			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+		}catch (NullPointerException npe){
+			//LOL
+		}
 	}
 	public void atacaAbajo(){
 		Ente enemigo = this.getCeldaActual().dameCeldaAbajo().getEnte();
 		int dmg = this.fp.dameDmg();
 		int lvl = this.fp.dameLvl();
 		
-		enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+		try{
+			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+		}catch (NullPointerException npe){
+			//LOL
+		}
 	}
 	public void atacaArriba(){
 		Ente enemigo = this.getCeldaActual().dameCeldaArriba().getEnte();
 		int dmg = this.fp.dameDmg();
 		int lvl = this.fp.dameLvl();
 		
-		enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+		try{
+			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+		}catch (NullPointerException npe){
+			//LOL
+		}
 	}
 	
 	public void sosAtacado(int dmg, int lvlAtacante){
@@ -80,5 +101,14 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 		
 	}
 	
+	public int dameHP(){
+		return this.fp.dameCurrentHp();
+	}
+	public int dameXP(){
+		return this.fp.dameXp();
+	}
+	public int dameLvl(){
+		return this.fp.dameLvl();
+	}
 
 }

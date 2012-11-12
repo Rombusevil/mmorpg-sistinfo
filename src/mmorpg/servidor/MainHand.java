@@ -29,15 +29,16 @@ public class MainHand implements ItemEquipable {
 	 */
 	@Override
 	public int getDmg() {
-		return getDmg();
+		return this.dmg;
 	}
 
 	@Override
 	public int getArmor() {
-		return getArmor();
+		return this.armor;
 	}
 
 	@Override
+	//FIXME el metodo devuelve int pero atkSpd es float.
 	public int getAtkSpd() {
 		return getAtkSpd();
 	}

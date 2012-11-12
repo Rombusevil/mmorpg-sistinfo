@@ -85,32 +85,7 @@ public class ImpMundo implements Mundo {
 	public Celda dameCelda(int x, int y, Mundo mundo){		
 		return entradaMundo;
 	}
-	
-	
-	public void muestraMundo(int alto, int ancho, Celda celdaActual){
 		
-		for(int i=0; i<alto; i++){
-			for(int j=0; j<ancho; j++){
-				celdaActual.imprimeMyPos();
-				
-				if(j < ancho -1)
-					celdaActual = celdaActual.dameCeldaDer();
-			}
-			
-			//Voy una más abajo si no estoy en el límite
-			if(i<alto-1)
-				celdaActual = celdaActual.dameCeldaAbajo();
-			
-			System.out.println();
-			
-			//Voy todo a la iz para empezar a imprimir de iz a der
-			for(int j=0; j<ancho-1; j++){				
-				celdaActual = celdaActual.dameCeldaIz();
-			}			
-		}
-		System.out.println();
-	}
-
 	public Celda getEntradaMundo(){
 		
 		return entradaMundo;

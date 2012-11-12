@@ -6,14 +6,22 @@ public class ImpControladorJugadores implements ControladorJugadores{
 	
 	public void decodificaMovimientoDeJugador(char comando, Actor unJugador ){
 		switch(comando){
+			/** Movimientos **/
 			case 'a': movimientos.dameIzq().mover(unJugador);
-					break;
+				break;
 			case 'd': movimientos.dameDer().mover(unJugador);
-					break;
+				break;
 			case 's': movimientos.dameAbajo().mover(unJugador);
-					break;
+				break;
 			case 'w': movimientos.dameArriba().mover(unJugador);
-					break;
+				break;
+				
+			/** Ataques **/
+			case 'i': unJugador.atacaArriba(); 	break;
+			case 'k': unJugador.atacaAbajo();	break;
+			case 'j': unJugador.atacaIzq();		break;
+			case 'l': unJugador.atacaDer();		break;
+				
 			default:
 				System.out.println("tecla incorrecta");
 				break;
@@ -23,5 +31,6 @@ public class ImpControladorJugadores implements ControladorJugadores{
 	@Override
 	public void CargarJugador(Actor unActor) {
 		// TODO CargarJugador?
+		//Que sería cargar jugador?
 	}
 }

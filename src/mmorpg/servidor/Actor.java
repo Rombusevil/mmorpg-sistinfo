@@ -14,4 +14,7 @@ public interface Actor {
 	void atacaArriba();
 	
 	void sosAtacado(int dmg, int lvlAtacante);
+	int dameHP();
+	int dameXP();
+	int dameLvl();
 }

@@ -38,8 +38,9 @@ public class ControladorTecladoServer extends JFrame implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent tecla) {
+		//FIXME les parece dejar este decodificador como un "decodificadorTeclado" en lugar de "decodificaMovimientoDeJugador"?
+		//La idea es que decodifique los ataques también.
 		contJugador.decodificaMovimientoDeJugador(tecla.getKeyChar(), unActor);
-		//System.out.println("la tecla pulsada es: "+ tecla.getKeyChar());
 		j1.setText("la tecla pulsada es: "+ tecla.getKeyChar());//esto es temporal para verificar los controles
 	
 	}
