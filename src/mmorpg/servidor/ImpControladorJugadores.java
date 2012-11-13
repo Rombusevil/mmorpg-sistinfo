@@ -2,19 +2,14 @@ package mmorpg.servidor;
 
 
 public class ImpControladorJugadores implements ControladorJugadores{
-	ImpProveedorDeMovedores movimientos=new ImpProveedorDeMovedores();
 	
-	public void decodificaMovimientoDeJugador(char comando, Actor unJugador ){
+	public void decodificaAccion(char comando, Actor unJugador ){
 		switch(comando){
 			/** Movimientos **/
-			case 'a': movimientos.dameIzq().mover(unJugador);
-				break;
-			case 'd': movimientos.dameDer().mover(unJugador);
-				break;
-			case 's': movimientos.dameAbajo().mover(unJugador);
-				break;
-			case 'w': movimientos.dameArriba().mover(unJugador);
-				break;
+			case 'w':unJugador.moveteArriba();	break;
+			case 's':unJugador.moveteAbajo();	break;
+			case 'a': unJugador.moveteIzq();	break;
+			case 'd': unJugador.moveteDer();	break;
 				
 			/** Ataques **/
 			case 'i': unJugador.atacaArriba(); 	break;

@@ -61,7 +61,7 @@ public class Main {
 		
 		/** Inicializo a los actores en el mundo **/
 		mundo.poneActorEn(0, 1, actor); // Pone al actor en el mundo para poder moverlo
-		mundo.poneActorEn(0, 0, actor2);
+		mundo.poneActorEn(3, 2, actor2);
 		cliMundo.imprimi(mundo);
 		
 /*End Inicializacion*/
