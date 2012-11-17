@@ -63,32 +63,18 @@ public interface FichaDePersonaje {
 	 */
 	void equipaItem(ItemEquipable item);
 	
+	/**
+	 * Define el nombre del PJ
+	 * @param nombre el nombre del PJ
+	 */
+	void defineNombre(String nombre);
 	
-	// Si no tenía estos métodos acá no los podía usar invocando a algo de tipo ficha de personaje como está puesto en el diag
-	public int getStr();
-	public void setStr(int str);
-	public int getDex();
-	public void setDex(int dex);
-	public int getVit();
-	public void setVit(int vit);
-	public String getPrimaryAtt();
-	public void setPrimaryAtt(String primaryAtt);
-	public InventarioGear getGear();
-	public void setGear(InventarioGear gear);
-	public int getSkillDmg();
-	public void setSkillDmg(int skillDmg);
-	public double getAtkSpd();
-	public void setAtkSpd(double atkSpd);
-	public int getLvl();
-	public void setLvl(int lvl);
-	public int getCurrentHp();
-	public void setCurrentHp(int currentHp);
-	public int getMaxHp();
-	public int getArmor();
-	public void setArmor(int armor);
-	public int getXp();
-	public void setXp(int xp);
-	public void setDmg(int dmg);
-	public int getDmg();
+	/**
+	 * 
+	 * @return me devuelve el nombre definido en la ficha de Pj
+	 */
+	String dameNombre();
 	
+	int dameXpPorGolpearte();
+	void ganeExp(int exp);
 }

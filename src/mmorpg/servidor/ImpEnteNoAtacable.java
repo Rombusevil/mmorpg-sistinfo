@@ -31,6 +31,10 @@ public class ImpEnteNoAtacable implements Ente {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public int dameXpPorGolpearte() {
+		return 0;
+	}
 
 	@Override
 	public Dibujo getDibujo() {

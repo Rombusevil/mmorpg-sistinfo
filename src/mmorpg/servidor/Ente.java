@@ -8,4 +8,6 @@ public interface Ente {
 	
 	Celda getCeldaActual();
 	void setCeldaActual(Celda celda);
+	
+	int dameXpPorGolpearte();
 }

@@ -92,8 +92,11 @@ public class Main {
 			
 			for(int i=0; i< 1; i++)
 				System.out.println();
+				
 			
 			//Imprime las stats de tu enemigo que es el que recibe los golpes en esta prueba 
+			System.out.print("Yo: ");
+			cliDatos.imprimiTodo(actor);
 			System.out.print("Enemigo: ");
 			cliDatos.imprimiTodo(actor2);
 			

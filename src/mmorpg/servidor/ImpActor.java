@@ -1,6 +1,6 @@
 package mmorpg.servidor;
 
-/* El actor cuando se construye tiene que tener una posición, sino el programa crashea más adelante */
+/* El actor cuando se construye tiene que tener una posicion, sino el programa crashea mas adelante */
 
 public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 	//TODO que sume XP matar a alguien, 
@@ -11,13 +11,14 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 		int dmg = this.fp.dameDmg();
 		int lvl = this.fp.dameLvl();
 		
-		//NOTA: el mundo no está cargado con entesNoAtacables. Ahora lo cargo, también se podría usar try-catch
+		//NOTA: el mundo no esta cargado con entesNoAtacables. Ahora lo cargo, tambien se podria usar try-catch
 		//Catcheamos cuando ente es null y significa que no tiene a nadie adentro.
-		//Usamos patron state en el diseño, pero en la implementación realmente con un try catch ya estamos listos...
+		//Usamos patron state en el diseno, pero en la implementacion realmente con un try catch ya estamos listos...
 		//Gangnam style niggas _|m|
 
 		try{
 			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+			this.fp.ganeExp(enemigo.dameXpPorGolpearte());
 		}catch (NullPointerException npe){
 			//LOL
 		}
@@ -30,6 +31,7 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 		
 		try{
 			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+			this.fp.ganeExp(enemigo.dameXpPorGolpearte());
 		}catch (NullPointerException npe){
 			//LOL
 		}
@@ -41,6 +43,7 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 		
 		try{
 			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+			this.fp.ganeExp(enemigo.dameXpPorGolpearte());
 		}catch (NullPointerException npe){
 			//LOL
 		}
@@ -51,7 +54,8 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 		int lvl = this.fp.dameLvl();
 		
 		try{
-			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celda
+			enemigo.sosAtacado(dmg,lvl); //Ataca al ente que tiene la celdaActual
+			this.fp.ganeExp(enemigo.dameXpPorGolpearte());
 		}catch (NullPointerException npe){
 			//LOL
 		}
@@ -109,6 +113,19 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 	}
 	public int dameLvl(){
 		return this.fp.dameLvl();
+	}
+	@Override
+	public int dameDmg() {
+		return this.fp.dameDmg();
+	}
+
+	@Override
+	public double dameAtkSpd() {
+		return this.fp.dameAtkSpd();
+	}
+	@Override
+	public int dameXpPorGolpearte() {
+		return this.fp.dameXpPorGolpearte();
 	}
 
 }

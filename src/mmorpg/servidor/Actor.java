@@ -17,4 +17,7 @@ public interface Actor {
 	int dameHP();
 	int dameXP();
 	int dameLvl();
+	int dameDmg();
+	double dameAtkSpd();
+	int dameXpPorGolpearte();
 }
