@@ -30,6 +30,11 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 
 	int dmg;
 	
+	boolean dead;
+	
+	int BASE_EXP = 25; // Experiencie System Related
+	int FACTOR_EXP = 2; // Experiencie System Related
+	
 	
 	//TODO Item Hardcoded
 	int _MainHandDmg = 10;   //Dmg de la espada Hardcodeada
@@ -41,6 +46,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	@Override
 	public void recibiDmg(int dmg, int attackerLvl) {
 		// getDamageTaken se encarga tambien de restarte vida.
+		// y de matar al PJ si la vida llega a cero
 		int dmgTaken = getDamageTaken(dmg, attackerLvl);
 	}
 
@@ -110,6 +116,23 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 		int experiencia = getXp();
 		experiencia += exp;
 		setXp(experiencia);
+		checkLvlUp();
+	}
+	@Override
+	public boolean estasMuerto(){
+		return isDead();
+	}
+	
+	@Override
+	public void morite() {
+		matarPj();
+		
+	}
+
+	@Override
+	public void revivi() {
+		revivePj();
+		
 	}
 
 	/**
@@ -122,6 +145,10 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 		// Inicializado el Gear
 		this.gear = new ImpInventarioGear();
 		setLvl(1); 
+		setXp(this.BASE_EXP); //Experiencia inicial
+		setDead(false); //El PJ empieza vivo
+		setExpAlRecibirDmg(5); //Exp base que da este Pj al recibir dmg
+		
 		// TODO Agregar Clases de PJ y pasar por
 		// el tipo de clase al crear el PJ
 		// Si se agregan clases de PJ
@@ -266,6 +293,10 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 		int hp = getCurrentHp();
 		hp -= dmgTaken;
 		setCurrentHp(hp);
+		if (getCurrentHp() >= 0){
+			//Estas muerto
+			matarPj();
+		}
 		return dmgTaken;
 	}
 
@@ -293,6 +324,57 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	private double round(double numero, int decimales) {
 		return Math.round(numero * Math.pow(10, decimales))
 				/ Math.pow(10, decimales);
+	}
+		
+	/**
+	 * Mata al personaje
+	 */
+	private void matarPj(){
+		setDead(true);
+	}
+	
+	private void revivePj(){
+		setDead(false);
+		setCurrentHp(getMaxHp());
+	}
+	
+	/**
+	 * Se fija si el PJ debe subir de nivel
+	 */
+	private void checkLvlUp(){
+		int xp = getXp();
+		int nextLvl = getLvl() + 1;
+		int nextLvlExp;
+		
+		nextLvlExp = (int) (this.BASE_EXP * (Math.pow(nextLvl, this.FACTOR_EXP)));
+		
+		//Si da True, sube de nivel
+		if(xp >= nextLvlExp){
+			LevelUp();
+		}
+
+	}
+	
+	private void LevelUp(){
+		
+		setLvl(getLvl() + 1); //Sube de Nivel
+		
+		//Suben los Atributos con el nivel
+		//PrimaryAtt +3
+		//SecundaryAtt +1
+		//Vitality +2
+		setStr(getStr() + 3); 
+		setDex(getDex() + 1);
+		setVit(getVit() + 2);
+		
+		//Se recalcula la vida y se llena
+		setMaxHp();
+		setCurrentHp(getMaxHp());
+
+		//Se recalcula el Dmg, armor y atkSpd
+		calcDmg();
+		calcTotalArmor();
+		calcAtkSpd();		
 	}
 
 	/* GETTERS Y SETTERS */
@@ -411,4 +493,13 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	private void setExpAlRecibirDmg(int expAlRecibirDmg) {
 		this.expAlRecibirDmg = expAlRecibirDmg;
 	}
+
+	private boolean isDead() {
+		return dead;
+	}
+
+	private void setDead(boolean dead) {
+		this.dead = dead;
+	}
+
 }

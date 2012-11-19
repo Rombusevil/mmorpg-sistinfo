@@ -77,4 +77,12 @@ public interface FichaDePersonaje {
 	
 	int dameXpPorGolpearte();
 	void ganeExp(int exp);
+	
+	/**
+	 * Pregunta al Personaje si esta muerto 
+	 * @return false si esta vivo, true si esta muerto
+	 */
+	boolean estasMuerto();	
+	void morite();
+	void revivi();
 }
