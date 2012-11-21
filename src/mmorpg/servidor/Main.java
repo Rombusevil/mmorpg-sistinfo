@@ -2,18 +2,6 @@ package mmorpg.servidor;
 //FIXME Habría que poner algún límite de velocidad de movimiento en los actores.
 
 import java.io.IOException;
-//FIXME Todos estos imports comentados deberían estar acá?
-//import java.awt.BorderLayout;
-//
-//import java.awt.event.KeyEvent;
-//import java.awt.event.KeyListener;
-//
-//import javax.swing.JFrame;
-//import javax.swing.JLabel;
-//
-//import java.util.ArrayList;
-//import java.util.Iterator;
-//import java.util.List;
 
 
 public class Main {
@@ -21,7 +9,7 @@ public class Main {
 		int alto, ancho;
 		Mundo mundo;
 		
-		ImpControladorJugadores contJugador = new ImpControladorJugadores();		
+		ImpControladorJugadores contJugador = new ImpControladorJugadores();
 		
 		//Celda entradaMundo;
 		
@@ -90,6 +78,7 @@ public class Main {
 		while(true){//una forma paisana de movimiento en "tiempo real"
 			cliMundo.imprimi(mundo);
 			
+			//Enters...
 			for(int i=0; i< 1; i++)
 				System.out.println();
 				
