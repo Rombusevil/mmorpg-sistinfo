@@ -3,7 +3,7 @@ package mmorpg.servidor;
 /* El actor cuando se construye tiene que tener una posicion, sino el programa crashea mas adelante */
 
 public abstract class ImpActor extends ImpEnteAtacable implements Actor{
-	//TODO que sume XP matar a alguien, 
+
 	FichaDePersonaje fp;
 	
 	public void atacaDer(){
