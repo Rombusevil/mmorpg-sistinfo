@@ -8,6 +8,12 @@ public class ImpMundo implements Mundo {
 
 
 	//Constructor, dimensiona el mundo.
+	/**
+	 * 
+	 * @param alto
+	 * @param ancho
+	 * @param vacio
+	 */
 	public ImpMundo(int alto, int ancho, ImpDibujoVacio vacio){
 		this.mundo = new ImpCelda[alto][ancho];
 		this.dimensionar(alto,ancho, vacio); // Enlaza las celdas, las pone a todas como libres, pone la imagen de vacio, etc
