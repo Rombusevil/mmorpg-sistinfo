@@ -1,56 +1,45 @@
 package mmorpg.servidor;
 
-/**
- * Esta clase implementa los items de TIPO MAIN HAND, es decir espadas, hachas,
- * garrotes, etc
- * 
- * Por lo general en la MainHand se equipan armas de una mano.
- * 
- * @author cyberpunx
- * 
- */
-
 public class MainHand implements ItemEquipable {
+	
+	int dmg;
+	int armor;
+	double atkSpd;
+	String nombre;
 
-	/**
-	 * Atributos
-	 */
-	
-	String tipoItem = "MainHand"; //El tipo del item
-	
-	int dmg; // dmg del arma
-	int armor; // cantidad de armadura que suma el arma
-	float atkSpd; // cantidad de ataques por segundos
-	
-	String nombre; //Nombre del item
-
-	/**
-	 * IMPLEMENTACIONES DE LA INTERFAZ
-	 */
+	/* IMPLEMENTACIONES DE LA INTERFAZ */
 	@Override
 	public int getDmg() {
-		return this.dmg;
+		return this.getDmg();
 	}
 
 	@Override
 	public int getArmor() {
-		return this.armor;
+		return this.getArmor();
 	}
 
 	@Override
-	//FIXME el metodo devuelve int pero atkSpd es float.
-	public int getAtkSpd() {
-		return getAtkSpd();
+	public double getAtkSpd() {
+		return this.getAtkSpd();
+	}
+	
+	@Override
+	public String dameNombreItem(){
+		return this.getNombre();
+	}
+	
+	/* CONSTRUCTOR */
+	
+	public MainHand(int dmg, int amor, double aktSpd, String nombre){
+		this.setArmor(amor);
+		this.setAtkSpd(aktSpd);
+		this.setDmg(dmg);
+		this.setNombre(nombre);
 	}
 
-
-
 	
+	/* GETTERS Y SETTERS */
 
-	/**
-	 * GETTERS Y SETTERS
-	 */
-	
 	private String getNombre() {
 		return nombre;
 	}
@@ -67,7 +56,7 @@ public class MainHand implements ItemEquipable {
 		this.armor = armor;
 	}
 
-	private void setAtkSpd(float atkSpd) {
+	private void setAtkSpd(double atkSpd) {
 		this.atkSpd = atkSpd;
 	}
 

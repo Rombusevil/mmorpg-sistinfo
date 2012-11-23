@@ -3,7 +3,7 @@ package mmorpg.servidor;
 public class ImpFichaDePersonaje implements FichaDePersonaje {
 
 	/* Items Equipados del personaje -> GEAR */
-	InventarioGear gear;
+	Slot gear;
 
 	/* Atributos Primarios */
 	int str; // produce armor
@@ -35,10 +35,6 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	int BASE_EXP = 25; // Experiencie System Related
 	int FACTOR_EXP = 2; // Experiencie System Related
 	
-	
-	//TODO Item Hardcoded
-	int _MainHandDmg = 10;   //Dmg de la espada Hardcodeada
-	int _MainHandArmor = 50; //Armor de la Espada HxC
 
 	/* OVERRIDE */
 
@@ -47,76 +43,76 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	public void recibiDmg(int dmg, int attackerLvl) {
 		// getDamageTaken se encarga tambien de restarte vida.
 		// y de matar al PJ si la vida llega a cero
-		int dmgTaken = getDamageTaken(dmg, attackerLvl);
+		int dmgTaken = this.getDamageTaken(dmg, attackerLvl);
 	}
 
 	@Override
 	public int dameDmg() {
-		int dmg = getDmg();
+		int dmg = this.getDmg();
 		return dmg;
 	}
 
 	@Override
 	public double dameAtkSpd() {
-		double atkSpd = getAtkSpd();
+		double atkSpd = this.getAtkSpd();
 		return atkSpd;
 	}
 
 	@Override
 	public int dameCurrentHp() {
-		int currentHp = getCurrentHp();
+		int currentHp = this.getCurrentHp();
 		return currentHp;
 	}
 
 	@Override
 	public int dameMaxHp() {
-		int maxHp = getMaxHp();
+		int maxHp = this.getMaxHp();
 		return maxHp;
 	}
 
 	@Override
 	public int dameLvl() {
-		int lvl = getLvl();
+		int lvl = this.getLvl();
 		return lvl;
 	}
 
 	@Override
 	public int dameXp() {
-		int xp = getXp();
+		int xp = this.getXp();
 		return xp;
 	}
 
 	@Override
 	public void equipaItem(ItemEquipable item) {
-		getGear().equipaItem(item);
+		this.getGear().reemplazaItem(item);
 
 		// Debo calcular mi nueva cantidad de armadura y dmg
 		// cada vez que me equipo algo nuevo
-		calcTotalArmor();
-		calcDmg();
-		calcAtkSpd();
+		this.calcTotalArmor();
+		this.calcDmg();
+		this.calcAtkSpd();
 	}	
 
 	@Override
 	public void defineNombre(String nombre) {
-		setNombre(nombre);		
+		this.setNombre(nombre);		
 	}
 
 	@Override
 	public String dameNombre() {
-		return getNombre();
+		return this.getNombre();
 	}
 	
 	@Override
 	public int dameXpPorGolpearte(){
-		return getExpAlRecibirDmg() * getLvl();
+		return this.getExpAlRecibirDmg() * this.getLvl();
 	}
 	@Override
 	public void ganeExp(int exp){
-		int experiencia = getXp();
+		int experiencia = this.getXp();
 		experiencia += exp;
-		setXp(experiencia);
-		checkLvlUp();
+		this.setXp(experiencia);
+		this.checkLvlUp();
 	}
 	@Override
 	public boolean estasMuerto(){
@@ -125,13 +121,13 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	
 	@Override
 	public void morite() {
-		matarPj();
+		this.matarPj();
 		
 	}
 
 	@Override
 	public void revivi() {
-		revivePj();
+		this.revivePj();
 		
 	}
 
@@ -142,12 +138,15 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * 
 	 */
 	public ImpFichaDePersonaje() {
-		// Inicializado el Gear
-		this.gear = new ImpInventarioGear();
-		setLvl(1); 
-		setXp(this.BASE_EXP); //Experiencia inicial
-		setDead(false); //El PJ empieza vivo
-		setExpAlRecibirDmg(5); //Exp base que da este Pj al recibir dmg
+		
+		this.gear = new SlotGear(); // Inicializado el Gear		
+		ItemEquipable armaInicial = new MainHand(10, 50, 1, "Espada de Madera"); // Creo el arma inicial		
+		this.getGear().reemplazaItem(armaInicial); //Equipo el arma inicial
+		
+		this.setLvl(1); //Empieza en nivel 1
+		this.setXp(this.BASE_EXP); //Experiencia inicial
+		this.setDead(false); //El PJ empieza vivo
+		this.setExpAlRecibirDmg(5); //Exp base que da este Pj al recibir dmg
 		
 		// TODO Agregar Clases de PJ y pasar por
 		// el tipo de clase al crear el PJ
@@ -155,19 +154,19 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 		// Los atributos se deben iniciarlizar
 		// diferente para cada clase
 		// Y el PrimaryAtt depende de cada clase
-		setStr(10);
-		setDex(8);
-		setVit(9);
-		setPrimaryAtt("str");
-		calcSkillDamage(10);
+		this.setStr(10);
+		this.setDex(8);
+		this.setVit(9);
+		this.setPrimaryAtt("str");
+		this.calcSkillDamage(10);
 		// Fin bloque HardCoded
 
-		setMaxHp();
-		setCurrentHp(getMaxHp());
+		this.setMaxHp(); // Calculo la vida maxima
+		this.setCurrentHp(this.getMaxHp()); // Lleno la vida al maximo
 
-		calcDmg();
-		calcTotalArmor();
-		calcAtkSpd();
+		this.calcDmg(); // Calculo dmg
+		this.calcTotalArmor(); // Calculo Armadura
+		this.calcAtkSpd(); //Calculo AtkSpd
 		
 			
 
@@ -179,11 +178,11 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * @return
 	 */
 	private int getPrimaryAttValue() {
-		if (getPrimaryAtt() == "str") {
-			return getStr();
+		if (this.getPrimaryAtt() == "str") {
+			return this.getStr();
 		}
-		if (getPrimaryAtt() == "dex") {
-			return getDex();
+		if (this.getPrimaryAtt() == "dex") {
+			return this.getDex();
 		} else {
 			return 0;
 		}
@@ -198,13 +197,11 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 */
 	private void calcTotalArmor() {
 		int totalArmor = 0;
-		/*
-		totalArmor += getGear().dameStat("MainHand", "Armor"); //TODO ARMADURA HxC
-		 */
-		totalArmor = this._MainHandArmor; //TODO valor HxC
-		totalArmor += getStr(); // Sumado al armor 1:1 de la Str.
+		
+		totalArmor += getGear().dameArmorItem(); // Saco armor del item
+		totalArmor += this.getStr(); // Sumado al armor 1:1 de la Str.
 
-		setArmor(totalArmor);
+		this.setArmor(totalArmor);
 	}
 
 	/**
@@ -215,9 +212,9 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 */
 	private int getDamageReduction(int attackerLevel) {
 		int dmgRed = 0;
-		int numerador = getArmor();
+		int numerador = this.getArmor();
 		int denominador = 50 * attackerLevel;
-		denominador += getArmor();
+		denominador += this.getArmor();
 		denominador *= 100;
 		dmgRed = numerador / denominador;
 
@@ -231,14 +228,10 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * @param wpnDmgPercent
 	 *            porcentaje (en base al wpnDmg) de dmg del skill
 	 */
-	private void calcSkillDamage(int wpnDmgPercent) {
-		
-		/*
-		int wpnDmg = (int) getGear().dameStat("MainHand", "Dmg"); // Saca el dmg del arma
-		*/
-		int wpnDmg = this._MainHandDmg; //TODO Valor HxC
-		
-		setSDmg((wpnDmgPercent * wpnDmg) / 100);
+	private void calcSkillDamage(int wpnDmgPercent) {		
+		int wpnDmg = (int) getGear().dameDmgItem(); // Saca el dmg del arma
+				
+		this.setSDmg((wpnDmgPercent * wpnDmg) / 100);
 	}
 
 	/**
@@ -247,21 +240,14 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * 
 	 * @return
 	 */
-	private void calcDmg() {
-		
-		int skillDamage =  getSDmg();
-		
-		/* TODO Esto va cuando implementemos el Gear y los Items
-		int wpnDmg = (int) getGear().dameStat("MainHand", "Dmg"); // Saca el dmg del arma
-		*/
-		
-		int wpnDmg = this._MainHandDmg; //TODO Valor HxC
-		
+	private void calcDmg() {		
+		int skillDamage =  this.getSDmg();
+		int wpnDmg = getGear().dameDmgItem();				
 		int damage = 0;
+		
 		damage = skillDamage * wpnDmg;
-		damage *= (1 + (getPrimaryAttValue() / 100));
-
-		setDmg(damage);
+		damage *= (1 + (this.getPrimaryAttValue() / 100));
+		this.setDmg(damage);
 	}
 
 	/**
@@ -270,11 +256,11 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 */
 	private void calcAtkSpd() {
 		double atkspd;
-		double wpnAtkSpd = getGear().dameStat("MainHand", "AtkSpd");
-		double dexAtkSpd = (0.1 * getDex()) / 100;
+		double wpnAtkSpd = this.getGear().dameAtkSpdItem();
+		double dexAtkSpd = (0.1 * this.getDex()) / 100;
 
 		atkspd = round((wpnAtkSpd * (1 + dexAtkSpd)), 2);
-		setAtkSpd(atkspd);
+		this.setAtkSpd(atkspd);
 	}
 
 	/**
@@ -288,14 +274,14 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 * @return el dmg real que es restado a la HP.
 	 */
 	private int getDamageTaken(int dmg, int attackerLvl) {
-		int dmgRed = getDamageReduction(attackerLvl);
+		int dmgRed = this.getDamageReduction(attackerLvl);
 		int dmgTaken = dmg - ((dmgRed * dmg) / 100);
-		int hp = getCurrentHp();
+		int hp = this.getCurrentHp();
 		hp -= dmgTaken;
-		setCurrentHp(hp);
-		if (getCurrentHp() >= 0){
+		this.setCurrentHp(hp);
+		if (this.getCurrentHp() >= 0){
 			//Estas muerto
-			matarPj();
+			this.matarPj();
 		}
 		return dmgTaken;
 	}
@@ -306,10 +292,62 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	 */
 	private void setMaxHp() {
 		int maxHp;
-		maxHp = 36 + (4 * getLvl() + (10 + getVit()));
+		maxHp = 36 + (4 * this.getLvl() + (10 + this.getVit()));
 		this.maxHp = maxHp;
 	}
 
+	
+		
+	/**
+	 * Mata al personaje
+	 */
+	private void matarPj(){
+		this.setDead(true);
+	}
+	
+	private void revivePj(){
+		this.setDead(false);
+		this.setCurrentHp(getMaxHp());
+	}
+	
+	/**
+	 * Se fija si el PJ debe subir de nivel
+	 */
+	private void checkLvlUp(){
+		int xp = this.getXp();
+		int nextLvl = this.getLvl() + 1;
+		int nextLvlExp;
+		
+		nextLvlExp = (int) (this.BASE_EXP * (Math.pow(nextLvl, this.FACTOR_EXP)));
+
+		//Si da True, sube de nivel
+		if(xp >= nextLvlExp){
+			this.LevelUp();
+		}
+	}
+	
+	private void LevelUp(){		
+		this.setLvl(this.getLvl() + 1); //Sube de Nivel
+		
+		//Suben los Atributos con el nivel
+		//PrimaryAtt +3
+		//SecundaryAtt +1
+		//Vitality +2
+		this.setStr(getStr() + 3); 
+		this.setDex(getDex() + 1);
+		this.setVit(getVit() + 2);
+		
+		//Se recalcula la vida y se llena
+		this.setMaxHp();
+		this.setCurrentHp(getMaxHp());
+
+		//Se recalcula el Dmg, armor y atkSpd
+		this.calcDmg();
+		this.calcTotalArmor();
+		this.calcAtkSpd();		
+	}
+	
+	
 	/* UTILS */
 
 	/**
@@ -324,57 +362,6 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	private double round(double numero, int decimales) {
 		return Math.round(numero * Math.pow(10, decimales))
 				/ Math.pow(10, decimales);
-	}
-		
-	/**
-	 * Mata al personaje
-	 */
-	private void matarPj(){
-		setDead(true);
-	}
-	
-	private void revivePj(){
-		setDead(false);
-		setCurrentHp(getMaxHp());
-	}
-	
-	/**
-	 * Se fija si el PJ debe subir de nivel
-	 */
-	private void checkLvlUp(){
-		int xp = getXp();
-		int nextLvl = getLvl() + 1;
-		int nextLvlExp;
-		
-		nextLvlExp = (int) (this.BASE_EXP * (Math.pow(nextLvl, this.FACTOR_EXP)));
-		
-		//Si da True, sube de nivel
-		if(xp >= nextLvlExp){
-			LevelUp();
-		}
-
-	}
-	
-	private void LevelUp(){
-		
-		setLvl(getLvl() + 1); //Sube de Nivel
-		
-		//Suben los Atributos con el nivel
-		//PrimaryAtt +3
-		//SecundaryAtt +1
-		//Vitality +2
-		setStr(getStr() + 3); 
-		setDex(getDex() + 1);
-		setVit(getVit() + 2);
-		
-		//Se recalcula la vida y se llena
-		setMaxHp();
-		setCurrentHp(getMaxHp());
-
-		//Se recalcula el Dmg, armor y atkSpd
-		calcDmg();
-		calcTotalArmor();
-		calcAtkSpd();		
 	}
 
 	/* GETTERS Y SETTERS */
@@ -410,11 +397,11 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 		this.primaryAtt = primaryAtt;
 	}
 
-	private InventarioGear getGear() {
+	private Slot getGear() {
 		return gear;
 	}
 
-	private void setGear(InventarioGear gear) {
+	private void setGear(Slot gear) {
 		this.gear = gear;
 	}	
 
