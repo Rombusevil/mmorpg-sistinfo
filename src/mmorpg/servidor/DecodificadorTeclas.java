@@ -7,23 +7,27 @@ public class DecodificadorTeclas {
 	private Actor pj;
 	private ProveedorDeEnDireccion pMovedores;
 	private ProveedorDeEnDireccion pAtaques;
+	private GestorComandos gestorComandos;
 	
 	//FIXME el constructor de esta clase es el encargado de instanciar los proveedores o se los pasan de arriba?
 	//En el cliente, tiene mucho sentido que los proveedores se instancien acá.
-	//Pero el servidor también tiene que tener los proveedores instanciados y no suena lógico que el 
+	//Pero el servidor también tiene que tener los proveedores instanciados, y no suena lógico que el 
 	//servidor tenga un decodificadorTeclas.
-	//Podemos hacer que la clase server (que tiene el mundo) tenga todos los proveedores. Eso suena lógico.
+	//Podemos hacer que la clase server (que tiene el mundo) tenga todos los proveedores. Eso suena lógico (hablando del server)
 	
 	/**
 	 * 
 	 * @param pj hay que pasarle el pj, porque esta clase está enfocada para el uso de los clientes
-	 * y cada cliente es necesariamente un solo pj a la vez.
+	 * y cada cliente es necesariamente un solo pj a la vez. Así como también, cada cliente tiene un solo
+	 * gestor comandos.
+	 * 
 	 */
 	
-	public DecodificadorTeclas(Actor pj){
+	public DecodificadorTeclas(Actor pj, GestorComandos gc){
 		this.pMovedores = new ImpProveedorDeMovedores();
 		this.pAtaques   = new ImpProveedorAtacadores();
 		this.pj = pj;
+		this.gestorComandos = gc;
 	}
 	
 	
