@@ -1,6 +1,6 @@
 package mmorpg.servidor;
 
-public class ImpProveedorDeMovedores implements ProveedorDeMovedores {
+public class ImpProveedorDeMovedores implements ProveedorDeEnDireccion {
 	private MovedorAbajo abajo;
 	private MovedorArriba arriba;
 	private MovedorDerecha der;

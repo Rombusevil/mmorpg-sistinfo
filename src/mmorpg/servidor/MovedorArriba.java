@@ -1,8 +1,8 @@
 package mmorpg.servidor;
 
-public class MovedorArriba implements MovedorEnDireccion {
+public class MovedorArriba implements AccionEnDireccion {
 
-	public void mover(Actor actor){
+	public void actuar(Actor actor){
 		actor.moveteArriba();
 	}
 
