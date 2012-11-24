@@ -15,8 +15,6 @@ import javax.swing.*;
 public class Server extends JFrame {
 	
 	/* GUI Related */
-	private JTextField commandLine;	 //Linea para escribir comandos
-	private JTextArea commandWindow; //Ventana con el historial de comandos y mensajes
 	private ImprimidorConexiones gui;
 	
 	private GestorSesiones gestorSesiones;
@@ -37,23 +35,19 @@ public class Server extends JFrame {
 	public Server(){
 		gestorSesiones = new GestorSesiones();		// Crea el Gestor de Sesiones
 		gui = new ImpImprimidorConexionesJFrame();	// Crea la GUI
-		mundo = new ImpMundo(50, 50, new ImpDibujoImagenVacia()); // TODO Arreglar imagenVacia
-		
-		startRuning();	//Comienza a escuchar conexiones						
+		mundo = new ImpMundo(50, 50, new ImpDibujoImagenVacia()); // TODO Arreglar imagenVacia		
+		startRuning();								//Comienza a escuchar conexiones						
 	}
-	
-	
+		
 	// Inicializa el server	
 	public void startRuning(){		
 		try{
-			serverSocket = new ServerSocket(this.port, this.cola);			
-
+			serverSocket = new ServerSocket(this.port, this.cola);	
 			while(true){
 				try{
-					waitForConnections(); // Escucha conexiones entrantes
-					setupStreams(); // Configura los Streams
-
-					//TODO hacer un thread para aceptar conexiones simultaneas
+					waitForConnections(); 	// Escucha conexiones entrantes
+					setupStreams(); 		// Configura los Streams
+											//TODO hacer un thread para aceptar conexiones simultaneas
 					String user = gui.preguntaUser();
 					String pwd = gui.preguntaPass();
 					this.gestorSesiones.inicializaJugador(connection, mundo, user, pwd); // Le mando el socket conectado al GestorSesiones.
@@ -75,7 +69,10 @@ public class Server extends JFrame {
 	}
 	
 	
-	// Espera por conexiones, y muestra los mensajes de conexiones
+	/**
+	 *  Espera por conexiones, y muestra los mensajes de conexiones
+	 * @throws IOException
+	 */
 	private void waitForConnections() throws IOException{
 		gui.mostrarMensaje("Esperando conexiones... \n");
 		this.connection = serverSocket.accept(); // Acepta una conexion
@@ -83,6 +80,10 @@ public class Server extends JFrame {
 		gui.mostrarMensaje("Conexion establecida con:"+connection.getInetAddress().getHostName()+"\n");
 	}
 	
+	/**
+	 * Configura los Streams de entrada y salida
+	 * @throws IOException
+	 */
 	private void setupStreams() throws IOException{
 		output = new ObjectOutputStream(connection.getOutputStream()); // la conexion establecida previamente SOCKET CONECTADO -> GestorComandos
 		output.flush(); // Vacia la "basura" del buffer
@@ -91,7 +92,9 @@ public class Server extends JFrame {
 		gui.mostrarMensaje("\n Streams configurados \n");		
 	}
 	
-	// Cierra los sockets 	
+	/**
+	 * Cierra los sockets 	
+	 */
 	private void closeSockets(){
 		gui.mostrarMensaje("Cerrando conexion... \n");		
 		try{

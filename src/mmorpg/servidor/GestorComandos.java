@@ -3,8 +3,14 @@ package mmorpg.servidor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 public class GestorComandos implements Runnable{
+	
+	private Socket connection;
+	private ObjectOutputStream output;
+	private ObjectInputStream input;
+	
 
 	
 
@@ -22,21 +28,21 @@ public class GestorComandos implements Runnable{
 			output.flush(); // Vacia la "basura" del buffer
 			
 			input = new ObjectInputStream(connection.getInputStream()); // Lo mismo pero para el inputStream. Aca recibo informacion.
-			gui.mostrarMensaje("\n Streams configurados \n");		
+			//gui.mostrarMensaje("\n Streams configurados \n");		
 		}
 		
 		
 		// Durante la conexion establecida.. se envian y reciben mensajes
 		private void whileRunning() throws IOException{
 			String msg = "Ahora estas conectado.";
-			gui.mostrarMensaje(msg);
+			//gui.mostrarMensaje(msg);
 			
 			do{
 				try{
 					msg = (String) input.readObject(); //Leo el input y lo casteo a String ---> Castear a "Comando" o a "Ejecutable" para el GestorComandos
-					gui.mostrarMensaje("\n"+msg);
+					//gui.mostrarMensaje("\n"+msg);
 				}catch(ClassNotFoundException ex){
-					gui.mostrarMensaje("\n Comando incorrecto! Mensaje no entendido \n");
+					//gui.mostrarMensaje("\n Comando incorrecto! Mensaje no entendido \n");
 				}
 			}while(true); // Mientras stop == false
 		}

@@ -4,8 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -17,6 +22,7 @@ public class ImpImprimidorConexionesJFrame extends JFrame implements ImprimidorC
 	/* GUI Related */
 	private JTextField commandLine;	 //Linea para escribir comandos
 	private JTextArea commandWindow; //Ventana con el historial de comandos y mensajes
+	private ObjectOutputStream output;
 
 	@Override
 	public void mostrarMensaje(String texto) {
@@ -76,6 +82,24 @@ public class ImpImprimidorConexionesJFrame extends JFrame implements ImprimidorC
 					}
 				}
 		);
+	}
+	
+	// TODO Pregunta password 
+	public static void displayLoginWindow(){
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel("Enter a password:");
+		JPasswordField pass = new JPasswordField(10);
+		panel.add(label);
+		panel.add(pass);
+		String[] options = new String[]{"OK", "Cancel"};
+		int option = JOptionPane.showOptionDialog(null, panel, "LOGIN",
+		                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+		                         null, options, options[1]);
+		
+		if(option == 0){
+		    char[] password = pass.getPassword();
+		    System.out.println("Tu pasword: " + new String(password));
+		}		
 	}
 
 }
