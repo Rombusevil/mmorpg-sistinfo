@@ -12,13 +12,7 @@ public class ImpProveedorDeMovedores implements ProveedorDeEnDireccion {
 		this.der = new MovedorDerecha();
 		this.izq = new MovedorIzquierda();
 	}
-	
-/* Esto va en ImpControladorJugadores */
-//	public MovedorEnDireccion decodificaStringADire(String comando){
-//		// TO DO
-//		return dameArriba(); //esto lo puse por mientras para que no tire error.
-//	}
-//	
+
 	//Devuelven direcciones 
 	public MovedorAbajo dameAbajo(){
 		return this.abajo;
@@ -32,13 +26,5 @@ public class ImpProveedorDeMovedores implements ProveedorDeEnDireccion {
 	public MovedorDerecha dameDer(){
 		return this.der;
 	}
-	
-	
-	
-	
-	/*
-	
-	public MovedorEnDireccion decodificaStringADire(String comando);
-	 */
 	
 }

@@ -1,5 +1,10 @@
 package mmorpg.servidor;
 
+/**
+ * usar decodificadorTeclas
+ * @deprecated 
+ *
+ */
 
 public class ImpControladorJugadores implements ControladorJugadores{
 	
