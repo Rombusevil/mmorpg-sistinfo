@@ -16,10 +16,11 @@ public class GestorSesiones {
 		// Levanta mundo
 		// Crea instancia PJ con los parametros recuperados de la BD
 		// TODO agregar metodos recuperarPJ en Actor y FichaDePersonaje, que permiten crear un PJ con los atributos que se deseen
-		// Manda PJ y Mundo
+		// Manda PJ y Mundo al cliente
 		
 		
-		// Forwardea el socket al GestorComandos	
+		// Forwardea el socket al GestorComandos, junto con el PJ
+		// para que el GestorComandos cree un mapa con PJ y Socket de cada cliente
 	}
 	
 	
