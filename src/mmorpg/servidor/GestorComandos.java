@@ -61,7 +61,7 @@ public class GestorComandos implements Runnable{
 					    iComando cmd = new CmdJugadorAccion();
 					    cmd = (iComando) in.readObject();
 					    cmd.ejecutate();					    
-					} catch(RuntimeException ex) {
+					} catch(RuntimeException e) {
 					    it.remove();	// Si falla algo (cliente desconectado), remuevo el cliente del iterador
 					    e.printStackTrace();
 					} catch (InterruptedException e) {
