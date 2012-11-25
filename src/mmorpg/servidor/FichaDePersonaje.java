@@ -114,5 +114,10 @@ public interface FichaDePersonaje {
 			int armorItem, 
 			double atkSpdItem);
 	
+	/**
+	 * Da la velocidad de movimiento del PJ.
+	 * @return la velocidad de movimiento
+	 */
+	public double dameMovSpd();
 	
 }

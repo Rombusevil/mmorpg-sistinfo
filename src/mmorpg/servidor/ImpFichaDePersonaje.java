@@ -18,6 +18,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 	int currentHp; 	// HP actual, que va variando
 	int skill_dmg; 	// dmg proveniente del skill utilizado
 	double atkSpd; 	// cantidad de ataques por segundo
+	double movSpd;	// Velocidad de movimiento del PJ, fixed number.
 	int xpQueDoy; 	// Experiencia que da este PJ al recibir dmg
 	boolean dead;	// True-> Muerto; False-> Vivo
 	int BASE_EXP = 25; 	// Experiencie System Related
@@ -126,6 +127,11 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 
 		this.cargaFicha(nombre, lvl, xp, str, dex, vit, nombreItem, dmgItem, armorItem, atkSpdItem);
 
+	}
+	
+	@Override
+	public double dameMovSpd(){
+		return getMovSpd();
 	}
 
 	/**
@@ -515,6 +521,14 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 
 	private void setDead(boolean dead) {
 		this.dead = dead;
+	}
+
+	private double getMovSpd() {
+		return movSpd;
+	}
+
+	private void setMovSpd(double movSpd) {
+		this.movSpd = movSpd;
 	}
 
 }

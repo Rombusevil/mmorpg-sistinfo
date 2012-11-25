@@ -11,10 +11,11 @@ import javax.management.monitor.Monitor;
 
 public class GestorComandos implements Runnable{
 	
-	private List<Socket> connection;
-	private ObjectOutputStream output;
-	private ObjectInputStream input;
-	private Monitor monitor; // Para sincronizar
+	private List <Socket> connection;
+	private List <ObjectOutputStream> output;
+	private List <ObjectInputStream> input;
+	private Object monitor; // Para sincronizar el inputStream
+	private Object monitorOut; // Para sincronizar el outputStream
 	
 
 	
@@ -56,11 +57,13 @@ public class GestorComandos implements Runnable{
 				Iterator it = this.getSockets().iterator(); //Iterador de sockets
 				while(it.hasNext()){
 					try {
-						ObjectInputStream in = (ObjectInputStream) it.next();					
+						ObjectInputStream in = (ObjectInputStream) it.next();
 					    Thread.sleep(10);
 					    iComando cmd = new CmdJugadorAccion();
 					    cmd = (iComando) in.readObject();
-					    cmd.ejecutate();					    
+					    cmd.ejecutate();
+					    // if si es server
+					    //	forwardearComando(cmd);
 					} catch(RuntimeException e) {
 					    it.remove();	// Si falla algo (cliente desconectado), remuevo el cliente del iterador
 					    e.printStackTrace();
@@ -76,26 +79,100 @@ public class GestorComandos implements Runnable{
 		}// end while(true)				
 	}//end run()
 	
-	private List<Socket> getSockets() {
+	
+	
+	/**
+	 * Metodo que recibe un CMD, lo pone en el ObjectOutputStream
+	 * y lo envia al socket correspondiente.
+	 * @param cmd
+	 */
+	public void mandarComando(iComando cmd){
+		
+	}
+	
+	
+	/**
+	 * Agrega un InputStream a la lista
+	 * @param in
+	 */
+	public void addInput(ObjectInputStream in){
+		monitor = new Object();
+		synchronized (this.monitor){
+			this.getInput().add(in);
+		}
+	}
+	
+	/**
+	 * Agrega un OutputStream a la lista
+	 * @param out
+	 */
+	public void addOutput(ObjectOutputStream out){
+		monitorOut = new Object();
+		synchronized (this.monitorOut){
+			this.getOutput().add(out);
+		}
+	}
+	
+	private List <ObjectOutputStream> getOutput() {
+		return output;
+	}
+	
+
+	private List <ObjectInputStream> getInput() {
+		return input;
+	}
+	
+	private List <Socket> getSockets() {
 		return this.connection;
 	}
 
 
+	/**
+	 * closes() la lista de OutputStream
+	 */
+	public void closeOutput() {
+		try{
+			Iterator it = this.getOutput().iterator();
+			while(it.hasNext()){
+				ObjectOutputStream out = (ObjectOutputStream) it.next();
+				out.close();
+			}			
+		}catch(IOException ex){
+			System.out.println("Error al cerrar GestorComandos->OutputStreams");
+			ex.printStackTrace();
+		}		
+	}
 
+	/**
+	 * closes() la lista de InputStrams
+	 */
+	public void closeInput() {
+		try{
+			Iterator it = this.getInput().iterator();
+			while(it.hasNext()){
+				ObjectInputStream in = (ObjectInputStream) it.next();
+				in.close();
+			}			
+		}catch(IOException ex){
+			System.out.println("Error al cerrar GestorComandos->InputStreams");
+			ex.printStackTrace();
+		}		
+	}
+	
+	public void closeSockets() {
+		try{
+			Iterator it = this.getSockets().iterator();
+			while(it.hasNext()){
+				Socket skt = (Socket) it.next();
+				skt.close();
+			}			
+		}catch(IOException ex){
+			System.out.println("Error al cerrar GestorComandos->Sockets");
+			ex.printStackTrace();
+		}		
+	}
 
-
-
-
-
-
-//	// Configura el stream para enviar y recibir mensajes
-//	private void setupStreams() throws IOException{
-//		output = new ObjectOutputStream(connection.getOutputStream()); // la conexion establecida previamente SOCKET CONECTADO -> GestorComandos
-//		output.flush(); // Vacia la "basura" del buffer
-//		
-//		input = new ObjectInputStream(connection.getInputStream()); // Lo mismo pero para el inputStream. Aca recibo informacion.
-//		//gui.mostrarMensaje("\n Streams configurados \n");		
-//	}
-//	
+	
+	
 
 }

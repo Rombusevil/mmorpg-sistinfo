@@ -142,5 +142,9 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 		
 		this.fp.cargaFichaPj(nombre, lvl, xp, str, dex, vit, nombreItem, dmgItem, armorItem, atkSpdItem);		
 	}
+	
+	@Override public double dameMovSpd(){
+		return this.fp.dameMovSpd();
+	}
 
 }

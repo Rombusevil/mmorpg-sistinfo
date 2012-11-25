@@ -31,4 +31,6 @@ public interface Actor {
 			int dmgItem, 
 			int armorItem, 
 			double atkSpdItem);
+	
+	public double dameMovSpd();
 }
