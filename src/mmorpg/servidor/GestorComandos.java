@@ -159,6 +159,9 @@ public class GestorComandos implements Runnable{
 		}		
 	}
 	
+	/**
+	 * closes() la lista de Sockets
+	 */
 	public void closeSockets() {
 		try{
 			Iterator it = this.getSockets().iterator();

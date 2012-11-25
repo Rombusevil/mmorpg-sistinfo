@@ -30,6 +30,10 @@ public class Server extends JFrame {
 	
 	/* Game Related */
 	private Mundo mundo;
+
+	/* User y Pass */
+	private String user;
+	private String pwd;
 	
 	
 	/* Constructor */
@@ -50,13 +54,8 @@ public class Server extends JFrame {
 			while(true){
 				try{
 					waitForConnectionsAndSetupStreams(); 	// Escucha conexiones entrantes
-															//TODO hacer un thread para aceptar conexiones simultaneas
-					//Creo las variables para recibir User y Password
-					String user = new String();
-					String pwd = new String();
-					user = gui.preguntaUser();
-					pwd = gui.preguntaPass();
-					
+															//TODO hacer un thread para aceptar conexiones simultaneas ?
+										
 					this.gestorSesiones.inicializaJugador(connection, mundo, user, pwd); // Le mando el socket conectado al GestorSesiones.
 																		// GestorSesiones pregunta USER y PWD, levanta BD
 																		// recupera el PJ del usuario y le manda al cliente
@@ -83,6 +82,23 @@ public class Server extends JFrame {
 	private void waitForConnectionsAndSetupStreams() throws IOException{
 		gui.mostrarMensaje("Esperando conexiones... \n");
 		this.connection = serverSocket.accept(); // Acepta una conexion
+		// Conexion aceptada. Ahora pregunta User y Pass
+		
+		this.in = new ObjectInputStream(connection.getInputStream());
+		this.out = new ObjectOutputStream(connection.getOutputStream());
+		
+		// Lee usuario y password que viene del cliente
+		try {			
+			user = (String)in.readObject();
+            System.out.println("Username received: " + user);
+            pwd = (String) in.readObject();
+            System.out.println("Password received: " + pwd);
+
+		} catch (ClassNotFoundException e) {			
+			e.printStackTrace();
+		}
+
+
 		this.gestorComandos.addInput(new ObjectInputStream( connection.getInputStream())); // Agrega el inputStream a la lista del GestorComandos
 		this.gestorComandos.addOutput(new ObjectOutputStream ( connection.getOutputStream())); // Agrega el outputStream a la lista del GestorComandos		
 		
