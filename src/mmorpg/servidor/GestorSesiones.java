@@ -29,10 +29,29 @@ public class GestorSesiones {
 	
 	
 	
-	
 	private Actor recuperarPj(String nombre, String password){
-		Actor pj = null;
-		// Recupera PJ BD con Nombre y Password
+		ImpActor pj = new PJ();
+		// <Recupera PJ BD con Nombre y Password>
+		
+		// <Parsea los datos en las variables de abajo>
+		
+		// Datos para cargar la ficha de PJ, los dejo HxC
+		// Pero habria que parsear lo que devuelve la BD
+		// y meter cada valor en cada variable
+		
+		String nombrePj = "Prumpi_PieDeHierro";
+		int lvl = 1;
+		int xp = 30;
+		int str = 10;
+		int dex = 8;
+		int vit = 9;
+		String nombreItem = "Porra";
+		int dmgItem = 12;
+		int armorItem = 20;
+		double atkSpdItem = 1;
+		
+		pj.cargaFichaPj(nombrePj, lvl, xp, str, dex, vit, nombreItem, dmgItem, armorItem, atkSpdItem);
+		
 		return pj;
 	}
 
