@@ -85,4 +85,34 @@ public interface FichaDePersonaje {
 	boolean estasMuerto();	
 	void morite();
 	void revivi();
+	
+	/**
+	 * Permite cargar una ficha en base a parametros recibidos, 
+	 * de forma de poder recuperar un PJ ya existente y cargarlo.
+	 * O de crear un personaje con ciertos parametros en lugar de 
+	 * uno nivel 1 generico.
+	 * 
+	 * @param nombre 	Nombre del Personaje
+	 * @param lvl	 	Nivel del Personaje
+	 * @param xp		Experiencia del PJ
+	 * @param str		Atributo Str del PJ
+	 * @param dex		Atributo Dex del PJ
+	 * @param vit		Atributo Vit del PJ
+	 * @param nombreItem	Nombre del item equipado
+	 * @param dmgItem		Dmg del item equipado
+	 * @param armorItem		Armor del item equipado
+	 * @param atkSpdItem	AtkSpd del item Equipado
+	 */
+	void cargaFichaPj(String nombre, 
+			int lvl,
+			int xp,
+			int str, 
+			int dex, 
+			int vit, 
+			String nombreItem,
+			int dmgItem, 
+			int armorItem, 
+			double atkSpdItem);
+	
+	
 }

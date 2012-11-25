@@ -20,4 +20,15 @@ public interface Actor {
 	int dameDmg();
 	double dameAtkSpd();
 	int dameXpPorGolpearte();
+	
+	void cargaFichaPj(String nombre, 
+			int lvl,
+			int xp,
+			int str, 
+			int dex, 
+			int vit, 
+			String nombreItem,
+			int dmgItem, 
+			int armorItem, 
+			double atkSpdItem);
 }

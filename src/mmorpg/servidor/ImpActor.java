@@ -127,5 +127,20 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor{
 	public int dameXpPorGolpearte() {
 		return this.fp.dameXpPorGolpearte();
 	}
+	
+	@Override
+	public void cargaFichaPj(String nombre, 
+			int lvl,
+			int xp,
+			int str, 
+			int dex, 
+			int vit, 
+			String nombreItem,
+			int dmgItem, 
+			int armorItem, 
+			double atkSpdItem){
+		
+		this.fp.cargaFichaPj(nombre, lvl, xp, str, dex, vit, nombreItem, dmgItem, armorItem, atkSpdItem);		
+	}
 
 }
