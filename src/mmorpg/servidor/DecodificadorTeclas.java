@@ -83,7 +83,7 @@ public class DecodificadorTeclas {
 			case 'd': 
 					cmd = new CmdJugadorAccion();
 					cmd.setPj(this.pj);
-					cmd.setAccion(decodificaCharMovedor(c));
+					cmd.setAccion(decodificaCharMovedor(c));					
 					//FIXME ahora habría que mandarle cmd al gestor de comandos.
 				break;
 				
