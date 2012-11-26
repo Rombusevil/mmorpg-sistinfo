@@ -88,6 +88,8 @@ public class __ClienteTest__deprecated extends JFrame{
 			
 			System.out.println(mundo);
 			System.out.println(pj);
+			System.out.println("Nivel"+pj.dameLvl()+" EXP:"+pj.dameXP() );
+			
 			
 			
 			

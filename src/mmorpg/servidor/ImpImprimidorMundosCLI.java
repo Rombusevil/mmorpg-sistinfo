@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpImprimidorMundosCLI implements ImprimidorMundos {
+import java.io.Serializable;
+
+public class ImpImprimidorMundosCLI implements ImprimidorMundos,  Serializable {
 
 	@Override
 	public void imprimi(Mundo mundo) {

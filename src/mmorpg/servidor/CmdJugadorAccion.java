@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class CmdJugadorAccion implements iComando {
+import java.io.Serializable;
+
+public class CmdJugadorAccion implements iComando, Serializable {
 	private AccionEnDireccion aed;
 	private Actor pj;
 	

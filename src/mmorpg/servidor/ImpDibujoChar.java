@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpDibujoChar extends ImpDibujo {
+import java.io.Serializable;
+
+public class ImpDibujoChar extends ImpDibujo implements Serializable {
 	char dibujo;
 	
 	public ImpDibujoChar(char c){

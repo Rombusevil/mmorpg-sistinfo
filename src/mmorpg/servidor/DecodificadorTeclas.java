@@ -1,11 +1,13 @@
 package mmorpg.servidor;
 
+import java.io.Serializable;
+
 import sun.misc.GC;
 
 //La idea es apretar una tecla y no hablar con el jugador, sino crear un paquete ejecutable
 //con el actor y la acción para mandarseló al gestor de comandos.
 
-public class DecodificadorTeclas {
+public class DecodificadorTeclas implements Serializable {
 	private Actor pj;
 	private ProveedorDeEnDireccion pMovedores;
 	private ProveedorDeEnDireccion pAtaques;

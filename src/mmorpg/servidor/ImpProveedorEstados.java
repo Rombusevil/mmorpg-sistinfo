@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpProveedorEstados implements ProveedorEstados {
+import java.io.Serializable;
+
+public class ImpProveedorEstados implements ProveedorEstados,  Serializable {
 	private Estado libre;
 	private Estado inaccesible;
 	

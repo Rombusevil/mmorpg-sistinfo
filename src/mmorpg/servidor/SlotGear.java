@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class SlotGear implements Slot {
+import java.io.Serializable;
+
+public class SlotGear implements Slot, Serializable {
 	
 	
 	ItemEquipable item;

@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpFichaDePersonaje implements FichaDePersonaje {
+import java.io.Serializable;
+
+public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 
 	/* Items Equipados del personaje -> GEAR */
 	Slot gear;

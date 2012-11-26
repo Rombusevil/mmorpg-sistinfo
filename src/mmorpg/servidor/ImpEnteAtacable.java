@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public abstract class ImpEnteAtacable implements Ente {
+import java.io.Serializable;
+
+public abstract class ImpEnteAtacable implements Ente,  Serializable {
 	private Celda posicion;
 	private ImpDibujo dibujo;
 

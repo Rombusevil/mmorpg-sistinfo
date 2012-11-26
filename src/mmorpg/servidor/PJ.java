@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class PJ extends ImpActor {
+import java.io.Serializable;
+
+public class PJ extends ImpActor implements  Serializable {
 	private String usr;
 	private String pass;
 	

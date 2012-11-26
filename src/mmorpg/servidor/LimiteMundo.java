@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class LimiteMundo extends CeldaInaccesible {
+import java.io.Serializable;
+
+public class LimiteMundo extends CeldaInaccesible implements  Serializable {
 
 
 

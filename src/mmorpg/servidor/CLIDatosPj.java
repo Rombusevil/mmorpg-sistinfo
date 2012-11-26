@@ -1,5 +1,7 @@
 package mmorpg.servidor;
 
+import java.io.Serializable;
+
 /**
  * Imprime el nivel de exp. de salud y el Level por consola
  * 
@@ -7,7 +9,7 @@ package mmorpg.servidor;
  *
  */
 
-public class CLIDatosPj implements ImprimidorDatosPj {
+public class CLIDatosPj implements ImprimidorDatosPj, Serializable {
 
 	@Override
 	public void imprimiXP(Actor actor) {

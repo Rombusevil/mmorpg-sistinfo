@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class MainHand implements ItemEquipable {
+import java.io.Serializable;
+
+public class MainHand implements ItemEquipable, Serializable {
 	
 	int dmg;
 	int armor;

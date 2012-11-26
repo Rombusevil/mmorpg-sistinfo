@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class MovedorAbajo implements AccionEnDireccion {
+import java.io.Serializable;
+
+public class MovedorAbajo implements AccionEnDireccion,  Serializable {
 
 	public void actuar(Actor actor){
 		actor.moveteAbajo();

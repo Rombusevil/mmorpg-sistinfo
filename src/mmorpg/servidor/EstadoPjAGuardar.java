@@ -1,12 +1,14 @@
 package mmorpg.servidor;
 
+import java.io.Serializable;
+
 /**
  * Esta clase se usa para que la ficha de personaje la llene con los datos
  * y el DataBaseManager los guarde en la BD
  * @author rombus
  *
  */
-public class EstadoPjAGuardar {
+public class EstadoPjAGuardar implements Serializable {
 	private int dex;
 	private int vit;
 	private int str;

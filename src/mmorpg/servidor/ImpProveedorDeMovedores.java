@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpProveedorDeMovedores implements ProveedorDeEnDireccion {
+import java.io.Serializable;
+
+public class ImpProveedorDeMovedores implements ProveedorDeEnDireccion,  Serializable {
 	private MovedorAbajo abajo;
 	private MovedorArriba arriba;
 	private MovedorDerecha der;

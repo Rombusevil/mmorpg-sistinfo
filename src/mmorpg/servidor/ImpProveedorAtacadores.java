@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpProveedorAtacadores implements ProveedorDeEnDireccion {
+import java.io.Serializable;
+
+public class ImpProveedorAtacadores implements ProveedorDeEnDireccion,  Serializable {
 	private AtacaAbajo abajo;
 	private AtacaArriba arriba;
 	private AtacaDerecha der;

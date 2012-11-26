@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpEnteNoAtacable implements Ente {
+import java.io.Serializable;
+
+public class ImpEnteNoAtacable implements Ente,  Serializable {
 
 	@Override
 	public void sosAtacado(int dmg, int lvlAtacante) {
