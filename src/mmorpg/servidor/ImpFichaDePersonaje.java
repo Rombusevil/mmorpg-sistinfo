@@ -144,9 +144,9 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 
 		this.gear = new SlotGear(); // Inicializado el Gear
 		ItemEquipable armaInicial = new MainHand(10, 50, 1, "Espada de Madera"); // Creo
-																					// el
-																					// arma
-																					// inicial
+																				 // el
+																				 // arma
+																				 // inicial
 		this.getGear().reemplazaItem(armaInicial); // Equipo el arma inicial
 
 		this.setLvl(1); // Empieza en nivel 1
@@ -357,7 +357,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 		this.setXp(xp);
 		this.setStr(str);
 		this.setDex(dex);
-		this.setVit(vit);
+		this.setVit(vit);		
 
 		// Creo un item con los atributos que recibi
 		ItemEquipable item = new MainHand(dmgItem, armorItem, atkSpdItem, nombreItem);

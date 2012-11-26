@@ -23,7 +23,7 @@ public class Launcher {
     public Launcher() {
         String opciones[] = { "Server", "Cliente"};
         
-        JFrame frame = new JFrame("LAUNCHER");	// Crea Frame, titulo ventana
+        final JFrame frame = new JFrame("LAUNCHER");	// Crea Frame, titulo ventana
         JPanel panel = new JPanel();        	//
         combo1 = new JComboBox(opciones);		// Crea un combo con las opciones
         combo1.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));	// Elijo Font
@@ -40,18 +40,21 @@ public class Launcher {
 
         //Acciones del Boton "LAUNCH"
         boton.addActionListener(new ActionListener() {
-            private Server server;
+            private _ServerViejo server;
+            private __ClienteTest__deprecated client;
 
 			public void actionPerformed(ActionEvent e) {
             		opcionElegida = (String) combo1.getSelectedItem();                  
                     /* LLAMA AL SERVER O AL CLIENTE SEGUN CORRESPONDA */                     
                     if (opcionElegida.equals("Server")){
                     	System.out.println("ELIGIO SV");                    	
-                    	this.server = new Server(); 
+                    	this.server = new _ServerViejo(); 
+                    	frame.setVisible(false);
                     }
                     if (opcionElegida.equals("Cliente")){
                     	System.out.println("ELIGIO CL");                    	
-                    	//this.client = new Client();
+                    	this.client = new __ClienteTest__deprecated("127.0.0.1");
+                    	frame.setVisible(false);
                     }                   
             }
         });
