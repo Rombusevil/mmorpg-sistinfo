@@ -71,7 +71,7 @@ public class __ClienteTest__deprecated extends JFrame{
 	// Se conecta al server
 	private void conectarAlServer() throws IOException{
 		mostrarMensaje("Intentando conectar...\n");
-		connection = new Socket(InetAddress.getByName(serverIP), 3333); // IP + Puerto del server
+		connection = new Socket(InetAddress.getByName(serverIP), 3334); // IP + Puerto del server
 		mostrarMensaje("Conexion establecida con: "+ connection.getInetAddress().getHostName());
 		System.out.println("Conexion establecida con: "+ connection.getInetAddress().getHostName());
 	}

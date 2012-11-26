@@ -18,7 +18,9 @@ public class _LauncherConsola {
 //		_ClientChat client;
 		
 		__ClienteTest__deprecated client;
-		_ServerViejo server;
+//		_ServerViejo server;
+		
+		Server s;
 		
 
 		System.out.println("******************************\n");
@@ -32,8 +34,13 @@ public class _LauncherConsola {
 			System.out.println("Ejecutando el Server");
 			
 			
-			server = new _ServerViejo();
-			//server.startRuning();
+			s = new Server();
+			s.mainServer();
+			
+			
+			
+//			server = new _ServerViejo();
+//			server.startRuning();
 			
 //			server = new _ServerChat(); 
 //        	server.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

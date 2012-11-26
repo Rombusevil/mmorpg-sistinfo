@@ -9,7 +9,7 @@ public class DecodificadorTeclas {
 	private Actor pj;
 	private ProveedorDeEnDireccion pMovedores;
 	private ProveedorDeEnDireccion pAtaques;
-	private GestorComandos gestorComandos;
+	private __GestorComandos_deprecated gestorComandos;
 	
 
 	//Si sos server, en la clase sercer tenés todos los proveedores, si sos cliente, los proveedores están acá.
@@ -21,7 +21,7 @@ public class DecodificadorTeclas {
 	 * 
 	 */
 	
-	public DecodificadorTeclas(Actor pj, GestorComandos gc){
+	public DecodificadorTeclas(Actor pj, __GestorComandos_deprecated gc){
 		this.pMovedores = new ImpProveedorDeMovedores();
 		this.pAtaques   = new ImpProveedorAtacadores();
 		this.pj = pj;

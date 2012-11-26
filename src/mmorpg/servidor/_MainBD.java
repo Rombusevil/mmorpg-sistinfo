@@ -9,8 +9,8 @@ package mmorpg.servidor;
 public class _MainBD {
 	
 	public static void main(String[] args){
-//		DataBaseManager dbm = new DataBaseManager("actores");
-//		
+		DataBaseManager dbm = new DataBaseManager("actores");
+		
 //		PJ pj = new PJ();
 //		
 //		pj = (PJ) dbm.levantaPj("pedro", "pedropass");
@@ -20,7 +20,7 @@ public class _MainBD {
 	
 		
 		//Probando la ventana
-			Ventana v = new Ventana(new PJ(), new GestorComandos());
+			Ventana v = new Ventana(new PJ(), new __GestorComandos_deprecated());
 			v.imprimeDatosPj();
 
 		

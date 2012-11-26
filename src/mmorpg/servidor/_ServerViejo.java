@@ -17,8 +17,8 @@ public class _ServerViejo extends JFrame{
 	/* GUI Related */
 	private ImprimidorConexiones gui;
 	
-	private GestorSesiones gestorSesiones;
-	private GestorComandos gestorComandos;
+	private __GestorSesiones__deprecated gestorSesiones;
+	private __GestorComandos_deprecated gestorComandos;
 	
 	/* Sockets Related */
 	private ObjectInputStream in;  	// InputStream, se usa para recibir user y pass
@@ -38,8 +38,8 @@ public class _ServerViejo extends JFrame{
 	
 	/* Constructor */
 	public _ServerViejo(){
-		gestorSesiones = new GestorSesiones();		// Crea el Gestor de Sesiones
-		gestorComandos = new GestorComandos();		// Crea el Gestor de COmandos
+		gestorSesiones = new __GestorSesiones__deprecated();		// Crea el Gestor de Sesiones
+		gestorComandos = new __GestorComandos_deprecated();		// Crea el Gestor de COmandos
 		gui = new ImpImprimidorConexionesJFrame();	// Crea la GUI
 		mundo = new ImpMundo(50, 50, new ImpDibujoImagenVacia()); // TODO Arreglar imagenVacia		
 										//Comienza a escuchar conexiones		
@@ -104,8 +104,8 @@ public class _ServerViejo extends JFrame{
 //		}
 
 
-		this.gestorComandos.addInput(new ObjectInputStream( connection.getInputStream())); // Agrega el inputStream a la lista del GestorComandos
-		this.gestorComandos.addOutput(new ObjectOutputStream ( connection.getOutputStream())); // Agrega el outputStream a la lista del GestorComandos		
+//		this.gestorComandos.addInput(new ObjectInputStream( connection.getInputStream())); // Agrega el inputStream a la lista del GestorComandos
+//		this.gestorComandos.addOutput(new ObjectOutputStream ( connection.getOutputStream())); // Agrega el outputStream a la lista del GestorComandos		
 		
 		//gui.mostrarMensaje("\n Streams configurados \n");	
 		System.out.println("Streams Configurados");
