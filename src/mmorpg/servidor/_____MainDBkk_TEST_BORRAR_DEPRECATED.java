@@ -13,12 +13,12 @@ public class _____MainDBkk_TEST_BORRAR_DEPRECATED {
 		
 		PJ pj = new PJ();
 		
-		pj = (PJ) dbm.levantaPj("iber", "iberpass");
+		pj = (PJ) dbm.levantaPj("pedro", "pedropass");
 		
-		pj.setUsr("lolo");
-		
-		dbm.guardaPj(pj);
-		
+//		pj.setUsr("lolo");
+//		
+//		dbm.guardaPj(pj);
+//		
 		
 		
 	}

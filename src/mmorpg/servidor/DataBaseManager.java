@@ -40,13 +40,16 @@ public class DataBaseManager {
 
 			ResultSet rs = statement.executeQuery("select * from actor where usr = '" + usr + "' and pass = '" + pass + "'");
 
+			pj = new PJ(); //Creo un pj y le cargo los datos de la bd o lo inicializo
+			/*Cargo con usr y pass al pj nuevo*/
+			pj.setUsr(usr);
+			pj.setPass(pass);
+			
 			if (!rs.next()) {
-				//TODO que cuando le pifies cree un pj nuevo
-				//Agregar un método en actor (creo) que cree un pj con todos los atributos 
-				//de nivel uno etc, creo que ya estaba hecho
-				System.out.println("usr o pass incorrectos");
-			} else {
-				pj = new PJ(); //Creo un pj y le cargo los datos de la bd
+				//Cuando ponés datos que no existen en la BD te crea un pj nuevo y lo mete en la BD.
+				guardaPj(pj);
+				System.out.println("Usuario Creado.");
+			} else {				
 				pj.cargaFichaPj(rs.getString("nombre"),
 								rs.getInt("lvl"),
 								rs.getInt("xp"),
@@ -57,8 +60,8 @@ public class DataBaseManager {
 								rs.getInt("dmgItem"),
 								rs.getInt("armorItem"),
 								rs.getDouble("atkSpdItem"));
-				pj.setUsr(usr);
-				pj.setPass(pass);
+				
+				System.out.println("Usuario Recuperado.");
 			}
 
 		} catch (SQLException e) {
@@ -188,8 +191,6 @@ public class DataBaseManager {
 
 
 			String usr, pass;
-			usr = "iber";
-			pass = "iberpass";
 
 			ResultSet rs = statement.executeQuery("select * from actor ");
 
@@ -214,8 +215,6 @@ public class DataBaseManager {
 			}
 
 		} catch (SQLException e) { // if the error message is "out of memory",
-									// //
-
 			System.err.println(e.getMessage());
 		} finally {
 			try {
