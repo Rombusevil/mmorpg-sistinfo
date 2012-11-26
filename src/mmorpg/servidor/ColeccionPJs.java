@@ -1,4 +1,9 @@
 package mmorpg.servidor;
+/**
+ * Alguien usa esto?
+ * @deprecated 
+ *
+ */
 
 public class ColeccionPJs {
 	//TODO hay que usar Mapas, key-value

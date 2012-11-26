@@ -1,6 +1,11 @@
 package mmorpg.servidor;
 
 //FIXME Ahora no usamos más un controladorJugadores. Hacemos todo por objetos comando ejecutables.
+/**
+ * 
+ * @deprecated
+ *
+ */
 
 public interface ControladorJugadores {
 	

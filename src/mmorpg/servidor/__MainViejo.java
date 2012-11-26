@@ -72,7 +72,7 @@ public class __MainViejo {
 		listaDeMoverdores.add(movedorDer);*/
 
 		
-		ControladorTecladoServer Teclado = new ControladorTecladoServer(actor,contJugador);
+		ControladorTeclado Teclado = new ControladorTeclado(actor,contJugador);
 		
 		/** Game Loop **/
 		while(true){//una forma paisana de movimiento en "tiempo real"

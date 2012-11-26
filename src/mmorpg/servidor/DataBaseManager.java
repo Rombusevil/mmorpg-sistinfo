@@ -6,8 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Esta clase tiene los métodos para escribir y leer pj's de BD
+ * Tiene un main para mostrar los datos de la BD por consola. Modificandolo
+ * se pueden agregar tuplas, borrar, etc.
+ * @author rombus
+ *
+ */
+
 public class DataBaseManager {
-	String dbName;
+	String dbName; //Nombre de la BD a conectarse
 
 	public DataBaseManager(String dbName){
 		this.dbName = dbName;
@@ -170,6 +178,7 @@ public class DataBaseManager {
 	
 
 	//Este main se puede usar para crear una bd y cargarle datos.
+	//Actualmente está puesto para que te muestre todos los datos cargados
 	  public static void main(String[] args) throws ClassNotFoundException {
 		// load the sqlite-JDBC driver using the current class loader
 		Class.forName("org.sqlite.JDBC");
