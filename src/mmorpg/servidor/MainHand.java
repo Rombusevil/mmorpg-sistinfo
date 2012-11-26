@@ -10,17 +10,17 @@ public class MainHand implements ItemEquipable {
 	/* IMPLEMENTACIONES DE LA INTERFAZ */
 	@Override
 	public int getDmg() {
-		return this.getDmg();
+		return this.dmg;
 	}
 
 	@Override
 	public int getArmor() {
-		return this.getArmor();
+		return this.armor;
 	}
 
 	@Override
 	public double getAtkSpd() {
-		return this.getAtkSpd();
+		return this.atkSpd;
 	}
 	
 	@Override
