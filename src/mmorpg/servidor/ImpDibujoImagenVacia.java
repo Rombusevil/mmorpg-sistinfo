@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpDibujoImagenVacia extends ImpDibujoVacio{
+import java.io.Serializable;
+
+public class ImpDibujoImagenVacia extends ImpDibujoVacio implements  Serializable{
 
 	@Override
 	public void imprimeDibujo() {
