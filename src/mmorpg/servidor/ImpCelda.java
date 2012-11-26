@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpCelda implements Celda {
+import java.io.Serializable;
+
+public class ImpCelda implements Celda, Serializable {
 	private Estado estado;
 	private Celda celdaArriba;
 	private Celda celdaAbajo;

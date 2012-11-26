@@ -40,20 +40,22 @@ public class Launcher {
 
         //Acciones del Boton "LAUNCH"
         boton.addActionListener(new ActionListener() {
-            private _ServerViejo server;
+            private Server server;
             private __ClienteTest__deprecated client;
 
 			public void actionPerformed(ActionEvent e) {
             		opcionElegida = (String) combo1.getSelectedItem();                  
                     /* LLAMA AL SERVER O AL CLIENTE SEGUN CORRESPONDA */                     
-                    if (opcionElegida.equals("Server")){
-                    	System.out.println("ELIGIO SV");                    	
-                    	this.server = new _ServerViejo(); 
+                    if (opcionElegida.equals("Server")){  
+                    	System.out.println("Server__");
+                    	server = new Server();
+                    	server.mainServer();
                     	frame.setVisible(false);
                     }
-                    if (opcionElegida.equals("Cliente")){
-                    	System.out.println("ELIGIO CL");                    	
-                    	this.client = new __ClienteTest__deprecated("127.0.0.1");
+                    if (opcionElegida.equals("Cliente")){  
+                    	System.out.println("Client__");
+                    	client = new __ClienteTest__deprecated("127.0.0.1");
+                    	client.startRunning();
                     	frame.setVisible(false);
                     }                   
             }

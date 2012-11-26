@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class ImpMundo implements Mundo {
+import java.io.Serializable;
+
+public class ImpMundo implements Mundo, Serializable {
 	private Celda entradaMundo;
 	private Celda[][] mundo;
 	private int alto, ancho;

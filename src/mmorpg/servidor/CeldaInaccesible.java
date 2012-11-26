@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class CeldaInaccesible implements Estado {
+import java.io.Serializable;
+
+public class CeldaInaccesible implements Estado, Serializable {
 
 	public void ocupaCeldaCon(Celda celda, ImpActor actor) {
 		/*

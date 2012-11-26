@@ -1,6 +1,6 @@
 package mmorpg.servidor;
 
-public interface Mundo {
+public interface Mundo{
 	void setEntradaMundo(Celda c);
 	void dimensionar(int alto, int ancho, ImpDibujoVacio vacio);
 	Celda getEntradaMundo();

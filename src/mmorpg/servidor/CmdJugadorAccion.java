@@ -19,4 +19,10 @@ public class CmdJugadorAccion implements iComando {
 		this.aed.actuar(pj);
 	}
 
+	@Override
+	public void mandarComando(iComando cmd) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -29,6 +29,9 @@ public class __ClienteTest__deprecated extends JFrame{
 	private JTextArea textWindow;
 	private JTextField commandLine;	
 	
+	private Mundo mundo;
+	private Actor pj;
+	
 
 	public __ClienteTest__deprecated(String host){
 		super("CLIENTE");
@@ -58,6 +61,37 @@ public class __ClienteTest__deprecated extends JFrame{
 		try{
 			conectarAlServer();
 			setupStreams();
+			
+			//Mando user y pass HxC
+			//FIXME leer esto de un INPUT
+			String usr = "Fito11";
+			String pwd = "FitoPae11";
+			
+			
+			try{
+				out.writeObject(usr);
+				out.flush();
+				out.writeObject(pwd);
+				out.flush();				
+			}catch(IOException e){
+				textWindow.append("ERROR AL ENVIAR USR/PWD, COMANDO NO ENVIADO");
+				e.printStackTrace();
+			}
+			
+			try {
+				mundo = (Mundo) in.readObject();
+				pj = (Actor) in.readObject();
+			} catch (ClassNotFoundException e) {
+				System.out.println("Error recibiendo Mundo y Pj");
+				e.printStackTrace();
+			}
+			
+			System.out.println(mundo);
+			System.out.println(pj);
+			
+			
+			
+			
 			whileRunning();
 		}catch(EOFException e){
 			mostrarMensaje("\n Client terminated connetion."); // Termina la conexion con el server
@@ -71,17 +105,21 @@ public class __ClienteTest__deprecated extends JFrame{
 	// Se conecta al server
 	private void conectarAlServer() throws IOException{
 		mostrarMensaje("Intentando conectar...\n");
-		connection = new Socket(InetAddress.getByName(serverIP), 3334); // IP + Puerto del server
+		connection = new Socket(InetAddress.getByName(serverIP), 3335); // IP + Puerto del server
 		mostrarMensaje("Conexion establecida con: "+ connection.getInetAddress().getHostName());
 		System.out.println("Conexion establecida con: "+ connection.getInetAddress().getHostName());
 	}
 	
 	// Configura los Streams
 	private void setupStreams() throws IOException{
+		System.out.println("Configurando Streams...");
 		out = new ObjectOutputStream(connection.getOutputStream());
-		out.flush();		
+		out.flush();
+		System.out.println("OutStream config");
 		in = new ObjectInputStream(connection.getInputStream());
+		System.out.println("InStream config");
 		mostrarMensaje("Streams configurados");
+		System.out.println("STREAMS CONFIG");
 	}
 	
 	private void whileRunning() throws IOException{

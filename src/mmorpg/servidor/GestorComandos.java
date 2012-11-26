@@ -29,16 +29,18 @@ public class GestorComandos {
 	
 	
 	
-	public void printMap() {
-		Map mp = this.socketList;
-	    Iterator it = mp.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry pairs = (Map.Entry)it.next();
-	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
-	        it.remove(); // avoids a ConcurrentModificationException
-	    }
-	}
+	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/* Getters y Setters */
 	private Map<Actor, Socket> getSocketList() {
@@ -47,6 +49,16 @@ public class GestorComandos {
 
 	private void setSocketList(Map<Actor, Socket> socketList) {
 		this.socketList = socketList;
+	}
+	
+	public void printMap() {
+		Map mp = this.socketList;
+	    Iterator it = mp.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry pairs = (Map.Entry)it.next();
+	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
+	        it.remove(); // avoids a ConcurrentModificationException
+	    }
 	}
 
 }

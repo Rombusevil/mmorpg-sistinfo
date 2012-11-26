@@ -1,8 +1,10 @@
 package mmorpg.servidor;
 
+import java.io.Serializable;
+
 /* El actor cuando se construye tiene que tener una posicion, sino el programa crashea mas adelante */
 
-public abstract class ImpActor extends ImpEnteAtacable implements Actor{
+public abstract class ImpActor extends ImpEnteAtacable implements Actor, Serializable{
 
 	FichaDePersonaje fp;
 	

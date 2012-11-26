@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class CeldaLibre implements Estado {
+import java.io.Serializable;
+
+public class CeldaLibre implements Estado, Serializable {
 
 	//Este es el movedor que tiene la celda.
 	public void ocupaCeldaCon(Celda celda, ImpActor actor) {

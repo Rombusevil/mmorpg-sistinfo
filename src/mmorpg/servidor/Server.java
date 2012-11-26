@@ -16,7 +16,7 @@ import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 public class Server implements Runnable {
 	
 	/* Sockets Related */
-	private int port = 3334;				// Puerto del server
+	private int port = 3335;				// Puerto del server
 	private ServerSocket serverSocket;		// A este socket se conectan los clientes
 	private Socket socket;					// Socket conectado que se envia al GestorSesiones
 	private Object monitor;
@@ -27,11 +27,15 @@ public class Server implements Runnable {
 	private GestorComandos gestorComandos;
 	private DataBaseManager dataBase;
 	
+	private Mundo mundo;
+	
 	public Server(){
 		
 		
 		
 		dataBase = new DataBaseManager("actores"); // Crea la Base de Datos
+		
+		mundo = new ImpMundo(50, 50, new ImpDibujoCharVacio());
 		
 		gestorSesiones = new GestorSesiones();
 		gestorComandos = new GestorComandos();
@@ -87,9 +91,10 @@ public class Server implements Runnable {
 	 */
 	@Override
 	public void run() {		
-		Actor pj = gestorSesiones.initPJ(socket, dataBase);	// Recupera un PJ de la BD
+		Actor pj = gestorSesiones.initPJ(socket, dataBase, mundo);	// Recupera un PJ de la BD
 		gestorComandos.agregarPjSocket(pj, socket);			// Le pasa el PJ y el Socket al gestorComandos y lo agrega al hashMap
 		gestorComandos.printMap();
+		
 		
 	}
 
