@@ -531,4 +531,22 @@ public class ImpFichaDePersonaje implements FichaDePersonaje {
 		this.movSpd = movSpd;
 	}
 
+	//FIXME revisar este mensaje en busca de errores de noob (?)
+	public EstadoPjAGuardar creaEstadoPjAGuardar() {
+		EstadoPjAGuardar estado = new EstadoPjAGuardar();
+		
+		estado.setArmorItem(this.getGear().dameArmorItem());
+		estado.setAtkSpdItem(this.getGear().dameAtkSpdItem());
+		estado.setDmgItem(this.getGear().dameDmgItem());
+		estado.setNombreItem(this.getGear().dameItem().dameNombreItem());
+		estado.setDex(getDex());
+		estado.setLvl(getLvl());
+		estado.setNombre(getNombre());
+		estado.setStr(getStr());
+		estado.setVit(getVit());
+		estado.setXp(getXp());
+		
+		return estado;
+	}
+
 }

@@ -120,4 +120,10 @@ public interface FichaDePersonaje {
 	 */
 	public double dameMovSpd();
 	
+	/**
+	 * Crea un obj con los datos que nos interesan guardar
+	 * en la BD cuando el usuario se desconecta. Esto lo usa DataBaseManager
+	 */
+	public EstadoPjAGuardar creaEstadoPjAGuardar();
+	
 }

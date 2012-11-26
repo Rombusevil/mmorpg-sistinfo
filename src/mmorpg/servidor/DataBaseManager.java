@@ -13,9 +13,17 @@ public class DataBaseManager {
 		this.dbName = dbName;
 	}
 
+
+	/**
+	 * Este método tiene que recibir del cliente el usr y el pass, así crea un pj con esos datos
+	 * restaura todos los atributos viejos y lo devuelve. 
+	 * @param usr
+	 * @param pass
+	 * @return
+	 */
 	public Actor levantaPj(String usr, String pass) {		
 		Connection connection = null;
-		ImpActor pj = null;
+		PJ pj = null; //Voy a guardar un PJ, no un impactor ni un actor. El PJ tiene el usr y pass.
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -34,6 +42,8 @@ public class DataBaseManager {
 
 			if (!rs.next()) {
 				//TODO que cuando le pifies cree un pj nuevo
+				//Agregar un método en actor (creo) que cree un pj con todos los atributos 
+				//de nivel uno etc, creo que ya estaba hecho
 				System.out.println("usr o pass incorrectos");
 			} else {
 				pj = new PJ(); //Creo un pj y le cargo los datos de la bd
@@ -47,7 +57,8 @@ public class DataBaseManager {
 								rs.getInt("dmgItem"),
 								rs.getInt("armorItem"),
 								rs.getDouble("atkSpdItem"));
-				System.out.println("vieja");
+				pj.setUsr(usr);
+				pj.setPass(pass);
 			}
 
 		} catch (SQLException e) {
@@ -67,11 +78,95 @@ public class DataBaseManager {
 	}
 
 	
+
+	/**
+	 * Esta clase guarda el pj en la BD. 
+	 * 
+	 * @param pj Recive un PJ pq guarda el usr y pass
+	 */
+	public void guardaPj(PJ pj){
+		String usr 	= pj.getUsr();
+		String pass = pj.getPass();
+		Connection connection = null;
+		
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e1) {
+			System.out.println("Error cargando driver BD.");
+			e1.printStackTrace();
+		}
+
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:"+dbName+".db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			ResultSet rs = statement.executeQuery("select * from actor where usr = '" + usr + "' and pass = '" + pass + "'");
+			//Agarro el estado que me interesa guardar del pj
+			EstadoPjAGuardar estado = pj.fp.creaEstadoPjAGuardar();
+			
+			if (!rs.next()) {
+			/**Si no existe es pq el pj es nuevo, entonces lo creo**/
+				String sql = "INSERT INTO actor (usr,pass,nombre,lvl,xp,str,dex,vit,nombreItem,dmgItem,armorItem,atkSpdItem)" +
+						"VALUES ('"+usr +"','"+ pass+"',"	+
+						"'" + estado.getNombre() 	+ "'," 	+ 
+						estado.getLvl() + "," +  
+						estado.getXp() 	+ "," + 
+						estado.getStr() + "," + 
+						estado.getDex() + "," + 
+						estado.getVit() + "," + 
+						"'" + estado.getNombreItem()	+"'," + 
+						estado.getDmgItem() 	+ "," + 
+						estado.getArmorItem() 	+ "," + 
+						estado.getAtkSpdItem() 	+ ")";
+					
+				System.out.println(sql);
+					statement.executeUpdate(sql);
+
+			} else {
+				//Si el pj ya existe, hay que updatear la tabla
+				String sql = "UPDATE actor SET usr='" + usr + "', pass='" + pass + "', " +
+						"nombre='" + estado.getNombre() + "' " + 						
+						", lvl=" + estado.getLvl() + 
+						", xp=" + estado.getXp() + 
+						", str =" + estado.getStr() + 
+						", dex=" + estado.getDex() + 
+						", vit=" + estado.getVit() + 
+						", nombreItem='" + estado.getNombreItem()+"' " + 
+						", dmgItem=" + estado.getDmgItem() + 
+						", armorItem=" + estado.getArmorItem() + 
+						", atkSpdItem=" + estado.getAtkSpdItem() +
+						" WHERE usr='"+ usr +"' and pass='"+ pass +"'";
+				
+				System.out.println(sql);
+				statement.executeUpdate(sql);
+				System.out.println("supuestamente guardó tu estado en la BD");
+			}
+
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e);
+			}
+		}
+		
+		
+	}
+
 	
 	
 	
 	
 
+	//Este main se puede usar para crear una bd y cargarle datos.
 	  public static void main(String[] args) throws ClassNotFoundException {
 		// load the sqlite-JDBC driver using the current class loader
 		Class.forName("org.sqlite.JDBC");
@@ -88,12 +183,15 @@ public class DataBaseManager {
 //					"nombreItem string, dmgItem integer, armorItem integer, atkSpdItem integer)");
 //			
 //			statement.executeUpdate("insert into actor values('iber', 'iberpass', 'rofl', 1, 10, 10, 12, 15, 'espada', 20, 22, 30)");
+			
+			
+
 
 			String usr, pass;
 			usr = "iber";
 			pass = "iberpass";
 
-			ResultSet rs = statement.executeQuery("select * from actor where usr = '" + usr + "' and pass = '" + pass + "'");
+			ResultSet rs = statement.executeQuery("select * from actor ");
 
 			if (!rs.next()) {
 				System.out.println("usr o pass incorrectos");
