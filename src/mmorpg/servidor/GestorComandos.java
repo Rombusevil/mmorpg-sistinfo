@@ -100,9 +100,20 @@ public class GestorComandos implements Runnable {
 
 	// Metodo que usa el Cliente para configurar el socket del GestorComandos
 	public void setSocket(Socket skt, ObjectInputStream input, ObjectOutputStream output) {
-		this.socketClientToServer = skt;
-		this.in = input;
-		this.out = output;
+		
+		try {			
+			this.socketClientToServer = skt;
+			this.out = output;
+			this.out.flush();
+			System.out.println("CL - GC outstream.flush()");
+			this.in = input;
+			System.out.println("CL - GC In/Out Streams Configurados");
+		} catch (IOException e) {
+			System.out.println("Cliente - GC Error al configurar in/out streams");
+			e.printStackTrace();
+		}
+		
+		
 //		try {
 //			setupStreams();
 //		} catch (IOException e) {
