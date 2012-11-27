@@ -70,13 +70,13 @@ public class Server implements Runnable, Serializable {
 	}
 	
 	private void esperarConexiones() throws IOException{
-		//synchronized(this.monitor){		
+		synchronized(this.monitor){		
 			socket = serverSocket.accept();
 			System.out.println("Conexion aceptada");
 			//setupStreams();
 			Thread t = new Thread(this);
 			t.start();
-		//}//end monitor		
+		}//end monitor		
 	}
 	
 	private void escucharComandos(){
@@ -120,9 +120,10 @@ public class Server implements Runnable, Serializable {
 	@Override
 	public void run() {		
 
-		Actor pj = gestorSesiones.initPJ(socket, dataBase, mundo);	// Recupera un PJ de la BD	
+		Actor pj = gestorSesiones.initPJ(socket, dataBase, mundo);	// Recupera un PJ de la BD			
+		gestorComandos.agregarPjSocket(pj, socket);	// Le pasa el PJ y el Socket al gestorComandos y lo agrega al hashMap
 		
-		gestorComandos.agregarPjSocket(pj, socket);			// Le pasa el PJ y el Socket al gestorComandos y lo agrega al hashMap
+		System.out.println("\n Te imprimo la lista de PJs:");
 		gestorComandos.printList();
 		
 		

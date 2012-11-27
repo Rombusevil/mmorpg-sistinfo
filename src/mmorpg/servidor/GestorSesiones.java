@@ -77,15 +77,7 @@ public class GestorSesiones {
 		pj.setDibujo(dibujoActor);
 		mundo.poneActorEn( randomInt, randomInt, (ImpActor)pj);
 		
-		mandarMundoPj(mundo, pj);		
-		
-//		try {
-//			input.close();
-//		} catch (IOException e) {
-//			System.out.println("Server GS - Error al cerrar InputStream");
-//			e.printStackTrace();
-//		}
-		
+		mandarMundoPj(mundo, pj);	
 		return pj;
 	}
 

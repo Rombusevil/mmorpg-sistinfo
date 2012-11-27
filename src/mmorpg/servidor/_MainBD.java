@@ -20,8 +20,8 @@ public class _MainBD {
 	
 		
 		//Probando la ventana
-			Ventana v = new Ventana(new PJ(), new GestorComandos());
-			v.imprimeDatosPj();
+			//Ventana v = new Ventana(new PJ(), new GestorComandos());
+			//v.imprimeDatosPj();
 
 		
 		

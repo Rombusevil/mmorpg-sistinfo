@@ -1,6 +1,8 @@
 package mmorpg.servidor;
 
-public class AtacaIzquierda implements AccionEnDireccion {
+import java.io.Serializable;
+
+public class AtacaIzquierda implements AccionEnDireccion, Serializable {
 
 	@Override
 	public void actuar(Actor a) {

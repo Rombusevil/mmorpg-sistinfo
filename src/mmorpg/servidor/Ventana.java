@@ -3,6 +3,8 @@ package mmorpg.servidor;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.Socket;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -21,10 +23,12 @@ public class Ventana extends JFrame implements KeyListener{
 	private DecodificadorTeclas decodificadorTeclas;
 	private JLabel j1;
 	private ImpActor pj; //Es un impActor pq necesitamos que tenga la ficha de personaje.
+	private Socket socketConectado;
 	
-	public Ventana(Actor pj, GestorComandos gc){
+	public Ventana(Actor pj, GestorComandos gc, Socket skt){
+		this.socketConectado = skt;
 		j1= new JLabel("");
-		decodificadorTeclas = new DecodificadorTeclas(pj, gc);
+		decodificadorTeclas = new DecodificadorTeclas(pj, gc, this.socketConectado);
 		addKeyListener(this);
 		
 		this.pj = (ImpActor) pj;

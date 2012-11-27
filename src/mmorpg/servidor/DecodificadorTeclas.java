@@ -1,6 +1,7 @@
 package mmorpg.servidor;
 
 import java.io.Serializable;
+import java.net.Socket;
 
 import sun.misc.GC;
 
@@ -12,6 +13,7 @@ public class DecodificadorTeclas implements Serializable {
 	private ProveedorDeEnDireccion pMovedores;
 	private ProveedorDeEnDireccion pAtaques;
 	private GestorComandos gestorComandos;
+	private Socket socketConectado;
 	
 
 	//Si sos server, en la clase sercer tenés todos los proveedores, si sos cliente, los proveedores están acá.
@@ -23,11 +25,13 @@ public class DecodificadorTeclas implements Serializable {
 	 * 
 	 */
 	
-	public DecodificadorTeclas(Actor pj, GestorComandos gc){
+	public DecodificadorTeclas(Actor pj, GestorComandos gc, Socket socket){
+		this.socketConectado = socket;
 		this.pMovedores = new ImpProveedorDeMovedores();
 		this.pAtaques   = new ImpProveedorAtacadores();
 		this.pj = pj;
 		this.gestorComandos = gc;
+		
 	}
 	
 	
@@ -85,7 +89,7 @@ public class DecodificadorTeclas implements Serializable {
 					cmd.setPj(this.pj);
 					cmd.setAccion(decodificaCharMovedor(c));
 					//Mando el comando al gestor para que haga todo lo que 
-					gestorComandos.mandarComando(cmd);
+					gestorComandos.mandarComando(cmd, this.socketConectado);
 
 				break;
 				
@@ -98,7 +102,7 @@ public class DecodificadorTeclas implements Serializable {
 					cmd.setPj(this.pj);
 					cmd.setAccion(decodificaCharAtaque(c));
 					//Mando el comando al gestor para que haga todo lo que 
-					gestorComandos.mandarComando(cmd);			
+					gestorComandos.mandarComando(cmd, this.socketConectado);			
 				break;
 		}
 	}

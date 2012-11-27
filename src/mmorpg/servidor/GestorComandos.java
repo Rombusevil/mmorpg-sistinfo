@@ -45,18 +45,26 @@ public class GestorComandos implements Runnable {
 				while (it.hasNext()) {
 					try {
 						Socket skt = it.next();
-						in = new ObjectInputStream(skt.getInputStream());
+						ObjectInputStream in = new ObjectInputStream(skt.getInputStream());
 						iComando cmd = (iComando) in.readObject();
+												
 						Actor pjDelComando = cmd.getPj();
 
 						Iterator<Actor> it2 = this.getPjList().iterator();
 						while (it2.hasNext()) {
 							Actor pjDeLaLista = it2.next();
-							if (pjDeLaLista.equals(pjDelComando)) {
+							
+							System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
+							System.out.println("PJ DEL COMANDO:"+pjDelComando);							
+							System.out.println("COMPARACION: "+ (  ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())   ));
+							
+							if (   ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())  ) {
+								System.out.println("ENTRE A EJECUTAR A TU VIEJA");
 								cmd.setPj(pjDeLaLista);
 								cmd.ejecutate();
 							}
 						}
+						
 
 						// if si es server
 						// forwardearComando(cmd);
@@ -80,16 +88,17 @@ public class GestorComandos implements Runnable {
 	// Agrega un PJ a la lista de PJs para forwardear
 	public void agregarPjSocket(Actor pj, Socket socket) {
 		listMonitor = new Object();
-		//synchronized (this.listMonitor) {
+		synchronized (this.listMonitor) {
 			this.getPjList().add(pj);
 			this.getSocketList().add(socket);
-			System.out.println("Estoy adentro del agregarpjsocket"+socket);
-		//}
+			System.out.println(" Server - GC - Estoy agregando un PJ y un Socket a la lista");
+		}
 	}
 
 	// Metodo que usa el cliente para enviar un comando al server
-	public void mandarComando(iComando cmd) {
+	public void mandarComando(iComando cmd, Socket socket) {
 		try {
+			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 			out.writeObject(cmd);
 			out.flush();
 		} catch (IOException e) {
@@ -105,7 +114,6 @@ public class GestorComandos implements Runnable {
 			this.socketClientToServer = skt;
 			this.out = output;
 			this.out.flush();
-			System.out.println("CL - GC outstream.flush()");
 			this.in = input;
 			System.out.println("CL - GC In/Out Streams Configurados");
 		} catch (IOException e) {
@@ -165,7 +173,7 @@ public class GestorComandos implements Runnable {
 		Iterator<Socket> it2 = this.getSocketList().iterator();
 		while (it2.hasNext()) {
 			Socket s = it2.next();
-			System.out.println("PJ Lista:" + s);
+			System.out.println("PJ Socket:" + s);
 		}
 
 	}
