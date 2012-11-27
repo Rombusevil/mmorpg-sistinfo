@@ -80,9 +80,11 @@ public class Server implements Runnable, Serializable {
 	}
 	
 	private void escucharComandos(){
-		System.out.println("Estoy escuchando comandos");
+		System.out.println("SV - GC - Estoy escuchando comandos");
 		Thread t = new Thread(gestorComandos);
-		t.start();		
+		t.start();
+		
+		
 	}
 	
 	

@@ -91,7 +91,11 @@ public class GestorComandos implements Runnable {
 		synchronized (this.listMonitor) {
 			this.getPjList().add(pj);
 			this.getSocketList().add(socket);
-			System.out.println(" Server - GC - Estoy agregando un PJ y un Socket a la lista");
+			System.out.println(" Server - GC - Agregado un PJ y un Socket a la lista");
+			
+			
+			 
+			
 		}
 	}
 
