@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Random;
 
 public class GestorSesiones {
 
@@ -15,22 +16,26 @@ public class GestorSesiones {
 		
 	}
 	
-	
-	
-	public void mandarMundoPj(Mundo mundo, Actor pj){
+	public void mandarMundoPj(Mundo mundo, Actor pj){		
 		
 		try {
-			output.writeObject(mundo);
 			output.writeObject(pj);
+			output.flush();
 		} catch (IOException e) {
-			System.out.println("Error al enviar Mundo y Pj");
+			System.out.println("Error al enviar Pj");
 			e.printStackTrace();
 		}
 		
-		
+		try {
+			output.writeObject(mundo);
+			output.flush();
+		} catch (IOException e) {
+			System.out.println("Error al enviar Mundo");
+			e.printStackTrace();
+		}	
 	}
 	
-	
+		
 	
 	
 	
@@ -59,10 +64,27 @@ public class GestorSesiones {
 		} catch (IOException e) {
 			System.out.println("Error IOException");
 			e.printStackTrace();
-		}	
+		}
 		
-		Actor pj = db.levantaPj(usr, pass);
+		
+		
+		ImpActor pj = (ImpActor) db.levantaPj(usr, pass);
+		ImpDibujo dibujoActor = new ImpDibujoChar('X');
+		
+		Random randomGenerator = new Random();
+		int randomInt = randomGenerator.nextInt(8);
+		
+		pj.setDibujo(dibujoActor);
+		mundo.poneActorEn( randomInt, randomInt, (ImpActor)pj);
+		
 		mandarMundoPj(mundo, pj);		
+		
+//		try {
+//			input.close();
+//		} catch (IOException e) {
+//			System.out.println("Server GS - Error al cerrar InputStream");
+//			e.printStackTrace();
+//		}
 		
 		return pj;
 	}

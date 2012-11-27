@@ -6,4 +6,5 @@ public interface iComando {
 	void setPj(Actor a);
 	void setAccion(AccionEnDireccion aed);
 	void mandarComando(iComando cmd);
+	Actor getPj();
 }

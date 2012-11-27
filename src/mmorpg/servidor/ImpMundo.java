@@ -117,6 +117,6 @@ public class ImpMundo implements Mundo, Serializable {
 	
 	public int getAncho(){
 		return this.ancho;
-	}	
+	}
 
 }

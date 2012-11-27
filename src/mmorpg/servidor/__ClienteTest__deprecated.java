@@ -29,9 +29,13 @@ public class __ClienteTest__deprecated extends JFrame{
 	private JTextArea textWindow;
 	private JTextField commandLine;	
 	
-	private Mundo mundo;
+	private ImpMundo mundo;
 	private Actor pj;
 	
+	private Ventana ventana;
+	private GestorComandos gc;
+	private Boolean isRunning = true;
+	ImpImprimidorMundosCLI imprimidor;
 
 	public __ClienteTest__deprecated(String host){
 		super("CLIENTE");
@@ -52,8 +56,10 @@ public class __ClienteTest__deprecated extends JFrame{
 		textWindow = new JTextArea();
 		add(new JScrollPane(textWindow), BorderLayout.CENTER);
 		setSize(400,400);
-		setVisible(true);	
-		// FIN VENTANA					
+		setVisible(false);	
+		// FIN VENTANA			
+		
+		gc = new GestorComandos();
 	}
 
 	// Conecta al server
@@ -64,8 +70,8 @@ public class __ClienteTest__deprecated extends JFrame{
 			
 			//Mando user y pass HxC
 			//FIXME leer esto de un INPUT
-			String usr = "Fito11";
-			String pwd = "FitoPae11";
+			String usr = "Fito112";
+			String pwd = "FitoPae112";
 			
 			
 			try{
@@ -79,17 +85,24 @@ public class __ClienteTest__deprecated extends JFrame{
 			}
 			
 			try {
-				mundo = (Mundo) in.readObject();
-				pj = (Actor) in.readObject();
+				pj = (Actor) in.readObject();				
+				mundo = (ImpMundo) in.readObject();				
 			} catch (ClassNotFoundException e) {
 				System.out.println("Error recibiendo Mundo y Pj");
 				e.printStackTrace();
 			}
 			
+			
+			gc.setSocket(connection, in, out);
+			
+			ventana = new Ventana(pj, gc);
+			
+			
 			System.out.println(mundo);
 			System.out.println(pj);
-			System.out.println("Nivel"+pj.dameLvl()+" EXP:"+pj.dameXP() );
+			System.out.println("Nivel"+pj.dameLvl()+" EXP:"+pj.dameXP());
 			
+			imprimidor = new ImpImprimidorMundosCLI();
 			
 			
 			
@@ -104,6 +117,26 @@ public class __ClienteTest__deprecated extends JFrame{
 		}		
 	}
 	
+	
+	
+	
+	
+	//Main loop
+	private void whileRunning() throws IOException{
+		imprimidor.imprimi(mundo);
+		do{
+			
+			ventana.imprimeDatosPj();
+			
+			//ClearScreen
+			//Runtime.getRuntime().exec("cls");
+			//Runtime.getRuntime().exec("clear");
+			
+		}while(isRunning);
+	}
+	
+	
+	
 	// Se conecta al server
 	private void conectarAlServer() throws IOException{
 		mostrarMensaje("Intentando conectar...\n");
@@ -114,27 +147,15 @@ public class __ClienteTest__deprecated extends JFrame{
 	
 	// Configura los Streams
 	private void setupStreams() throws IOException{
-		System.out.println("Configurando Streams...");
+		System.out.println("Cliente - Configurando Streams...");
 		out = new ObjectOutputStream(connection.getOutputStream());
-		out.flush();
-		System.out.println("OutStream config");
+		System.out.println("Cliente - Outstream configurado");
+		//out.flush();
 		in = new ObjectInputStream(connection.getInputStream());
-		System.out.println("InStream config");
-		mostrarMensaje("Streams configurados");
-		System.out.println("STREAMS CONFIG");
+		System.out.println("Cliente - Streams configurados");
 	}
 	
-	private void whileRunning() throws IOException{
-		do{
-			try{
-				msg = (String) in.readObject(); // recibe comando (en este caso lee un string)
-				mostrarMensaje("\n" + msg); 		// ejecuta un comando (en este caso escribe el string en la guia)
-			}catch(ClassNotFoundException e){
-				e.printStackTrace();
-				mostrarMensaje("No conozco ese comando\n");
-			}			
-		}while(!msg.equals("END"));
-	}
+	
 	
 	private void cerrarConexion(){
 		try{

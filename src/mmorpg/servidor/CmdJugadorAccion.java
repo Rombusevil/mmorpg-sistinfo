@@ -11,6 +11,10 @@ public class CmdJugadorAccion implements iComando, Serializable {
 		this.pj = a;
 	}
 	
+	public Actor getPj(){
+		return pj;
+	}
+	
 	public void setAccion(AccionEnDireccion aed){
 		this.aed = aed;
 	}

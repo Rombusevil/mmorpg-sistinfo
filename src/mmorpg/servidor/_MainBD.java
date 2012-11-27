@@ -20,7 +20,7 @@ public class _MainBD {
 	
 		
 		//Probando la ventana
-			Ventana v = new Ventana(new PJ(), new __GestorComandos_deprecated());
+			Ventana v = new Ventana(new PJ(), new GestorComandos());
 			v.imprimeDatosPj();
 
 		

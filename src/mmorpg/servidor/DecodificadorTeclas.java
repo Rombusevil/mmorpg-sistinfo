@@ -11,7 +11,7 @@ public class DecodificadorTeclas implements Serializable {
 	private Actor pj;
 	private ProveedorDeEnDireccion pMovedores;
 	private ProveedorDeEnDireccion pAtaques;
-	private __GestorComandos_deprecated gestorComandos;
+	private GestorComandos gestorComandos;
 	
 
 	//Si sos server, en la clase sercer tenés todos los proveedores, si sos cliente, los proveedores están acá.
@@ -23,7 +23,7 @@ public class DecodificadorTeclas implements Serializable {
 	 * 
 	 */
 	
-	public DecodificadorTeclas(Actor pj, __GestorComandos_deprecated gc){
+	public DecodificadorTeclas(Actor pj, GestorComandos gc){
 		this.pMovedores = new ImpProveedorDeMovedores();
 		this.pAtaques   = new ImpProveedorAtacadores();
 		this.pj = pj;

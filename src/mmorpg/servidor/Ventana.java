@@ -22,7 +22,7 @@ public class Ventana extends JFrame implements KeyListener{
 	private JLabel j1;
 	private ImpActor pj; //Es un impActor pq necesitamos que tenga la ficha de personaje.
 	
-	public Ventana(Actor pj, __GestorComandos_deprecated gc){
+	public Ventana(Actor pj, GestorComandos gc){
 		j1= new JLabel("");
 		decodificadorTeclas = new DecodificadorTeclas(pj, gc);
 		addKeyListener(this);
