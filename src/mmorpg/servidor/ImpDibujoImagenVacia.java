@@ -10,4 +10,11 @@ public class ImpDibujoImagenVacia extends ImpDibujoVacio implements  Serializabl
 
 	}
 
+	@Override
+	public char getChar() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+
 }

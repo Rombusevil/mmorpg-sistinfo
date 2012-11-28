@@ -9,4 +9,11 @@ public class ImpDibujoCharVacio extends ImpDibujoVacio implements Serializable {
 		System.out.print(" ");
 	}
 
+	@Override
+	public char getChar() {
+		
+		
+		return ' ';
+	}
+
 }

@@ -1,6 +1,7 @@
 package mmorpg.servidor;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.Socket;
@@ -33,6 +34,7 @@ public class Ventana extends JFrame implements KeyListener{
 		
 		this.pj = (ImpActor) pj;
 		
+		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		add(j1,BorderLayout.NORTH);
 		setSize(550,120);
@@ -45,19 +47,7 @@ public class Ventana extends JFrame implements KeyListener{
 	 */
 	public void imprimeDatosPj(){
 		EstadoPjAGuardar estado = pj.fp.creaEstadoPjAGuardar();
-		
-		/*
-		<table border="1">
-		<tr>
-		<td>row 1, cell 1</td>
-		<td>row 1, cell 2</td>
-		</tr>
-		<tr>
-		<td>row 2, cell 1</td>
-		<td>row 2, cell 2</td>
-		</tr>
-		</table> 
-		*/
+
 		
 		String datosPj = 
 				"<HTML> <table border='1'" +
@@ -91,11 +81,14 @@ public class Ventana extends JFrame implements KeyListener{
 				"Armadura: "+ estado.getArmorItem() 	+"  " +
 				"</td><td>"+
 				"Vel. Ataque: "+ estado.getAtkSpdItem()+"  " +
-				"</td></tr>" +
-				"</HTML>";
+				"</td></tr>"; //+
+				//"</HTML>";
 		
 		j1.setText(datosPj);
 		
+	}
+	public void imprimiMundo(String mundo){
+		j1.setText(j1.getText()+mundo+"</html>"); 
 	}
 
 	public void keyPressed(KeyEvent tecla) {

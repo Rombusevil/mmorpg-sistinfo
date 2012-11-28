@@ -38,9 +38,11 @@ public class __ClienteTest__deprecated extends JFrame{
 	private GestorComandos gc;
 	private Boolean isRunning = true;
 	ImpImprimidorMundosCLI imprimidor;
+	ImpImprimidorMundosCLIJframe impJframe;
 
 	public __ClienteTest__deprecated(String host){		
 		serverIP = host;			
+
 		gc = new GestorComandos(false);
 	}
 
@@ -101,7 +103,11 @@ public class __ClienteTest__deprecated extends JFrame{
 			System.out.println(pj);
 			System.out.println("Nivel"+pj.dameLvl()+" EXP:"+pj.dameXP());
 			
-			imprimidor = new ImpImprimidorMundosCLI();			
+
+			imprimidor = new ImpImprimidorMundosCLI();
+			impJframe = new ImpImprimidorMundosCLIJframe();
+			
+
 			
 			
 			whileRunning();
@@ -124,16 +130,17 @@ public class __ClienteTest__deprecated extends JFrame{
 		escucharComandos();
 		
 		do{
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				System.out.println("error en el sleep :S");
-				e.printStackTrace();
-			}
-			agregarNuevosJugadores();
-			imprimidor.imprimi(mundo);
 			ventana.imprimeDatosPj();
 			
+			ventana.imprimiMundo(impJframe.dameMundoString(mundo));
+			agregarNuevosJugadores();
+			/*
+			try {
+				Thread.sleep(30);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
 			
 			//ClearScreen
 			//Runtime.getRuntime().exec("cls");

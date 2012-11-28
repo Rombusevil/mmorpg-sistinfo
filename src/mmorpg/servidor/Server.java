@@ -98,7 +98,8 @@ public class Server implements Runnable, Serializable {
 	 */
 	@Override
 	public void run() {	
-		Actor pj = gestorSesiones.initPJ(socket, dataBase, mundo);	// Recupera un PJ de la BD			
+		Actor pj = gestorSesiones.initPJ(socket, dataBase, mundo);	// Recupera un PJ de la BD
+		
 		gestorComandos.agregarPjSocket(pj, socket);	// Le pasa el PJ y el Socket al gestorComandos y lo agrega a las 2 listas
 		
 		System.out.println("\n Te imprimo la lista de Sockets y PJs:");

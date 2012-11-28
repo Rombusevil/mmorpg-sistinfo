@@ -117,6 +117,9 @@ public class ImpCelda implements Celda, Serializable {
 	public void imprimite() {
 		this.getDibujo().imprimeDibujo();
 	}
+	public void damePjCli(){
+		this.getDibujo().getChar();
+	}
 	
 	public Ente getEnte(){
 		return this.ente;
