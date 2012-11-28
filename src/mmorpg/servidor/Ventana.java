@@ -37,7 +37,7 @@ public class Ventana extends JFrame implements KeyListener{
 		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		add(j1,BorderLayout.NORTH);
-		setSize(550,120);
+		setSize(800,800);
 		setVisible(true);
 		setFocusable(true);
 	}
