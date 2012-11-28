@@ -43,23 +43,25 @@ public class GestorComandos implements Runnable {
 				while (it.hasNext()) {
 					try {
 						Socket skt = it.next();
-						in = new ObjectInputStream(skt.getInputStream());	
-						// si metemos un if(in.avaiable() > 0 )  muere todo
-						iComando cmd = (iComando) in.readObject();												
-						Actor pjDelComando = cmd.getPj();
-
-						Iterator<Actor> it2 = this.getPjList().iterator();	// Recorro la lista de PJs
-						while (it2.hasNext()) {								// Para comparar el PJ que vino en el cmd
-							Actor pjDeLaLista = it2.next();					// Con algun PJ de la Lista
-							
-							System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
-							System.out.println("PJ DEL COMANDO:"+pjDelComando);							
-							System.out.println("COMPARACION: "+ (  ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())   ));
-							
-							if (   ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())  ) {
-								System.out.println("ENTRE A EJECUTAR A TU VIEJA");
-								cmd.setPj(pjDeLaLista);
-								cmd.ejecutate();
+						if(skt.getInputStream().available() > 0){
+							in = new ObjectInputStream(skt.getInputStream());	
+							// si metemos un if(in.avaiable() > 0 )  muere todo
+							iComando cmd = (iComando) in.readObject();												
+							Actor pjDelComando = cmd.getPj();
+	
+							Iterator<Actor> it2 = this.getPjList().iterator();	// Recorro la lista de PJs
+							while (it2.hasNext()) {								// Para comparar el PJ que vino en el cmd
+								Actor pjDeLaLista = it2.next();					// Con algun PJ de la Lista
+								
+								System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
+								System.out.println("PJ DEL COMANDO:"+pjDelComando);							
+								System.out.println("COMPARACION: "+ (  ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())   ));
+								
+								if (   ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())  ) {
+									System.out.println("ENTRE A EJECUTAR A TU VIEJA");
+									cmd.setPj(pjDeLaLista);
+									cmd.ejecutate();
+								}
 							}
 						}
 						// if si es server
@@ -86,12 +88,13 @@ public class GestorComandos implements Runnable {
 
 	// Agrega un PJ a la lista de PJs para forwardear
 	public void agregarPjSocket(Actor pj, Socket socket) {
+		
 		listMonitor = new Object();
-		synchronized (this.listMonitor) {
+//		synchronized (this.listMonitor) {
 			this.getPjList().add(pj);
 			this.getSocketList().add(socket);
 			System.out.println(" Server - GC - Agregado un PJ, Socket, OIS a la lista");
-		}
+//		}
 	}
 
 	// Metodo que usa el cliente para enviar un comando al server
