@@ -43,7 +43,7 @@ public class Server implements Runnable, Serializable {
 		mundo = new ImpMundo(8, 8, new ImpDibujoCharVacio());
 		
 		gestorSesiones = new GestorSesiones();
-		gestorComandos = new GestorComandos();
+		gestorComandos = new GestorComandos(true);
 			
 	}
 	

@@ -22,14 +22,16 @@ public class GestorComandos implements Runnable {
 	//Estan bien usados los monitores?? y los synchronized¿?
 	private Object listMonitor; // Este monitor funcaba
 	private Object monitor;
+	private Boolean server; 	//Si es server forwardea comandos
 	
 
 	/* Constructor */
-	public GestorComandos() {
+	public GestorComandos(Boolean server) {
 		socketList = new ArrayList<Socket>();   // init lista de sockets
 		pjList = new LinkedList<Actor>();		// init lista de pjs
 		listMonitor = new Object();
 		monitor = new Object();
+		this.server = server;
 	}
 
 	// Escucha comandos
@@ -38,7 +40,8 @@ public class GestorComandos implements Runnable {
 		while (true) {
 			synchronized (this.listMonitor) {
 				Iterator <Socket>it = this.getSocketList().iterator(); // Iterador de sockets
-				ObjectInputStream in = null;														
+				ObjectInputStream in = null;
+				iComando cmd = null;
 				
 				while (it.hasNext()) {
 					try {
@@ -46,7 +49,7 @@ public class GestorComandos implements Runnable {
 						if(skt.getInputStream().available() > 0){
 							in = new ObjectInputStream(skt.getInputStream());	
 							// si metemos un if(in.avaiable() > 0 )  muere todo
-							iComando cmd = (iComando) in.readObject();												
+							cmd = (iComando) in.readObject();												
 							Actor pjDelComando = cmd.getPj();
 	
 							Iterator<Actor> it2 = this.getPjList().iterator();	// Recorro la lista de PJs
@@ -60,12 +63,25 @@ public class GestorComandos implements Runnable {
 								if (   ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())  ) {
 									System.out.println("ENTRE A EJECUTAR A TU VIEJA");
 									cmd.setPj(pjDeLaLista);
-									cmd.ejecutate();
+									cmd.ejecutate();									
 								}
 							}
 						}
+						
 						// if si es server
 						// Hacer--->forwardearComando(cmd);
+						if(server){
+							Iterator <Socket>itForward =this.getSocketList().iterator();
+							ObjectOutputStream out = null;
+							
+							while(itForward.hasNext()){
+								Socket sktForward = itForward.next();
+								out = new ObjectOutputStream(sktForward.getOutputStream());
+								out.writeObject(cmd);
+								out.flush();
+							}
+						}
+						
 						Thread.sleep(10);
 					} catch (RuntimeException e) {
 						it.remove();	// Si falla algo (cliente desconectado), remuevo el cliente del iterador

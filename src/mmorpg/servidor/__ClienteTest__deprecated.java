@@ -60,7 +60,7 @@ public class __ClienteTest__deprecated extends JFrame{
 		setVisible(false);	
 		// FIN VENTANA			
 		
-		gc = new GestorComandos();
+		gc = new GestorComandos(false);
 	}
 
 	// Conecta al server
@@ -104,7 +104,8 @@ public class __ClienteTest__deprecated extends JFrame{
 			}
 			
 			
-			//gc.setSocket(connection, in, out);
+			gc.agregarPjSocket(pj,connection);	
+			
 			
 			ventana = new Ventana(pj, gc, connection);
 			
@@ -133,17 +134,27 @@ public class __ClienteTest__deprecated extends JFrame{
 	
 	
 	//Main loop
-	private void whileRunning() throws IOException{
-		imprimidor.imprimi(mundo);
+	private void whileRunning() throws IOException{		
+		escucharComandos();
 		do{
-			
+			imprimidor.imprimi(mundo);
 			ventana.imprimeDatosPj();
+			
 			
 			//ClearScreen
 			//Runtime.getRuntime().exec("cls");
 			//Runtime.getRuntime().exec("clear");
 			
 		}while(isRunning);
+	}
+	
+	/**
+	 * Inicia el run() del GestorComandos
+	 */
+	private void escucharComandos(){
+//		System.out.println("SV - GC - Estoy escuchando comandos");
+		Thread t = new Thread(gc);
+		t.start();		
 	}
 	
 	
