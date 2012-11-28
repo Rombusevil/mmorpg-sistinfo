@@ -41,16 +41,18 @@ public class GestorComandos implements Runnable {
 			synchronized (this.listMonitor) {
 				Iterator <Socket>it = this.getSocketList().iterator(); // Iterador de sockets
 				ObjectInputStream in = null;
-				iComando cmd = null;
+				iComando cmd = null;				
 				
 				while (it.hasNext()) {
+					Boolean sendComando = false;
 					try {
 						Socket skt = it.next();
 						if(skt.getInputStream().available() > 0){
 							in = new ObjectInputStream(skt.getInputStream());	
 							// si metemos un if(in.avaiable() > 0 )  muere todo
-							cmd = (iComando) in.readObject();												
+							cmd = (iComando) in.readObject();
 							Actor pjDelComando = cmd.getPj();
+							sendComando = true;
 	
 							Iterator<Actor> it2 = this.getPjList().iterator();	// Recorro la lista de PJs
 							while (it2.hasNext()) {								// Para comparar el PJ que vino en el cmd
@@ -70,7 +72,7 @@ public class GestorComandos implements Runnable {
 						
 						// if si es server
 						// Hacer--->forwardearComando(cmd);
-						if(server){
+						if(server && sendComando){
 							Iterator <Socket>itForward =this.getSocketList().iterator();
 							ObjectOutputStream out = null;
 							

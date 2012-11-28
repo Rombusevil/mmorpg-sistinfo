@@ -136,6 +136,7 @@ public class __ClienteTest__deprecated extends JFrame{
 	//Main loop
 	private void whileRunning() throws IOException{		
 		escucharComandos();
+		
 		do{
 			imprimidor.imprimi(mundo);
 			ventana.imprimeDatosPj();
