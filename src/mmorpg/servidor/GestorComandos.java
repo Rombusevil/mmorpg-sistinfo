@@ -18,22 +18,15 @@ public class GestorComandos implements Runnable {
 	private List<Socket> socketList;	// Esta lista la usa el server para hablar
 										// con los clientes, forwardeando
 	private List<Actor> pjList;
-	private List<ObjectInputStream> oisList;
-
+	
+	//Estan bien usados los monitores?? y los synchronized¿?
 	private Object listMonitor; // Este monitor funcaba
-
 	private Object monitor;
-	private ObjectInputStream in;
-	private ObjectOutputStream out;
-	private Socket socketClientToServer;	// Esto lo usa el cliente para hablar
-											// con el server
-											// mediante mandaComando()
+	
 
 	/* Constructor */
 	public GestorComandos() {
-		
-		oisList = new ArrayList<ObjectInputStream>();
-		socketList = new ArrayList<Socket>();  // init lista de sockets
+		socketList = new ArrayList<Socket>();   // init lista de sockets
 		pjList = new LinkedList<Actor>();		// init lista de pjs
 		listMonitor = new Object();
 		monitor = new Object();
@@ -50,52 +43,40 @@ public class GestorComandos implements Runnable {
 				while (it.hasNext()) {
 					try {
 						Socket skt = it.next();
-						in = new ObjectInputStream(skt.getInputStream());
-						
-						if ( in.available() > 0 ){	
-	//						for(int i = 0; i < this.socketList.size(); i++){
-	//							if(this.socketList.get(i).equals(skt)){
-	//								in = this.oisList.get(i);
-	//								in = new ObjectInputStream(socketList.get(i).getInputStream());								
-	//							}							
-	//						}
+						in = new ObjectInputStream(skt.getInputStream());	
+						// si metemos un if(in.avaiable() > 0 )  muere todo
+						iComando cmd = (iComando) in.readObject();												
+						Actor pjDelComando = cmd.getPj();
+
+						Iterator<Actor> it2 = this.getPjList().iterator();	// Recorro la lista de PJs
+						while (it2.hasNext()) {								// Para comparar el PJ que vino en el cmd
+							Actor pjDeLaLista = it2.next();					// Con algun PJ de la Lista
 							
-							//ObjectInputStream in = this.oisList.get(index);
-							//ObjectInputStream in = new ObjectInputStream(skt.getInputStream());
+							System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
+							System.out.println("PJ DEL COMANDO:"+pjDelComando);							
+							System.out.println("COMPARACION: "+ (  ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())   ));
 							
-							iComando cmd = (iComando) in.readObject();
-													
-							Actor pjDelComando = cmd.getPj();
-	
-							Iterator<Actor> it2 = this.getPjList().iterator();
-							while (it2.hasNext()) {
-								Actor pjDeLaLista = it2.next();
-								
-								System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
-								System.out.println("PJ DEL COMANDO:"+pjDelComando);							
-								System.out.println("COMPARACION: "+ (  ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())   ));
-								
-								if (   ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())  ) {
-									System.out.println("ENTRE A EJECUTAR A TU VIEJA");
-									cmd.setPj(pjDeLaLista);
-									cmd.ejecutate();
-								}
+							if (   ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())  ) {
+								System.out.println("ENTRE A EJECUTAR A TU VIEJA");
+								cmd.setPj(pjDeLaLista);
+								cmd.ejecutate();
 							}
 						}
-						
-
 						// if si es server
-						// forwardearComando(cmd);
+						// Hacer--->forwardearComando(cmd);
 						Thread.sleep(10);
 					} catch (RuntimeException e) {
-						it.remove();	// Si falla algo (cliente desconectado),
-										// remuevo el cliente del iterador
+						it.remove();	// Si falla algo (cliente desconectado), remuevo el cliente del iterador
+						System.out.println("GC - RuntimeException it.remove()");
 						e.printStackTrace();
 					} catch (InterruptedException e) {
+						System.out.println("GC -  InterruptedException (Thread)");
 						e.printStackTrace();	// Si falla el thread
 					} catch (ClassNotFoundException e) {
+						System.out.println("GC - ClassNotFoundException, readObject()");
 						e.printStackTrace();	// Si falla el in.readObject()
 					} catch (IOException e) {
+						System.out.println("GC - IOException");
 						e.printStackTrace();
 					}
 				}// end iterator
@@ -107,21 +88,9 @@ public class GestorComandos implements Runnable {
 	public void agregarPjSocket(Actor pj, Socket socket) {
 		listMonitor = new Object();
 		synchronized (this.listMonitor) {
-			
-			try {
-				ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-				this.oisList.add(inputStream);
-			} catch (IOException e) {
-				System.out.println("No pude crear un inputstream para agregar a la lista");
-				e.printStackTrace();
-			}			
 			this.getPjList().add(pj);
 			this.getSocketList().add(socket);
 			System.out.println(" Server - GC - Agregado un PJ, Socket, OIS a la lista");
-			
-			
-			 
-			
 		}
 	}
 
@@ -130,48 +99,12 @@ public class GestorComandos implements Runnable {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 			out.writeObject(cmd);
-			out.flush();
+			out.flush();    // <--- Si saco este flush, agrega el PJ a la lista al conectar
+							// si lo dejo, lo agrega al recibir un comando del PJ, antes no.
 		} catch (IOException e) {
 			System.out.println("Error al mandarComando(cmd)");
 			e.printStackTrace();
 		}
-	}
-
-	// Metodo que usa el Cliente para configurar el socket del GestorComandos
-	public void setSocket(Socket skt, ObjectInputStream input, ObjectOutputStream output) {
-		
-		try {			
-			this.socketClientToServer = skt;
-			this.out = output;
-			this.out.flush();
-			this.in = input;
-			System.out.println("CL - GC In/Out Streams Configurados");
-		} catch (IOException e) {
-			System.out.println("Cliente - GC Error al configurar in/out streams");
-			e.printStackTrace();
-		}
-		
-		
-//		try {
-//			setupStreams();
-//		} catch (IOException e) {
-//			System.out.println("Error al config Streams");
-//			e.printStackTrace();
-//		}
-//		
-	}
-
-	
-
-	// Metodo para configurar los Streams
-	private void setupStreams() throws IOException {
-		System.out.println("GC - Configurando Streams...");
-		out = new ObjectOutputStream(socketClientToServer.getOutputStream());
-		out.flush();
-		System.out.println("GC - OutStream config");
-		in = new ObjectInputStream(socketClientToServer.getInputStream());
-		System.out.println("GC - InStream config");
-		System.out.println("GC - STREAMS CONFIG");
 	}
 
 	/* Getters y Setters */
@@ -180,20 +113,11 @@ public class GestorComandos implements Runnable {
 		return socketList;
 	}
 
-	private void setSocketList(List<Socket> socketList) {
-		this.socketList = socketList;
-	}
-
 	private List<Actor> getPjList() {
 		return pjList;
 	}
 
-	private void setPjList(List<Actor> pjList) {
-		this.pjList = pjList;
-	}
-
 	public void printList() {
-
 		Iterator<Actor> it = this.getPjList().iterator();
 		while (it.hasNext()) {
 			Actor pj = it.next();
@@ -205,7 +129,6 @@ public class GestorComandos implements Runnable {
 			Socket s = it2.next();
 			System.out.println("PJ Socket:" + s);
 		}
-
 	}
 
 }

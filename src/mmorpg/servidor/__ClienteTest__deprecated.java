@@ -104,7 +104,7 @@ public class __ClienteTest__deprecated extends JFrame{
 			}
 			
 			
-			gc.setSocket(connection, in, out);
+			//gc.setSocket(connection, in, out);
 			
 			ventana = new Ventana(pj, gc, connection);
 			

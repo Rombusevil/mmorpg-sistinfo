@@ -22,6 +22,8 @@ public class Server implements Runnable, Serializable {
 	private int port = 3335;				// Puerto del server
 	private ServerSocket serverSocket;		// A este socket se conectan los clientes
 	private Socket socket;					// Socket conectado que se envia al GestorSesiones
+	
+	//Este monitor donde se usa?
 	private Object monitor;
 	
 	private Boolean isRunning = true;
@@ -29,9 +31,6 @@ public class Server implements Runnable, Serializable {
 	private GestorSesiones gestorSesiones;
 	private GestorComandos gestorComandos;
 	private DataBaseManager dataBase;
-	
-//	private ObjectInputStream in;
-//	private ObjectOutputStream out;
 	
 	private Mundo mundo;
 	
@@ -54,31 +53,35 @@ public class Server implements Runnable, Serializable {
 		try {
 			serverSocket = new ServerSocket(this.port);	
 			
-			
 			while(isRunning){
 				System.out.println("Esperando conexiones");
 				esperarConexiones();
 				escucharComandos();
-			}//end while			
+			}			
 		}catch (IOException e){
 			e.printStackTrace(); // Puerto ocupado, no se puede iniciar server
 			System.out.println("No puedo iniciar el Server en el socket:" + this.port);			
 		}finally{			
-				closeCrap();			
+				closeCrap();		
 		}
-		
 	}
 	
+	/**
+	 * Inicializa el run() del server, que esta mas abajo
+	 * @throws IOException
+	 */
 	private void esperarConexiones() throws IOException{
 		synchronized(this.monitor){		
 			socket = serverSocket.accept();
 			System.out.println("Conexion aceptada");
-			//setupStreams();
 			Thread t = new Thread(this);
 			t.start();
 		}//end monitor		
 	}
 	
+	/**
+	 * Inicia el run() del GestorComandos
+	 */
 	private void escucharComandos(){
 		System.out.println("SV - GC - Estoy escuchando comandos");
 		Thread t = new Thread(gestorComandos);
@@ -87,6 +90,24 @@ public class Server implements Runnable, Serializable {
 	
 	
 	
+	
+
+	/**
+	 * Thread donde está el accept()
+	 * escuchando conexiones. Sin bloquear el resto del Server
+	 */
+	@Override
+	public void run() {	
+		Actor pj = gestorSesiones.initPJ(socket, dataBase, mundo);	// Recupera un PJ de la BD			
+		gestorComandos.agregarPjSocket(pj, socket);	// Le pasa el PJ y el Socket al gestorComandos y lo agrega a las 2 listas
+		
+		System.out.println("\n Te imprimo la lista de Sockets y PJs:");
+		gestorComandos.printList();
+	}
+	
+	/**
+	 * Cierra el SV, etc etc..
+	 */
 	private void closeCrap() {
 		try {
 			if(socket !=null){
@@ -98,35 +119,8 @@ public class Server implements Runnable, Serializable {
 		} catch (IOException e) {
 			System.out.println("No pude cerrar los puertos");
 			e.printStackTrace();
-		}
-			
+		}			
 	}
 	
-	// Configura los Streams
-//	private void setupStreams() throws IOException{
-//		System.out.println("Cliente - Configurando Streams...");
-//		out = new ObjectOutputStream(socket.getOutputStream());
-//		System.out.println("Cliente - Outstream configurado");
-//		//out.flush();
-//		in = new ObjectInputStream(socket.getInputStream());
-//		System.out.println("Cliente - Streams configurados");
-//	}
-
-
-	/**
-	 * Thread donde está el accept()
-	 * escuchando conexiones. Sin bloquear el resto del Server
-	 */
-	@Override
-	public void run() {		
-
-		Actor pj = gestorSesiones.initPJ(socket, dataBase, mundo);	// Recupera un PJ de la BD			
-		gestorComandos.agregarPjSocket(pj, socket);	// Le pasa el PJ y el Socket al gestorComandos y lo agrega al hashMap
-		
-		System.out.println("\n Te imprimo la lista de PJs:");
-		gestorComandos.printList();
-		
-		
-	}
 
 }
