@@ -10,6 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -25,8 +28,6 @@ public class __ClienteTest__deprecated extends JFrame{
 	private String serverIP;
 	private Socket connection;
 	
-	private String msg;
-	
 	private JTextArea textWindow;
 	private JTextField commandLine;	
 	
@@ -38,35 +39,17 @@ public class __ClienteTest__deprecated extends JFrame{
 	private Boolean isRunning = true;
 	ImpImprimidorMundosCLI imprimidor;
 
-	public __ClienteTest__deprecated(String host){
-		super("CLIENTE");
-		
-		serverIP = host;
-		
-		// CREA LA VENTANA
-		commandLine = new JTextField();	// Linea de comandos
-		commandLine.addActionListener(
-			new ActionListener(){
-				public void actionPerformed(ActionEvent event){ //lo que pasa cuando escribis algo y apretas enter
-					enviarMensaje(event.getActionCommand()); 
-					commandLine.setText("");
-				}
-			}
-		);		
-		add(commandLine, BorderLayout.SOUTH); // Area de Texto
-		textWindow = new JTextArea();
-		add(new JScrollPane(textWindow), BorderLayout.CENTER);
-		setSize(400,400);
-		setVisible(false);	
-		// FIN VENTANA			
-		
+	public __ClienteTest__deprecated(String host){		
+		serverIP = host;			
 		gc = new GestorComandos(false);
 	}
 
 	// Conecta al server
 	public void startRunning(){
 		try{
+
 			conectarAlServer();
+			
 			setupStreams();
 			
 			//Mando user y pass HxC
@@ -81,10 +64,10 @@ public class __ClienteTest__deprecated extends JFrame{
 			char c = (char) randomChar ;
 			char c2 = (char) randomChar2 ;
 			
-			String usr = "Paez"+c+c2;
-			String pwd = "FitoPae"+c2;
+			String usr = ""+c;
+			String pwd = "blapasswordbla"+c2;
 			
-			
+			//Mando user y pass
 			try{
 				out.writeObject(usr);
 				out.flush();
@@ -95,6 +78,9 @@ public class __ClienteTest__deprecated extends JFrame{
 				e.printStackTrace();
 			}
 			
+			//FIN USR/PWD
+			
+			//Recibo el PJ de la BD y el Mundo
 			try {
 				pj = (Actor) in.readObject();				
 				mundo = (ImpMundo) in.readObject();				
@@ -102,27 +88,27 @@ public class __ClienteTest__deprecated extends JFrame{
 				System.out.println("Error recibiendo Mundo y Pj");
 				e.printStackTrace();
 			}
+			//FIN RECIBIR PJ y MUNDO
 			
+			//Agrega el PJ recibido al GC para	utilizarlo en la copia local del mundo
+			gc.agregarPjSocket(pj,connection); 			
 			
-			gc.agregarPjSocket(pj,connection);	
-			
-			
-			ventana = new Ventana(pj, gc, connection);
+			// Ventana con los Datos del PJ y el foco del teclado
+			ventana = new Ventana(pj, gc, connection); 		
 			
 			
 			System.out.println(mundo);
 			System.out.println(pj);
 			System.out.println("Nivel"+pj.dameLvl()+" EXP:"+pj.dameXP());
 			
-			imprimidor = new ImpImprimidorMundosCLI();
-			
-			
+			imprimidor = new ImpImprimidorMundosCLI();			
 			
 			
 			whileRunning();
 		}catch(EOFException e){
-			mostrarMensaje("\n Client terminated connetion."); // Termina la conexion con el server
+			System.out.println("Cliente cerro la conexion");
 		}catch(IOException e){
+			System.out.println("CL - SE CHNGO TODO");
 			e.printStackTrace();	// Si salta este se chingo todo
 		}finally{
 			cerrarConexion();
@@ -138,6 +124,13 @@ public class __ClienteTest__deprecated extends JFrame{
 		escucharComandos();
 		
 		do{
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				System.out.println("error en el sleep :S");
+				e.printStackTrace();
+			}
+			agregarNuevosJugadores();
 			imprimidor.imprimi(mundo);
 			ventana.imprimeDatosPj();
 			
@@ -156,15 +149,28 @@ public class __ClienteTest__deprecated extends JFrame{
 //		System.out.println("SV - GC - Estoy escuchando comandos");
 		Thread t = new Thread(gc);
 		t.start();		
-	}
+	}	
 	
+	public void agregarNuevosJugadores(){
+		LinkedList<Actor> newPjListAux;
+		LinkedList<Actor> listAux = new LinkedList<Actor>();
+		newPjListAux = (LinkedList<Actor>) gc.getNewPjList();
+		
+		Iterator<Actor> it = newPjListAux.iterator();
+		while (it.hasNext()) {
+			Actor pj = it.next();
+			mundo.poneActorEn(1, 1,(ImpActor) pj);
+			listAux.add(pj);
+		}
+		
+		newPjListAux.removeAll(listAux);
+		listAux = null;		
+	}
 	
 	
 	// Se conecta al server
 	private void conectarAlServer() throws IOException{
-		mostrarMensaje("Intentando conectar...\n");
 		connection = new Socket(InetAddress.getByName(serverIP), 3335); // IP + Puerto del server
-		mostrarMensaje("Conexion establecida con: "+ connection.getInetAddress().getHostName());
 		System.out.println("Conexion establecida con: "+ connection.getInetAddress().getHostName());
 	}
 	
@@ -173,16 +179,14 @@ public class __ClienteTest__deprecated extends JFrame{
 		System.out.println("Cliente - Configurando Streams...");
 		out = new ObjectOutputStream(connection.getOutputStream());
 		System.out.println("Cliente - Outstream configurado");
-		//out.flush();
+		out.flush();
 		in = new ObjectInputStream(connection.getInputStream());
 		System.out.println("Cliente - Streams configurados");
-	}
+	}	
 	
-	
-	
+	//Cierra todo el crap down
 	private void cerrarConexion(){
 		try{
-			mostrarMensaje("Closing crap down");
 			out.close();
 			in.close();
 			connection.close();			
@@ -190,31 +194,6 @@ public class __ClienteTest__deprecated extends JFrame{
 			e.printStackTrace();
 		}		
 	}
-	
-	// manda mensaje al server
-	// esto podria ser un comando ;)
-	private void enviarMensaje(String msg){
-		try{
-			out.writeObject("CLIENTE:" + msg );
-			out.flush();
-			mostrarMensaje("\n CLIENTE: " +msg);
-		}catch(IOException e){
-			textWindow.append("ERROR AL ENVIAR COMANDO, COMANDO NO ENVIADO");
-			e.printStackTrace();
-		}
-	}
-	
-	private void mostrarMensaje(final String str){
-		SwingUtilities.invokeLater(
-			new Runnable(){
-				public void run(){
-					textWindow.append(str);
-				}
-			}
-		);
-	}
-	
-	
 	
 	
 	

@@ -31,4 +31,9 @@ public class CmdJugadorAccion implements iComando, Serializable {
 		
 	}
 
+	@Override
+	public AccionEnDireccion getAccion(){ 
+		return this.aed;
+	}
+
 }

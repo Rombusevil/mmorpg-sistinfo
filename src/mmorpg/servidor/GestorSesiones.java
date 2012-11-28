@@ -65,22 +65,22 @@ public class GestorSesiones {
 			System.out.println("Error IOException");
 			e.printStackTrace();
 		}
-		Random randomGenerator = new Random();
+		
 		
 		
 		ImpActor pj = (ImpActor) db.levantaPj(usr, pass);
 		
-		int randomChar= randomGenerator.nextInt(25);
-		randomChar += 64;
-		char c = (char) randomChar;
+		//Random randomGenerator = new Random();
+		//Genera un char aleatorio para que aparezca de nombre de PJ
+		//int randomChar= randomGenerator.nextInt(25);
+		//randomChar += 64;
+		//char c = (char) randomChar;
 		
-		ImpDibujo dibujoActor = new ImpDibujoChar(c);
-		
-		
-		int randomInt = randomGenerator.nextInt(8);
-		
+		// Le asigno el Char del User, como "dibujo" en la consola
+		ImpDibujo dibujoActor = new ImpDibujoChar( usr.charAt(0) );
 		pj.setDibujo(dibujoActor);
-		mundo.poneActorEn( randomInt, randomInt, (ImpActor)pj);
+		
+		mundo.poneActorEn( 1, 1, (ImpActor)pj); //Todos los PJs spawnean en 1;1
 		
 		mandarMundoPj(mundo, pj);	
 		return pj;
