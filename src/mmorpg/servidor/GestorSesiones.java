@@ -65,13 +65,18 @@ public class GestorSesiones {
 			System.out.println("Error IOException");
 			e.printStackTrace();
 		}
-		
+		Random randomGenerator = new Random();
 		
 		
 		ImpActor pj = (ImpActor) db.levantaPj(usr, pass);
-		ImpDibujo dibujoActor = new ImpDibujoChar('X');
 		
-		Random randomGenerator = new Random();
+		int randomChar= randomGenerator.nextInt(25);
+		randomChar += 64;
+		char c = (char) randomChar;
+		
+		ImpDibujo dibujoActor = new ImpDibujoChar(c);
+		
+		
 		int randomInt = randomGenerator.nextInt(8);
 		
 		pj.setDibujo(dibujoActor);

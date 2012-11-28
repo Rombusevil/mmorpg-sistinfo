@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -70,8 +71,18 @@ public class __ClienteTest__deprecated extends JFrame{
 			
 			//Mando user y pass HxC
 			//FIXME leer esto de un INPUT
-			String usr = "Fito112";
-			String pwd = "FitoPae112";
+			Random randomGenerator = new Random();
+			int randomChar= randomGenerator.nextInt(25);
+			randomChar += 64;
+			
+			int randomChar2= randomGenerator.nextInt(25);
+			randomChar2 += 64;
+			
+			char c = (char) randomChar ;
+			char c2 = (char) randomChar2 ;
+			
+			String usr = "Paez"+c+c2;
+			String pwd = "FitoPae"+c2;
 			
 			
 			try{

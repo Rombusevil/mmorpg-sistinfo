@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,6 +18,7 @@ public class GestorComandos implements Runnable {
 	private List<Socket> socketList;	// Esta lista la usa el server para hablar
 										// con los clientes, forwardeando
 	private List<Actor> pjList;
+	private List<ObjectInputStream> oisList;
 
 	private Object listMonitor; // Este monitor funcaba
 
@@ -29,7 +31,9 @@ public class GestorComandos implements Runnable {
 
 	/* Constructor */
 	public GestorComandos() {
-		socketList = new LinkedList<Socket>();  // init lista de sockets
+		
+		oisList = new ArrayList<ObjectInputStream>();
+		socketList = new ArrayList<Socket>();  // init lista de sockets
 		pjList = new LinkedList<Actor>();		// init lista de pjs
 		listMonitor = new Object();
 		monitor = new Object();
@@ -40,28 +44,42 @@ public class GestorComandos implements Runnable {
 	public void run() {
 		while (true) {
 			synchronized (this.listMonitor) {
-				Iterator <Socket>it = this.getSocketList().iterator(); // Iterador de
-																// sockets
+				Iterator <Socket>it = this.getSocketList().iterator(); // Iterador de sockets
+				ObjectInputStream in = null;														
+				
 				while (it.hasNext()) {
 					try {
 						Socket skt = it.next();
-						ObjectInputStream in = new ObjectInputStream(skt.getInputStream());
-						iComando cmd = (iComando) in.readObject();
-												
-						Actor pjDelComando = cmd.getPj();
-
-						Iterator<Actor> it2 = this.getPjList().iterator();
-						while (it2.hasNext()) {
-							Actor pjDeLaLista = it2.next();
+						in = new ObjectInputStream(skt.getInputStream());
+						
+						if ( in.available() > 0 ){	
+	//						for(int i = 0; i < this.socketList.size(); i++){
+	//							if(this.socketList.get(i).equals(skt)){
+	//								in = this.oisList.get(i);
+	//								in = new ObjectInputStream(socketList.get(i).getInputStream());								
+	//							}							
+	//						}
 							
-							System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
-							System.out.println("PJ DEL COMANDO:"+pjDelComando);							
-							System.out.println("COMPARACION: "+ (  ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())   ));
+							//ObjectInputStream in = this.oisList.get(index);
+							//ObjectInputStream in = new ObjectInputStream(skt.getInputStream());
 							
-							if (   ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())  ) {
-								System.out.println("ENTRE A EJECUTAR A TU VIEJA");
-								cmd.setPj(pjDeLaLista);
-								cmd.ejecutate();
+							iComando cmd = (iComando) in.readObject();
+													
+							Actor pjDelComando = cmd.getPj();
+	
+							Iterator<Actor> it2 = this.getPjList().iterator();
+							while (it2.hasNext()) {
+								Actor pjDeLaLista = it2.next();
+								
+								System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
+								System.out.println("PJ DEL COMANDO:"+pjDelComando);							
+								System.out.println("COMPARACION: "+ (  ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())   ));
+								
+								if (   ((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())  ) {
+									System.out.println("ENTRE A EJECUTAR A TU VIEJA");
+									cmd.setPj(pjDeLaLista);
+									cmd.ejecutate();
+								}
 							}
 						}
 						
@@ -89,9 +107,17 @@ public class GestorComandos implements Runnable {
 	public void agregarPjSocket(Actor pj, Socket socket) {
 		listMonitor = new Object();
 		synchronized (this.listMonitor) {
+			
+			try {
+				ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+				this.oisList.add(inputStream);
+			} catch (IOException e) {
+				System.out.println("No pude crear un inputstream para agregar a la lista");
+				e.printStackTrace();
+			}			
 			this.getPjList().add(pj);
 			this.getSocketList().add(socket);
-			System.out.println(" Server - GC - Agregado un PJ y un Socket a la lista");
+			System.out.println(" Server - GC - Agregado un PJ, Socket, OIS a la lista");
 			
 			
 			 
