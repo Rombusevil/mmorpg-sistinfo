@@ -20,6 +20,7 @@ public class GestorComandos implements Runnable {
 	private List<Actor> pjList;
 	
 	private List<Actor> newPjList;	// Lista auxiliar con los nuevos pjs conectados
+	private Actor pjCliente;		// Guarda el PJ del Cliente, para saber quien sos vos
 	
 	//Estan bien usados los monitores?? y los synchronized¿?
 	private Object listMonitor; // Este monitor funcaba
@@ -34,6 +35,7 @@ public class GestorComandos implements Runnable {
 		listMonitor = new Object();
 		monitor = new Object();
 		this.server = server;
+		
 		if(!server){
 			newPjList = new LinkedList<Actor>();
 		}
@@ -49,7 +51,8 @@ public class GestorComandos implements Runnable {
 				iComando cmd = null;				
 				
 				while (it.hasNext()) {
-					Boolean sendComando = false;
+					boolean sendComando = false;
+					boolean ejecutado = false;
 					try {
 						Socket skt = it.next();
 						if(skt.getInputStream().available() > 0){
@@ -63,7 +66,7 @@ public class GestorComandos implements Runnable {
 							if(  (isNewConnection(cmd) && !(server)) ){
 								System.out.println("------>Se conecto alguien!!!");
 								this.pjList.add(cmd.getPj()); //<- Para que el GC pueda ejecutar comandos sobre este PJ
-								this.getNewPjList().add(cmd.getPj()); //<- Para instanciarlos en el Mundo (del cliente)
+								this.newPjList.add(cmd.getPj()); //<-- Para instanciarlos en el Mundo (del cliente)
 							}
 							
 							Iterator<Actor> it2 = this.getPjList().iterator();	// Recorro la lista de PJs
@@ -71,13 +74,28 @@ public class GestorComandos implements Runnable {
 								Actor pjDeLaLista = it2.next();					// Con algun PJ de la Lista
 								
 //								System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
-//								System.out.println("PJ DEL COMANDO:"+pjDelComando);							
-								System.out.println("COMPARACION P/ EJECUTAR COMANDO: "+ (  (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd))   ));
+//								System.out.println("PJ DEL COMANDO:"+pjDelComando);				
+//								System.out.println("COMPARACION P/ EJECUTAR COMANDO: "+ (  (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd))   ));
 								
-								if (   (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd)) ) {
-									System.out.println("ENTRE A EJECUTAR A TU VIEJA");
-									cmd.setPj(pjDeLaLista);
-									cmd.ejecutate();									
+								// EJECUTA COMANDOS EN EL SERVER
+								if(server){
+									if (   (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
+										System.out.println("ENTRE A EJECUTAR A TU VIEJA - Server");
+										cmd.setPj(pjDeLaLista);
+										cmd.ejecutate();									
+									}
+								}
+								// EJECUTA COMANDOS EN EL CLIENTE 
+								if (!server && !(ejecutado)){
+									if (   (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd)) ) {
+										if (  !(((PJ)pjDeLaLista).getUsr().equals(((PJ)this.pjCliente).getUsr()))   ){ //El PjLista != PjCliente
+											ejecutado = true;
+										}
+										System.out.println("ENTRE A EJECUTAR A TU VIEJA - Cliente");
+										cmd.setPj(pjDeLaLista);	
+										cmd.ejecutate();
+										
+									}
 								}
 							}
 						}
@@ -92,7 +110,7 @@ public class GestorComandos implements Runnable {
 								Socket sktForward = itForward.next();
 								out = new ObjectOutputStream(sktForward.getOutputStream());
 								out.writeObject(cmd);
-								out.flush();
+								out.flush();								
 							}
 							sendComando = false;
 						}
@@ -214,6 +232,14 @@ public class GestorComandos implements Runnable {
 	
 	
 	
+
+	public Actor getPjCliente() {
+		return pjCliente;
+	}
+
+	public void setPjCliente(Actor pjCliente) {
+		this.pjCliente = pjCliente;
+	}
 
 	public boolean isNewConnection(iComando cmd){
 		System.out.println("isNewConnection:" +cmd.getAccion().getNewConnection() );

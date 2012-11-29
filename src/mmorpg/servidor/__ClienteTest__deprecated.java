@@ -40,20 +40,18 @@ public class __ClienteTest__deprecated extends JFrame{
 	ImpImprimidorMundosCLI imprimidor;
 	ImpImprimidorMundosCLIJframe impJframe;
 
-	public __ClienteTest__deprecated(String host){		
-		serverIP = host;			
-
-		gc = new GestorComandos(false);
+	public __ClienteTest__deprecated(String host){	
+		serverIP = host;
+		gc = new GestorComandos(false); // Crea el GC en el cliente (false es para indicar que no es Server)
 	}
 
 	// Conecta al server
 	public void startRunning(){
 		try{
 
-			conectarAlServer();
-			
+			conectarAlServer();			
 			setupStreams();
-			
+			escucharComandos();
 			//Mando user y pass HxC
 			//FIXME leer esto de un INPUT
 			Random randomGenerator = new Random();
@@ -78,26 +76,40 @@ public class __ClienteTest__deprecated extends JFrame{
 			}catch(IOException e){
 				textWindow.append("ERROR AL ENVIAR USR/PWD, COMANDO NO ENVIADO");
 				e.printStackTrace();
-			}
-			
+			}			
 			//FIN USR/PWD
-			
+			List<Actor> listaDePjsExistentes = new LinkedList<Actor>();
 			//Recibo el PJ de la BD y el Mundo
 			try {
 				pj = (Actor) in.readObject();				
 				mundo = (ImpMundo) in.readObject();				
+				listaDePjsExistentes = (List<Actor>) in.readObject();
 			} catch (ClassNotFoundException e) {
 				System.out.println("Error recibiendo Mundo y Pj");
 				e.printStackTrace();
 			}
 			//FIN RECIBIR PJ y MUNDO
-			//pjCollector();			
 			
-			gc.setPjList(mundo.getPjList());
+						
+			
 			
 			//Agrega el PJ recibido al GC para	utilizarlo en la copia local del mundo
-			gc.agregarPjSocket(pj,connection); 			
+			gc.agregarPjSocket(pj,connection);
+			gc.setPjCliente(this.pj);
+			System.out.println(listaDePjsExistentes);
+			gc.setPjList(listaDePjsExistentes);
 			
+			
+			
+			AccionEnDireccion nuevaConexion = new MovedorAbajo(); //No importa el tipo de accion
+			nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
+			iComando commandoConnection = new CmdJugadorAccion();
+			commandoConnection.setAccion(nuevaConexion);
+			commandoConnection.setPj(pj);
+			gc.mandarComando(commandoConnection, connection);
+			
+			//pjCollector();
+			//gc.setPjList(mundo.getPjList());
 
 			
 			
@@ -133,18 +145,7 @@ public class __ClienteTest__deprecated extends JFrame{
 	
 	
 	//Main loop
-	private void whileRunning() throws IOException{		
-		
-		escucharComandos();
-		
-		AccionEnDireccion nuevaConexion = new MovedorAbajo(); //No importa el tipo de accion
-		nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
-		iComando commandoConnection = new CmdJugadorAccion();
-		commandoConnection.setAccion(nuevaConexion);
-		commandoConnection.setPj(pj);
-		gc.mandarComando(commandoConnection, connection);
-		
-		
+	private void whileRunning() throws IOException{	
 		do{
 			ventana.imprimeDatosPj();
 			
@@ -180,6 +181,7 @@ public class __ClienteTest__deprecated extends JFrame{
 			Actor pjNuevo = it.next();
 
 			if( ! (((PJ)pjNuevo).getUsr().equals(((PJ)this.pj).getUsr())) ){
+				//gc.getPjList().add(pjNuevo);
 				mundo.poneActorEn(1, 1,(ImpActor) pjNuevo);
 			}
 			listAux.add(pjNuevo);
@@ -193,10 +195,14 @@ public class __ClienteTest__deprecated extends JFrame{
 		for(int i=0; i < mundo.getAlto(); i++){
 			for(int j=0; j < mundo.getAncho(); j++){
 				try{
-					Actor actorColectado =	(Actor) mundo.getCeldaPos(j, i).getEnte();
-					this.gc.getPjList().add(actorColectado);
+					Actor actorColectado =	(Actor) mundo.getCeldaPos(i, j).getEnte();					
+					if( !(gc.getPjList().contains(actorColectado)) ){
+						System.out.println("Pj Collector compare: "+ !(gc.getPjList().contains(actorColectado)));
+						System.out.println("Collecte un Pj y lo puse en la Gc.pjList");
+						this.gc.getPjList().add(actorColectado);
+					}
 				}catch(NullPointerException e){
-					System.out.println("null pointer ex");
+					System.out.println("null pointer ex!! PJ COLLECTOR");
 				}
 			}
 		}

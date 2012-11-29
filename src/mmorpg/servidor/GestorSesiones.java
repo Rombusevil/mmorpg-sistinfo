@@ -35,6 +35,18 @@ public class GestorSesiones {
 		}	
 	}
 	
+	
+	public void mandarPjsExistentes(Mundo mundo){
+		
+		try {
+			output.writeObject(mundo.getPjList());
+			output.flush();
+		} catch (IOException e) {
+			System.out.println("Error al enviar ListaPjsExistentes");
+			e.printStackTrace();
+		}
+		
+	}
 		
 	
 	
@@ -82,7 +94,8 @@ public class GestorSesiones {
 		
 		mundo.poneActorEn( 1, 1, (ImpActor)pj); //Todos los PJs spawnean en 1;1
 		
-		mandarMundoPj(mundo, pj);	
+		mandarMundoPj(mundo, pj);
+		mandarPjsExistentes(mundo);
 		return pj;
 	}
 
