@@ -1,11 +1,15 @@
 package mmorpg.servidor;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ImpMundo implements Mundo, Serializable {
 	private Celda entradaMundo;
 	private Celda[][] mundo;
 	private int alto, ancho;
+	
+	private List<Actor> pjList; // Son todos los PJs que estan en el mundo
 	
 
 
@@ -22,6 +26,7 @@ public class ImpMundo implements Mundo, Serializable {
 		this.entradaMundo = mundo[0][0];
 		this.alto = alto;
 		this.ancho = ancho;		
+		pjList = new LinkedList<Actor>();
 	}
 
 	//Crea la matriz, la llena con celdas de contenido libre y la rodea con una celda de contenido inaccesible.
@@ -79,6 +84,8 @@ public class ImpMundo implements Mundo, Serializable {
 	// Esto se usa para incializar un actor en el mapa, para mover se usan los estados de celda
 	public void poneActorEn(int x, int y, ImpActor actor){
 		Celda celdaDestino = this.getCeldaPos(x,y);
+		
+		this.pjList.add(actor);
 
 		celdaDestino.setEstado(celdaDestino.getEstadoInaccesible()); //Pongo como inaccesible la celda donde quiero ir.
 		celdaDestino.setDibujo(actor.getDibujo()); 	// Le pongo a la celda el dibujo del actor que se va a mover ahí.
@@ -117,6 +124,11 @@ public class ImpMundo implements Mundo, Serializable {
 	
 	public int getAncho(){
 		return this.ancho;
+	}
+
+	@Override
+	public List<Actor> getPjList() {
+		return this.pjList;
 	}
 
 }

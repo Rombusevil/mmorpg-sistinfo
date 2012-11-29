@@ -1,5 +1,7 @@
 package mmorpg.servidor;
 
+import java.util.List;
+
 public interface Mundo{
 	void setEntradaMundo(Celda c);
 	void dimensionar(int alto, int ancho, ImpDibujoVacio vacio);
@@ -13,6 +15,8 @@ public interface Mundo{
 	int getAlto();
 	int getAncho();
 	Celda[][] getMundo();
+	
+	public List<Actor> getPjList();
 	
 
 }

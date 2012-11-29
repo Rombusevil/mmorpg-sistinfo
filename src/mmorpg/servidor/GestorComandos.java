@@ -184,6 +184,11 @@ public class GestorComandos implements Runnable {
 		return newPjList;
 	}
 	
+	public void setPjList(List<Actor> pjList2) {
+		this.pjList = pjList2;
+	}
+
+	
 	
 	
 	
@@ -219,4 +224,5 @@ public class GestorComandos implements Runnable {
 		}
 	}
 
+	
 }

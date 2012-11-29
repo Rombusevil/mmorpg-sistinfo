@@ -91,7 +91,9 @@ public class __ClienteTest__deprecated extends JFrame{
 				e.printStackTrace();
 			}
 			//FIN RECIBIR PJ y MUNDO
-			//pjCollector();
+			//pjCollector();			
+			
+			gc.setPjList(mundo.getPjList());
 			
 			//Agrega el PJ recibido al GC para	utilizarlo en la copia local del mundo
 			gc.agregarPjSocket(pj,connection); 			
