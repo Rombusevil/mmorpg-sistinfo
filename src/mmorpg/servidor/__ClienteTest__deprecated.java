@@ -153,7 +153,7 @@ public class __ClienteTest__deprecated extends JFrame{
 			agregarNuevosJugadores();
 			
 			try {
-				Thread.sleep(30);
+				Thread.sleep(3);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
