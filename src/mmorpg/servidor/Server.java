@@ -6,20 +6,13 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
-import com.sun.corba.se.spi.activation.InvalidORBidHolder;
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+
 
 public class Server implements Runnable, Serializable {
 	
 	/* Sockets Related */
-	private int port = 3335;				// Puerto del server
+	private int port = 3334;				// Puerto del server
 	private ServerSocket serverSocket;		// A este socket se conectan los clientes
 	private Socket socket;					// Socket conectado que se envia al GestorSesiones
 	

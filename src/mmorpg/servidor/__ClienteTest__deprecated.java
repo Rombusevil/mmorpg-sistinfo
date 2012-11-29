@@ -4,8 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
+import java.io.BufferedReader;
+import java.io.Console;
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -16,10 +24,10 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import java.util.Scanner;
 
 public class __ClienteTest__deprecated extends JFrame{
 	
@@ -39,6 +47,7 @@ public class __ClienteTest__deprecated extends JFrame{
 	private Boolean isRunning = true;
 	ImpImprimidorMundosCLI imprimidor;
 	ImpImprimidorMundosCLIJframe impJframe;
+	
 
 	public __ClienteTest__deprecated(String host){	
 		serverIP = host;
@@ -54,18 +63,36 @@ public class __ClienteTest__deprecated extends JFrame{
 			escucharComandos();
 			//Mando user y pass HxC
 			//FIXME leer esto de un INPUT
-			Random randomGenerator = new Random();
-			int randomChar= randomGenerator.nextInt(25);
-			randomChar += 64;
+
 			
-			int randomChar2= randomGenerator.nextInt(25);
-			randomChar2 += 64;
+						
 			
-			char c = (char) randomChar ;
-			char c2 = (char) randomChar2 ;
+//Pop up an input box with text ( What is your name ? )  
+			 String usr=JOptionPane.showInputDialog(null,"Ingrese un caracter:");
+			 String pwd=JOptionPane.showInputDialog(null,"Ingrese password:");
 			
-			String usr = ""+c;
-			String pwd = "blapasswordbla"+c2;
+			 System.out.println("usr: "+usr+ "  pwd: "+pwd);
+			
+			
+			
+//			  Console console = System.console();  
+//		        if (console == null)   
+//		        {  
+//		            System.err.println("No console.");  
+//		            System.exit(1);  
+//		        }  
+//		        String name = console.readLine("Enter your name: ");  
+//		        System.out.println("Hello " + name);  
+//			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			//Mando user y pass
 			try{
@@ -123,7 +150,7 @@ public class __ClienteTest__deprecated extends JFrame{
 //			System.out.println("Nivel"+pj.dameLvl()+" EXP:"+pj.dameXP());
 			
 
-			imprimidor = new ImpImprimidorMundosCLI();
+			//imprimidor = new ImpImprimidorMundosCLI();
 			impJframe = new ImpImprimidorMundosCLIJframe();
 			
 
@@ -133,7 +160,7 @@ public class __ClienteTest__deprecated extends JFrame{
 		}catch(EOFException e){
 			System.out.println("Cliente cerro la conexion");
 		}catch(IOException e){
-			System.out.println("CL - SE CHNGO TODO");
+			System.out.println("CL - io exception");
 			e.printStackTrace();	// Si salta este se chingo todo
 		}finally{
 			cerrarConexion();
@@ -157,7 +184,9 @@ public class __ClienteTest__deprecated extends JFrame{
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+
 			}
+
 			
 		}while(isRunning);
 	}
@@ -211,7 +240,7 @@ public class __ClienteTest__deprecated extends JFrame{
 	
 	// Se conecta al server
 	private void conectarAlServer() throws IOException{
-		connection = new Socket(InetAddress.getByName(serverIP), 3335); // IP + Puerto del server
+		connection = new Socket(InetAddress.getByName(serverIP), 3334); // IP + Puerto del server
 		System.out.println("Conexion establecida con: "+ connection.getInetAddress().getHostName());
 	}
 	
@@ -239,3 +268,4 @@ public class __ClienteTest__deprecated extends JFrame{
 	
 	
 }
+
