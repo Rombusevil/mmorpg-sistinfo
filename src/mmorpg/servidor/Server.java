@@ -38,7 +38,8 @@ public class Server implements Runnable, Serializable {
 		gestorSesiones = new GestorSesiones();
 		gestorComandos = new GestorComandos(true);
 			
-	}
+	}	
+	
 	
 	
 	public void mainServer(){

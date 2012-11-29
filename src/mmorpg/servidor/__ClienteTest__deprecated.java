@@ -61,39 +61,13 @@ public class __ClienteTest__deprecated extends JFrame{
 			conectarAlServer();			
 			setupStreams();
 			escucharComandos();
-			//Mando user y pass HxC
-			//FIXME leer esto de un INPUT
 
-			
-						
-			
-//Pop up an input box with text ( What is your name ? )  
 			 String usr=JOptionPane.showInputDialog(null,"Ingrese un caracter:");
 			 String pwd=JOptionPane.showInputDialog(null,"Ingrese password:");
 			
 			 System.out.println("usr: "+usr+ "  pwd: "+pwd);
 			
-			
-			
-//			  Console console = System.console();  
-//		        if (console == null)   
-//		        {  
-//		            System.err.println("No console.");  
-//		            System.exit(1);  
-//		        }  
-//		        String name = console.readLine("Enter your name: ");  
-//		        System.out.println("Hello " + name);  
-//			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+					
 			//Mando user y pass
 			try{
 				out.writeObject(usr);

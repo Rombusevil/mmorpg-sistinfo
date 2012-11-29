@@ -26,6 +26,7 @@ public class GestorComandos implements Runnable {
 	private Object listMonitor; // Este monitor funcaba
 	private Object monitor;
 	private Boolean server; 	//Si es server forwardea comandos
+	private DataBaseManager dataBase;
 	
 
 	/* Constructor */
@@ -38,7 +39,10 @@ public class GestorComandos implements Runnable {
 		
 		if(!server){
 			newPjList = new LinkedList<Actor>();
+		}else{
+			dataBase = new DataBaseManager("actores");
 		}
+		
 	}
 
 	// Escucha comandos
@@ -76,11 +80,14 @@ public class GestorComandos implements Runnable {
 //								System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
 //								System.out.println("PJ DEL COMANDO:"+pjDelComando);				
 //								System.out.println("COMPARACION P/ EJECUTAR COMANDO: "+ (  (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd))   ));
+								if(server){//guardo los datos del pj
+									guardaPjBd((ImpActor)pjDeLaLista);
+								}
 								
 								// EJECUTA COMANDOS EN EL SERVER
 								if(server){
 									if (   (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
-										System.out.println("ENTRE A EJECUTAR A TU VIEJA - Server");
+										System.out.println("ENTRE A EJECUTAR - Server");
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutate();									
 									}
@@ -91,7 +98,7 @@ public class GestorComandos implements Runnable {
 										if (  !(((PJ)pjDeLaLista).getUsr().equals(((PJ)this.pjCliente).getUsr()))   ){ //El PjLista != PjCliente
 											ejecutado = true;
 										}
-										System.out.println("ENTRE A EJECUTAR A TU VIEJA - Cliente");
+										System.out.println("ENTRE A EJECUTAR - Cliente");
 										cmd.setPj(pjDeLaLista);	
 										cmd.ejecutate();
 										
@@ -110,7 +117,7 @@ public class GestorComandos implements Runnable {
 								Socket sktForward = itForward.next();
 								out = new ObjectOutputStream(sktForward.getOutputStream());
 								out.writeObject(cmd);
-								out.flush();								
+								out.flush();
 							}
 							sendComando = false;
 						}
@@ -170,7 +177,11 @@ public class GestorComandos implements Runnable {
 		}
 	}
 	
-	
+	public void guardaPjBd(ImpActor pj){
+		EstadoPjAGuardar estado = pj.fp.creaEstadoPjAGuardar();
+		
+		dataBase.guardaPj((PJ)pj);
+	}
 	
 	
 
