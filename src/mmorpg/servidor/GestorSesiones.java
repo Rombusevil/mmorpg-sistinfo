@@ -59,7 +59,7 @@ public class GestorSesiones {
 			usr = (String) input.readObject();
 			pass = (String) input.readObject();
 		}catch(ClassNotFoundException e){
-			System.out.println("Recibi cualquier mierda");
+			System.out.println("SV - GS - No entendi el comando");
 			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Error IOException");

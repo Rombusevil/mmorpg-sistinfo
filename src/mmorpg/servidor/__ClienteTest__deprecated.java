@@ -91,17 +91,12 @@ public class __ClienteTest__deprecated extends JFrame{
 				e.printStackTrace();
 			}
 			//FIN RECIBIR PJ y MUNDO
-	
+			//pjCollector();
 			
 			//Agrega el PJ recibido al GC para	utilizarlo en la copia local del mundo
 			gc.agregarPjSocket(pj,connection); 			
 			
-			AccionEnDireccion nuevaConexion = new MovedorAbajo(); //No importa el tipo de accion
-			nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
-			iComando commandoConnection = new CmdJugadorAccion();
-			commandoConnection.setAccion(nuevaConexion);
-			commandoConnection.setPj(pj);
-			gc.mandarComando(commandoConnection, connection);
+
 			
 			
 			// Ventana con los Datos del PJ y el foco del teclado
@@ -137,7 +132,16 @@ public class __ClienteTest__deprecated extends JFrame{
 	
 	//Main loop
 	private void whileRunning() throws IOException{		
+		
 		escucharComandos();
+		
+		AccionEnDireccion nuevaConexion = new MovedorAbajo(); //No importa el tipo de accion
+		nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
+		iComando commandoConnection = new CmdJugadorAccion();
+		commandoConnection.setAccion(nuevaConexion);
+		commandoConnection.setPj(pj);
+		gc.mandarComando(commandoConnection, connection);
+		
 		
 		do{
 			ventana.imprimeDatosPj();
@@ -168,16 +172,32 @@ public class __ClienteTest__deprecated extends JFrame{
 		LinkedList<Actor> newPjListAux;
 		LinkedList<Actor> listAux = new LinkedList<Actor>();
 		newPjListAux = (LinkedList<Actor>) gc.getNewPjList();
-		
+
 		Iterator<Actor> it = newPjListAux.iterator();
 		while (it.hasNext()) {
-			Actor pj = it.next();
-			mundo.poneActorEn(1, 1,(ImpActor) pj);
-			listAux.add(pj);
+			Actor pjNuevo = it.next();
+
+			if( ! (((PJ)pjNuevo).getUsr().equals(((PJ)this.pj).getUsr())) ){
+				mundo.poneActorEn(1, 1,(ImpActor) pjNuevo);
+			}
+			listAux.add(pjNuevo);
 		}
 		
 		newPjListAux.removeAll(listAux);
 		listAux = null;		
+	}
+	
+	public void pjCollector(){
+		for(int i=0; i < mundo.getAlto(); i++){
+			for(int j=0; j < mundo.getAncho(); j++){
+				try{
+					Actor actorColectado =	(Actor) mundo.getCeldaPos(j, i).getEnte();
+					this.gc.getPjList().add(actorColectado);
+				}catch(NullPointerException e){
+					System.out.println("null pointer ex");
+				}
+			}
+		}
 	}
 	
 	
