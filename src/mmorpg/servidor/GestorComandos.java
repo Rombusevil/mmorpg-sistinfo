@@ -61,7 +61,7 @@ public class GestorComandos implements Runnable {
 							
 							
 							if(  isNewConnection(cmd) && !(server) ){
-								System.out.println("Se conecto alguien");
+								System.out.println("------>Se conecto alguien!!!");
 								this.agregarPjSocket(cmd.getPj(), null);
 								// Agrego un PJ a la lista de nuevas conexiones
 								this.getNewPjList().add(cmd.getPj());
@@ -209,8 +209,8 @@ public class GestorComandos implements Runnable {
 	
 
 	public boolean isNewConnection(iComando cmd){
-		AccionEnDireccion f = cmd.getAccion();
-		if (f instanceof  forwardearConexion){
+		System.out.println("isNewConnection:" +cmd.getAccion().getNewConnection() );
+		if (cmd.getAccion().getNewConnection()){			
 			return true;
 		}else{
 			return false;

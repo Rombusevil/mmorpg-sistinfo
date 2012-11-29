@@ -87,7 +87,9 @@ public class DecodificadorTeclas implements Serializable {
 			case 'd': 
 					cmd = new CmdJugadorAccion();
 					cmd.setPj(this.pj);
-					cmd.setAccion(decodificaCharMovedor(c));
+					AccionEnDireccion aed = decodificaCharMovedor(c);
+					aed.setNewConnection(false);
+					cmd.setAccion(aed);
 					//Mando el comando al gestor para que haga todo lo que 
 					gestorComandos.mandarComando(cmd, this.socketConectado);
 
@@ -100,7 +102,9 @@ public class DecodificadorTeclas implements Serializable {
 			case 'l': 
 					cmd = new CmdJugadorAccion();
 					cmd.setPj(this.pj);
-					cmd.setAccion(decodificaCharAtaque(c));
+					AccionEnDireccion aed2 = decodificaCharAtaque(c);
+					aed2.setNewConnection(false);
+					cmd.setAccion(aed2);
 					//Mando el comando al gestor para que haga todo lo que 
 					gestorComandos.mandarComando(cmd, this.socketConectado);			
 				break;

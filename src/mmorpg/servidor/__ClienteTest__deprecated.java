@@ -91,17 +91,27 @@ public class __ClienteTest__deprecated extends JFrame{
 				e.printStackTrace();
 			}
 			//FIN RECIBIR PJ y MUNDO
+	
 			
 			//Agrega el PJ recibido al GC para	utilizarlo en la copia local del mundo
 			gc.agregarPjSocket(pj,connection); 			
+			
+			AccionEnDireccion nuevaConexion = new MovedorAbajo(); //No importa el tipo de accion
+			nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
+			iComando commandoConnection = new CmdJugadorAccion();
+			commandoConnection.setAccion(nuevaConexion);
+			commandoConnection.setPj(pj);
+			gc.mandarComando(commandoConnection, connection);
+			
 			
 			// Ventana con los Datos del PJ y el foco del teclado
 			ventana = new Ventana(pj, gc, connection); 		
 			
 			
-			System.out.println(mundo);
-			System.out.println(pj);
-			System.out.println("Nivel"+pj.dameLvl()+" EXP:"+pj.dameXP());
+			
+//			System.out.println(mundo);
+//			System.out.println(pj);
+//			System.out.println("Nivel"+pj.dameLvl()+" EXP:"+pj.dameXP());
 			
 
 			imprimidor = new ImpImprimidorMundosCLI();
@@ -134,17 +144,13 @@ public class __ClienteTest__deprecated extends JFrame{
 			
 			ventana.imprimiMundo(impJframe.dameMundoString(mundo));
 			agregarNuevosJugadores();
-			/*
+			
 			try {
 				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}*/
-			
-			//ClearScreen
-			//Runtime.getRuntime().exec("cls");
-			//Runtime.getRuntime().exec("clear");
+			}
 			
 		}while(isRunning);
 	}
