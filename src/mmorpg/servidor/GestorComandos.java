@@ -18,16 +18,15 @@ public class GestorComandos implements Runnable {
 	private List<Socket> socketList;	// Esta lista la usa el server para hablar
 										// con los clientes, forwardeando
 	private List<Actor> pjList;
-	
+
 	private List<Actor> newPjList;	// Lista auxiliar con los nuevos pjs conectados
 	private Actor pjCliente;		// Guarda el PJ del Cliente, para saber quien sos vos
-	
-	//Estan bien usados los monitores?? y los synchronized¿?
+
+	// Estan bien usados los monitores?? y los synchronized¿?
 	private Object listMonitor; // Este monitor funcaba
 	private Object monitor;
-	private Boolean server; 	//Si es server forwardea comandos
+	private Boolean server; 	// Si es server forwardea comandos
 	private DataBaseManager dataBase;
-	
 
 	/* Constructor */
 	public GestorComandos(Boolean server) {
@@ -36,13 +35,13 @@ public class GestorComandos implements Runnable {
 		listMonitor = new Object();
 		monitor = new Object();
 		this.server = server;
-		
-		if(!server){
+
+		if (!server) {
 			newPjList = new LinkedList<Actor>();
-		}else{
+		} else {
 			dataBase = new DataBaseManager("actores");
 		}
-		
+
 	}
 
 	// Escucha comandos
@@ -50,70 +49,66 @@ public class GestorComandos implements Runnable {
 	public void run() {
 		while (true) {
 			synchronized (this.listMonitor) {
-				Iterator <Socket>it = this.getSocketList().iterator(); // Iterador de sockets
+				Iterator<Socket> it = this.getSocketList().iterator(); // Iterador de sockets
 				ObjectInputStream in = null;
-				iComando cmd = null;				
-				
+				iComando cmd = null;
+
 				while (it.hasNext()) {
 					boolean sendComando = false;
 					boolean ejecutado = false;
 					try {
 						Socket skt = it.next();
-						if(skt.getInputStream().available() > 0){
-							in = new ObjectInputStream(skt.getInputStream());	
-							// si metemos un if(in.avaiable() > 0 )  muere todo
+						if (skt.getInputStream().available() > 0) {
+							in = new ObjectInputStream(skt.getInputStream());
+							// si metemos un if(in.avaiable() > 0 ) muere todo
 							cmd = (iComando) in.readObject();
 							Actor pjDelComando = cmd.getPj();
-							sendComando = true;	
-							
-							
-							if(  (isNewConnection(cmd) && !(server)) ){
+							sendComando = true;
+
+							if ((isNewConnection(cmd) && !(server))) {
 								System.out.println("------>Se conecto alguien!!!");
-								this.pjList.add(cmd.getPj()); //<- Para que el GC pueda ejecutar comandos sobre este PJ
-								this.newPjList.add(cmd.getPj()); //<-- Para instanciarlos en el Mundo (del cliente)
+								this.pjList.add(cmd.getPj()); // <- Para que el GC pueda ejecutar comandos sobre este PJ
+								this.newPjList.add(cmd.getPj()); // <-- Para instanciarlos en el Mundo (del cliente)
 							}
-							
+
 							Iterator<Actor> it2 = this.getPjList().iterator();	// Recorro la lista de PJs
 							while (it2.hasNext()) {								// Para comparar el PJ que vino en el cmd
 								Actor pjDeLaLista = it2.next();					// Con algun PJ de la Lista
-								
-//								System.out.println("PJ DE LA LISTA:"+pjDeLaLista);
-//								System.out.println("PJ DEL COMANDO:"+pjDelComando);				
-//								System.out.println("COMPARACION P/ EJECUTAR COMANDO: "+ (  (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd))   ));
-								if(server){//guardo los datos del pj
-									guardaPjBd((ImpActor)pjDeLaLista);
-								}
-								
+
+								// if(server){//guardo los datos del pj
+								// guardaPjBd((ImpActor)pjDeLaLista);
+								// }
+
 								// EJECUTA COMANDOS EN EL SERVER
-								if(server){
-									if (   (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
+								if (server) {
+									if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
 										System.out.println("ENTRE A EJECUTAR - Server");
 										cmd.setPj(pjDeLaLista);
-										cmd.ejecutate();									
+										cmd.ejecutate();
 									}
 								}
-								// EJECUTA COMANDOS EN EL CLIENTE 
-								if (!server && !(ejecutado)){
-									if (   (((PJ)pjDeLaLista).getUsr().equals(((PJ)pjDelComando).getUsr())) && !(isNewConnection(cmd)) ) {
-										if (  !(((PJ)pjDeLaLista).getUsr().equals(((PJ)this.pjCliente).getUsr()))   ){ //El PjLista != PjCliente
+								// EJECUTA COMANDOS EN EL CLIENTE
+								if (!server && !(ejecutado)) {
+									if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
+										if (!(((PJ) pjDeLaLista).getUsr().equals(((PJ) this.pjCliente).getUsr()))) { // El PjLista != PjCliente
 											ejecutado = true;
 										}
 										System.out.println("ENTRE A EJECUTAR - Cliente");
-										cmd.setPj(pjDeLaLista);	
+										cmd.setPj(pjDeLaLista);
 										cmd.ejecutate();
-										
+
 									}
 								}
 							}
 						}
-						
+
 						// if si es server
 						// Hacer--->forwardearComando(cmd);
-						if(server && sendComando){
-							Iterator <Socket>itForward =this.getSocketList().iterator();
+						if (server && sendComando) {
+							Iterator<Socket> itForward = this.getSocketList().iterator();
 							ObjectOutputStream out = null;
-							
-							while(itForward.hasNext()){
+
+							while (itForward.hasNext()) {
 								Socket sktForward = itForward.next();
 								out = new ObjectOutputStream(sktForward.getOutputStream());
 								out.writeObject(cmd);
@@ -121,7 +116,7 @@ public class GestorComandos implements Runnable {
 							}
 							sendComando = false;
 						}
-						
+
 						Thread.sleep(10);
 					} catch (RuntimeException e) {
 						it.remove();	// Si falla algo (cliente desconectado), remuevo el cliente del iterador
@@ -143,24 +138,23 @@ public class GestorComandos implements Runnable {
 	}
 
 	// Agrega un PJ a la lista de PJs para forwardear
-	public void agregarPjSocket(Actor pj, Socket socket) {		
+	public void agregarPjSocket(Actor pj, Socket socket) {
 		listMonitor = new Object();
-		//synchronized (this.listMonitor) {
-			this.getPjList().add(pj);
-			
-			try{
-				this.getSocketList().add(socket);
-			}catch(NullPointerException e){
-				System.out.println("GC - Recibi un nulo en la lista de Socket");
-				//Si recibo un socket nulo, no hago nada
-			}			
-			System.out.println(" Server - GC - Agregado un PJ y Socket  la lista");
-		//}
+		// synchronized (this.listMonitor) {
+		this.getPjList().add(pj);
+
+		try {
+			this.getSocketList().add(socket);
+		} catch (NullPointerException e) {
+			System.out.println("GC - Recibi un nulo en la lista de Socket");
+			// Si recibo un socket nulo, no hago nada
+		}
+		System.out.println(" Server - GC - Agregado un PJ y Socket  la lista");
+		// }
 	}
-	
-	
-	public void forwardearConexionPJ(iComando cmd){
-		//this.agregarPjSocket(cmd.getPj(), null);
+
+	public void forwardearConexionPJ(iComando cmd) {
+		// this.agregarPjSocket(cmd.getPj(), null);
 		this.pjList.add(cmd.getPj());
 	}
 
@@ -176,14 +170,12 @@ public class GestorComandos implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
-	public void guardaPjBd(ImpActor pj){
+
+	public void guardaPjBd(ImpActor pj) {
 		EstadoPjAGuardar estado = pj.fp.creaEstadoPjAGuardar();
-		
-		dataBase.guardaPj((PJ)pj);
+
+		dataBase.guardaPj((PJ) pj);
 	}
-	
-	
 
 	/* Getters y Setters */
 
@@ -208,41 +200,14 @@ public class GestorComandos implements Runnable {
 			System.out.println("PJ Socket:" + s);
 		}
 	}
-	
+
 	public List<Actor> getNewPjList() {
 		return newPjList;
 	}
-	
+
 	public void setPjList(List<Actor> pjList2) {
 		this.pjList = pjList2;
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	public Actor getPjCliente() {
 		return pjCliente;
@@ -252,14 +217,13 @@ public class GestorComandos implements Runnable {
 		this.pjCliente = pjCliente;
 	}
 
-	public boolean isNewConnection(iComando cmd){
-		System.out.println("isNewConnection:" +cmd.getAccion().getNewConnection() );
-		if (cmd.getAccion().getNewConnection()){			
+	public boolean isNewConnection(iComando cmd) {
+		System.out.println("isNewConnection:" + cmd.getAccion().getNewConnection());
+		if (cmd.getAccion().getNewConnection()) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	
 }
