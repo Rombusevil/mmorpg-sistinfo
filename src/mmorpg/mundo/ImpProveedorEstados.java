@@ -2,9 +2,9 @@ package mmorpg.mundo;
 
 import java.io.Serializable;
 
-public class ImpProveedorEstados implements ProveedorEstados,  Serializable {
-	private Estado libre;
-	private Estado inaccesible;
+public class ImpProveedorEstados implements ProveedorEstadosCelda,  Serializable {
+	private OcupadorCeldaSegunEstado libre;
+	private OcupadorCeldaSegunEstado inaccesible;
 	
 	public ImpProveedorEstados(){
 		this.setLibre(new CeldaLibre());
@@ -12,19 +12,19 @@ public class ImpProveedorEstados implements ProveedorEstados,  Serializable {
 	}
 	
 	
-	public Estado getLibre() {
+	public OcupadorCeldaSegunEstado getLibre() {
 		return libre;
 	}
 
-	public void setLibre(Estado libre) {
+	public void setLibre(OcupadorCeldaSegunEstado libre) {
 		this.libre = libre;
 	}
 
-	public Estado getInaccesible() {
+	public OcupadorCeldaSegunEstado getInaccesible() {
 		return inaccesible;
 	}
 
-	public void setInaccesible(Estado inaccesible) {
+	public void setInaccesible(OcupadorCeldaSegunEstado inaccesible) {
 		this.inaccesible = inaccesible;
 	}
 

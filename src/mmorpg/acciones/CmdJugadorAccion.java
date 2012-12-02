@@ -2,11 +2,10 @@ package mmorpg.acciones;
 
 import java.io.Serializable;
 
-import mmorpg.acciones.enDireccion.AccionEnDireccion;
 import mmorpg.entes.actor.Actor;
 
 public class CmdJugadorAccion implements iComando, Serializable {
-	private AccionEnDireccion aed;
+	private Accion aed;
 	private Actor pj;
 	
 	
@@ -18,7 +17,7 @@ public class CmdJugadorAccion implements iComando, Serializable {
 		return pj;
 	}
 	
-	public void setAccion(AccionEnDireccion aed){
+	public void setAccion(Accion aed){
 		this.aed = aed;
 	}
 
@@ -35,7 +34,7 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	}
 
 	@Override
-	public AccionEnDireccion getAccion(){ 
+	public Accion getAccion(){ 
 		return this.aed;
 	}
 

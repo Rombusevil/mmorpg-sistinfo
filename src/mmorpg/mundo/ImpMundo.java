@@ -37,11 +37,11 @@ public class ImpMundo implements Mundo, Serializable {
 	public void dimensionar(int alto, int ancho, ImpDibujoVacio vacio){
 		Celda[][] mundoMatrix = this.getMundo();
 		Celda celdaOcupada = new ImpCelda();
-		ProveedorEstados proveedorEstados = new ImpProveedorEstados();
+		ProveedorEstadosCelda proveedorEstados = new ImpProveedorEstados();
 		//ImpEnteNoAtacable enteNoAtacable = new ImpEnteNoAtacable();
 		
-		Estado inaccesible = proveedorEstados.getInaccesible(); 
-		Estado libre = proveedorEstados.getLibre();
+		OcupadorCeldaSegunEstado inaccesible = proveedorEstados.getInaccesible(); 
+		OcupadorCeldaSegunEstado libre = proveedorEstados.getLibre();
 		
 		celdaOcupada.setEstado(inaccesible);
 		

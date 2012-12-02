@@ -2,9 +2,10 @@ package mmorpg.acciones.enDireccion;
 
 import java.io.Serializable;
 
+import mmorpg.acciones.Accion;
 import mmorpg.entes.actor.Actor;
 
-public class MovedorArriba implements AccionEnDireccion,  Serializable {
+public class MovedorArriba implements Accion,  Serializable {
 	private boolean newConnection;
 
 	

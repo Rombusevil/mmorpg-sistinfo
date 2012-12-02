@@ -1,8 +1,8 @@
-package mmorpg.acciones.enDireccion;
+package mmorpg.acciones;
 
 import mmorpg.entes.actor.Actor;
 
-public interface AccionEnDireccion {
+public interface Accion {
 	void actuar(Actor a);
 	
 	boolean getNewConnection();

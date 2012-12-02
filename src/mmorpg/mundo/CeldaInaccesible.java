@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import mmorpg.entes.actor.ImpActor;
 
-public class CeldaInaccesible implements Estado, Serializable {
+public class CeldaInaccesible implements OcupadorCeldaSegunEstado, Serializable {
 
 	public void ocupaCeldaCon(Celda celda, ImpActor actor) {
 		/*

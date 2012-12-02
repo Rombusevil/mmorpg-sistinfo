@@ -12,7 +12,7 @@ public class Main {
 		// Si quiere lanzar el Cliente o el Server.
 		// Entonces se ejecuta el que corresponda.
 		
-		Launcher launcher = new Launcher();
+		new Launcher();
 
 	}
 

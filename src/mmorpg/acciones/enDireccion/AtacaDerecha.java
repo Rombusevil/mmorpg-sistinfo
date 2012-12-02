@@ -2,9 +2,10 @@ package mmorpg.acciones.enDireccion;
 
 import java.io.Serializable;
 
+import mmorpg.acciones.Accion;
 import mmorpg.entes.actor.Actor;
 
-public class AtacaDerecha implements AccionEnDireccion, Serializable {
+public class AtacaDerecha implements Accion, Serializable {
 	
 	private boolean newConnection;
 

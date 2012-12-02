@@ -2,10 +2,11 @@ package mmorpg.acciones.enDireccion;
 
 import java.io.Serializable;
 
+import mmorpg.acciones.Accion;
 import mmorpg.entes.actor.Actor;
 
 // Estos moveedores nos permiten crear patrones de movimiento para los NPJ.
-public class MovedorDerecha implements AccionEnDireccion,  Serializable {
+public class MovedorDerecha implements Accion,  Serializable {
 	private boolean newConnection;
 
 	

@@ -7,7 +7,7 @@ import mmorpg.userInterface.output.Dibujo;
 import mmorpg.userInterface.output.ImpDibujoVacio;
 
 public class ImpCelda implements Celda, Serializable {
-	private Estado estado;
+	private OcupadorCeldaSegunEstado estado;
 	private Celda celdaArriba;
 	private Celda celdaAbajo;
 	private Celda celdaIz;
@@ -27,19 +27,19 @@ public class ImpCelda implements Celda, Serializable {
 		this.vacio = vacio;
 	}
 
-	private ProveedorEstados proveedorEstados;
+	private ProveedorEstadosCelda proveedorEstados;
 	
-	public ProveedorEstados getProveedorEstados(){
+	public ProveedorEstadosCelda getProveedorEstados(){
 		return this.proveedorEstados;
 	}
-	public void setProveedorEstados(ProveedorEstados pe){
+	public void setProveedorEstados(ProveedorEstadosCelda pe){
 		this.proveedorEstados = pe;
 	}
 	
-	public Estado getEstadoLibre(){
+	public OcupadorCeldaSegunEstado getEstadoLibre(){
 		return this.getProveedorEstados().getLibre();
 	}
-	public Estado getEstadoInaccesible(){
+	public OcupadorCeldaSegunEstado getEstadoInaccesible(){
 		return this.getProveedorEstados().getInaccesible();
 	}
 
@@ -97,10 +97,10 @@ public class ImpCelda implements Celda, Serializable {
 		System.out.print("]");
 	}
 	@Override
-	public void setEstado(Estado e) {
+	public void setEstado(OcupadorCeldaSegunEstado e) {
 		this.estado = e;
 	}
-	public Estado getEstado(){
+	public OcupadorCeldaSegunEstado getEstado(){
 		return this.estado;
 	}
 	

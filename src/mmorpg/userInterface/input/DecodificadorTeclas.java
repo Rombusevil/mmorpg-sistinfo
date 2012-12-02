@@ -3,9 +3,9 @@ package mmorpg.userInterface.input;
 import java.io.Serializable;
 import java.net.Socket;
 
+import mmorpg.acciones.Accion;
 import mmorpg.acciones.CmdJugadorAccion;
 import mmorpg.acciones.iComando;
-import mmorpg.acciones.enDireccion.AccionEnDireccion;
 import mmorpg.acciones.enDireccion.ImpProveedorAtacadores;
 import mmorpg.acciones.enDireccion.ImpProveedorDeMovedores;
 import mmorpg.acciones.enDireccion.ProveedorDeEnDireccion;
@@ -44,7 +44,7 @@ public class DecodificadorTeclas implements Serializable {
 	}
 	
 	
-	private AccionEnDireccion decodificaCharMovedor(char c){		
+	private Accion decodificaCharMovedor(char c){		
 		switch(c){
 			/** Movimientos **/
 			case 'w':
@@ -61,7 +61,7 @@ public class DecodificadorTeclas implements Serializable {
 		
 	}
 	
-	private AccionEnDireccion decodificaCharAtaque(char c){
+	private Accion decodificaCharAtaque(char c){
 		switch(c){
 			/** Ataques **/
 			case 'i': 
@@ -96,7 +96,7 @@ public class DecodificadorTeclas implements Serializable {
 			case 'd': 
 					cmd = new CmdJugadorAccion();
 					cmd.setPj(this.pj);
-					AccionEnDireccion aed = decodificaCharMovedor(c);
+					Accion aed = decodificaCharMovedor(c);
 					aed.setNewConnection(false);
 					cmd.setAccion(aed);
 					//Mando el comando al gestor para que haga todo lo que 
@@ -111,7 +111,7 @@ public class DecodificadorTeclas implements Serializable {
 			case 'l': 
 					cmd = new CmdJugadorAccion();
 					cmd.setPj(this.pj);
-					AccionEnDireccion aed2 = decodificaCharAtaque(c);
+					Accion aed2 = decodificaCharAtaque(c);
 					aed2.setNewConnection(false);
 					cmd.setAccion(aed2);
 					//Mando el comando al gestor para que haga todo lo que 

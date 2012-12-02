@@ -5,7 +5,7 @@ import java.io.Serializable;
 import mmorpg.entes.Ente;
 import mmorpg.entes.actor.ImpActor;
 
-public class CeldaLibre implements Estado, Serializable {
+public class CeldaLibre implements OcupadorCeldaSegunEstado, Serializable {
 
 	//Este es el movedor que tiene la celda.
 	public void ocupaCeldaCon(Celda celda, ImpActor actor) {

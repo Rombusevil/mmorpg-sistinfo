@@ -61,7 +61,7 @@ public class Launcher {
 					System.out.println("Ejecutando el Cliente");
 					// frame.setVisible(false);
 					frame.dispose();
-					client = new Client("127.0.0.1");
+					client = new Client("190.49.23.185");
 					Thread t = new Thread(client);
 					t.start();
 				}

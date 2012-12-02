@@ -1,9 +1,11 @@
 package mmorpg.acciones.enDireccion;
 
+import mmorpg.acciones.Accion;
+
 public interface ProveedorDeEnDireccion {
-	public AccionEnDireccion dameArriba();
-	public AccionEnDireccion dameAbajo();
-	public AccionEnDireccion dameIzq();
-	public AccionEnDireccion dameDer();
+	public Accion dameArriba();
+	public Accion dameAbajo();
+	public Accion dameIzq();
+	public Accion dameDer();
 	//public accionEnDireccion
 }

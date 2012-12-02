@@ -2,7 +2,7 @@ package mmorpg.items;
 
 import java.io.Serializable;
 
-public class MainHand implements ItemEquipable, Serializable {
+public class Espada extends Item implements Serializable {
 	
 	int dmg;
 	int armor;
@@ -32,7 +32,7 @@ public class MainHand implements ItemEquipable, Serializable {
 	
 	/* CONSTRUCTOR */
 	
-	public MainHand(int dmg, int amor, double aktSpd, String nombre){
+	public Espada(int dmg, int amor, double aktSpd, String nombre){
 		this.setArmor(amor);
 		this.setAtkSpd(aktSpd);
 		this.setDmg(dmg);

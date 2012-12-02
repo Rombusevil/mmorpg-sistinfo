@@ -3,7 +3,7 @@ package mmorpg.entes.actor;
 import java.io.Serializable;
 
 import mmorpg.items.ItemEquipable;
-import mmorpg.items.MainHand;
+import mmorpg.items.Espada;
 import mmorpg.server.database.EstadoPjAGuardar;
 
 public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
@@ -149,7 +149,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	public ImpFichaDePersonaje() {
 
 		this.gear = new SlotGear(); // Inicializado el Gear
-		ItemEquipable armaInicial = new MainHand(10, 50, 1, "Espada de Madera"); // Creo
+		ItemEquipable armaInicial = new Espada(10, 50, 1, "Espada de Madera"); // Creo
 																				 // el
 																				 // arma
 																				 // inicial
@@ -366,7 +366,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		this.setVit(vit);		
 
 		// Creo un item con los atributos que recibi
-		ItemEquipable item = new MainHand(dmgItem, armorItem, atkSpdItem, nombreItem);
+		ItemEquipable item = new Espada(dmgItem, armorItem, atkSpdItem, nombreItem);
 		// Le equipo el item
 		this.getGear().reemplazaItem(item);
 
