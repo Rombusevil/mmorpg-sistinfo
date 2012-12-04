@@ -18,7 +18,6 @@ public class Desconexion implements AccionDeConexion {
 
 	@Override
 	public void actuaEnMundo(Actor pj, Mundo mundo) {
-		//FIXME Hacer que el pj sepa salir del mundo.
-		//pj.exitMundo();
+		pj.exitMundo();
 	}
 }

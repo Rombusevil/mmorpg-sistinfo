@@ -4,6 +4,7 @@ import mmorpg.mundo.Celda;
 
 public interface Actor {
 	void setPosicion(Celda posicion);
+	void exitMundo();
 	
 	void moveteDer();
 	void moveteIzq();

@@ -71,6 +71,17 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 		this.getFichaDePersonaje().recibiDmg(dmg, lvlAtacante);
 	}
 	
+	//El pj se sale del mundo
+	public void exitMundo(){
+		Celda ca = this.getCeldaActual();
+		
+		ca.setEnte(ca.getEnteNoAtacable());	//Le pongo un ente no atacable a la celda
+		ca.setEstado(ca.getEstadoLibre()); 	//Libero la celda
+		
+		/** @deprecated */
+		this.getCeldaActual().setDibujo(this.getCeldaActual().getVacio()); //Le limpio el dibujo.
+		//Fin deprecated
+	}
 
 	public void moveteDer(){
 		Celda celdaActual, celdaDestino;
@@ -81,7 +92,6 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, this);
 		
 	}
-	
 	public void moveteIzq(){
 		Celda celdaActual, celdaDestino;
 		
@@ -91,7 +101,6 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, this);
 		
 	}
-	
 	public void moveteAbajo(){
 		Celda celdaActual, celdaDestino;
 		
@@ -109,29 +118,6 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 		
 		celdaDestino.getEstado().ocupaCeldaCon(celdaDestino, this);
 		
-	}
-	
-	public int dameHP(){
-		return this.getFichaDePersonaje().dameCurrentHp();
-	}
-	public int dameXP(){
-		return this.getFichaDePersonaje().dameXp();
-	}
-	public int dameLvl(){
-		return this.getFichaDePersonaje().dameLvl();
-	}
-	@Override
-	public int dameDmg() {
-		return this.getFichaDePersonaje().dameDmg();
-	}
-
-	@Override
-	public double dameAtkSpd() {
-		return this.getFichaDePersonaje().dameAtkSpd();
-	}
-	@Override
-	public int dameXpPorGolpearte() {
-		return this.getFichaDePersonaje().dameXpPorGolpearte();
 	}
 	
 	@Override
@@ -157,6 +143,28 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 	}
 	public void setFichaDePersonaje(FichaDePersonaje fp) {
 		this.fp = fp;
+	}
+	public int dameHP(){
+		return this.getFichaDePersonaje().dameCurrentHp();
+	}
+	public int dameXP(){
+		return this.getFichaDePersonaje().dameXp();
+	}
+	public int dameLvl(){
+		return this.getFichaDePersonaje().dameLvl();
+	}
+	@Override
+	public int dameDmg() {
+		return this.getFichaDePersonaje().dameDmg();
+	}
+
+	@Override
+	public double dameAtkSpd() {
+		return this.getFichaDePersonaje().dameAtkSpd();
+	}
+	@Override
+	public int dameXpPorGolpearte() {
+		return this.getFichaDePersonaje().dameXpPorGolpearte();
 	}
 
 }
