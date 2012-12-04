@@ -1,8 +1,10 @@
 package mmorpg.acciones;
 
 import java.io.Serializable;
+import java.util.List;
 
 import mmorpg.entes.actor.Actor;
+import mmorpg.mundo.Mundo;
 
 public class CmdJugadorAccion implements iComando, Serializable {
 	private Accion aed;
@@ -22,8 +24,7 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	}
 
 	@Override
-	public void ejecutate() {
-		//TODO ver si esto está bien. Tirandome a la pileta:
+	public void ejecutarEnDireccion() {
 		this.aed.actuar(pj);
 	}
 
@@ -36,6 +37,12 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	@Override
 	public Accion getAccion(){ 
 		return this.aed;
+	}
+
+	@Override
+	public void ejecutarConexion(Actor pj, List<Actor> listaPj, Mundo mundo) {
+		// No lo implementa
+		
 	}
 
 }

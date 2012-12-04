@@ -91,7 +91,7 @@ public class GestorComandos implements Runnable {
 									if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
 										System.out.println("ENTRE A EJECUTAR - Server");
 										cmd.setPj(pjDeLaLista);
-										cmd.ejecutate();
+										cmd.ejecutarEnDireccion();
 									}
 								}
 								// EJECUTA COMANDOS EN EL CLIENTE
@@ -102,7 +102,7 @@ public class GestorComandos implements Runnable {
 										}
 										System.out.println("ENTRE A EJECUTAR - Cliente");
 										cmd.setPj(pjDeLaLista);
-										cmd.ejecutate();
+										cmd.ejecutarEnDireccion();
 
 									}
 								}

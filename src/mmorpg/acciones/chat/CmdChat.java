@@ -1,15 +1,18 @@
 package mmorpg.acciones.chat;
 
+import java.util.List;
+
 import mmorpg.acciones.Accion;
 import mmorpg.acciones.iComando;
 import mmorpg.entes.actor.Actor;
+import mmorpg.mundo.Mundo;
 
 public class CmdChat implements iComando {
 	private MostrarEnChat mec; //Conoce a un mosrtar en chat 
 
 	@Override
-	public void ejecutate() {
-		// TODO Auto-generated method stub
+	public void ejecutarEnDireccion() {
+		// No lo implementa.
 
 	}
 
@@ -41,6 +44,12 @@ public class CmdChat implements iComando {
 	public Accion getAccion() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void ejecutarConexion(Actor pj, List<Actor> listaPj, Mundo mundo) {
+		// No lo implementa
+		
 	}
 
 }

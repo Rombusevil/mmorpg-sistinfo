@@ -1,9 +1,24 @@
 package mmorpg.acciones;
 
-import mmorpg.entes.actor.Actor;
+import java.util.List;
 
+import mmorpg.entes.actor.Actor;
+import mmorpg.mundo.Mundo;
+
+/**
+ * Los comandos deben ejecutar siempre
+ * los 3 mensajes (hasta la fecha)
+ * ejecutarEnDireccion();
+ * ejecutarConexio(param);
+ * mostarEnChat(param);
+ */
 public interface iComando {
-	void ejecutate();
+	void ejecutarEnDireccion();
+	void ejecutarConexion(Actor pj, List<Actor> listaPj, Mundo mundo);
+	//void mostrarEnChat(Ventana v); //Esto lo dejo comentado porque hay que resolver la GUI antes, capaz podríamos poner una interfaz y listo.
+	
+	
+	
 	//Estos dos métodos capaz no deberían estar acá, pero bueno... va a andar.
 	void setPj(Actor a);
 	void setAccion(Accion aed);
