@@ -3,6 +3,7 @@ package mmorpg.acciones;
 import java.io.Serializable;
 import java.util.List;
 
+import mmorpg.acciones.conexion.AccionDeConexion;
 import mmorpg.entes.actor.Actor;
 import mmorpg.mundo.Mundo;
 
@@ -22,6 +23,30 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	public void setAccion(Accion aed){
 		this.aed = aed;
 	}
+	
+	@Override
+	public void setAccion(AccionDeConexion aed) {
+		/*
+	    _-`````-,           ,- '- .
+	  .'   .- - |          | - -.  `.
+	 /.'  /                     `.   \
+	:/   :      _...   ..._      ``   :
+	::   :     /._ .`:'_.._\.    ||   :
+	::    `._ ./  ,`  :    \ . _.''   .
+	`:.      /   |  -.  \-. \\_      /
+	  \:._ _/  .'   .@)  \@) ` `\ ,.'
+	     _/,--'       .- .\,-.`--`.
+	       ,'/''     (( \ `  )    
+	        /'/'  \    `-'  (      
+	         '/''  `._,-----'
+	          ''/'    .,---'
+	           ''/'      ;:
+	             ''/''  ''/
+	               ''/''/''
+	                 '/'/'
+	                  `;		 
+		 */
+	}
 
 	@Override
 	public void ejecutarEnDireccion() {
@@ -40,9 +65,11 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	}
 
 	@Override
-	public void ejecutarConexion(Actor pj, List<Actor> listaPj, Mundo mundo) {
+	public void ejecutarConexion(List<Actor> listaPj, Mundo mundo) {
 		// No lo implementa
 		
 	}
+
+	
 
 }

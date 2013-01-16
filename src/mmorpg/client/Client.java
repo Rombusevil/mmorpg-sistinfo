@@ -37,6 +37,7 @@ import mmorpg.entes.actor.Actor;
 import mmorpg.entes.actor.ImpActor;
 import mmorpg.entes.actor.PJ;
 import mmorpg.mundo.ImpMundo;
+import mmorpg.mundo.Mundo;
 import mmorpg.userInterface.output.ImpImprimidorMundosCLI;
 import mmorpg.userInterface.output.ImpImprimidorMundosCLIJframe;
 import mmorpg.userInterface.output.Ventana;
@@ -61,7 +62,8 @@ public class Client implements Runnable {
 
 	public Client(String host) {
 		serverIP = host;
-		gc = new GestorComandos(false); // Crea el GC en el cliente (false es para indicar que no es Server)
+		Mundo mundoInicialAux = new ImpMundo(1, 1, null);
+		this.gc = new GestorComandos(false, mundoInicialAux);
 	}
 
 	@Override
@@ -103,6 +105,9 @@ public class Client implements Runnable {
 				e.printStackTrace();
 			}
 			// FIN RECIBIR PJ y MUNDO
+			
+			// CREO GC una vez que recibi el mundo
+			this.gc.setMundo(mundo); // Crea el GC en el cliente (false es para indicar que no es Server)
 
 			// Agrega el PJ recibido al GC para utilizarlo en la copia local del mundo
 			gc.agregarPjSocket(pj, connection);

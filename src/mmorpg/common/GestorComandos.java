@@ -17,6 +17,8 @@ import mmorpg.acciones.iComando;
 import mmorpg.entes.actor.Actor;
 import mmorpg.entes.actor.ImpActor;
 import mmorpg.entes.actor.PJ;
+import mmorpg.mundo.ImpMundo;
+import mmorpg.mundo.Mundo;
 import mmorpg.server.database.DataBaseManager;
 import mmorpg.server.database.EstadoPjAGuardar;
 
@@ -24,7 +26,7 @@ public class GestorComandos implements Runnable {
 
 	private List<Socket> socketList;	// Esta lista la usa el server para hablar
 										// con los clientes, forwardeando
-	private List<Actor> pjList;
+	private List<Actor> pjList; //Lista de Pjs para ejecutar comandos, que es diferente de la lIstaPJ del Mundo
 
 	private List<Actor> newPjList;	// Lista auxiliar con los nuevos pjs conectados
 	private Actor pjCliente;		// Guarda el PJ del Cliente, para saber quien sos vos
@@ -34,14 +36,17 @@ public class GestorComandos implements Runnable {
 	private Object monitor;
 	private Boolean server; 	// Si es server forwardea comandos
 	private DataBaseManager dataBase;
+	
+	private Mundo mundo;
 
 	/* Constructor */
-	public GestorComandos(Boolean server) {
+	public GestorComandos(Boolean server, Mundo mundo) {
 		socketList = new ArrayList<Socket>();   // init lista de sockets
 		pjList = new LinkedList<Actor>();		// init lista de pjs
 		listMonitor = new Object();
 		monitor = new Object();
 		this.server = server;
+		this.mundo = mundo;
 
 		if (!server) {
 			newPjList = new LinkedList<Actor>();
@@ -92,6 +97,7 @@ public class GestorComandos implements Runnable {
 										System.out.println("ENTRE A EJECUTAR - Server");
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutarEnDireccion();
+										cmd.ejecutarConexion(this.pjList, this.mundo);
 									}
 								}
 								// EJECUTA COMANDOS EN EL CLIENTE
@@ -103,7 +109,7 @@ public class GestorComandos implements Runnable {
 										System.out.println("ENTRE A EJECUTAR - Cliente");
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutarEnDireccion();
-
+										cmd.ejecutarConexion(this.pjList, this.mundo);	
 									}
 								}
 							}
@@ -231,6 +237,10 @@ public class GestorComandos implements Runnable {
 		} else {
 			return false;
 		}
+	}
+
+	public void setMundo(ImpMundo mundo2) {
+		this.mundo = mundo2;		
 	}
 
 }

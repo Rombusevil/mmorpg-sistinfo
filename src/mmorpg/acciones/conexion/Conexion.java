@@ -1,12 +1,13 @@
 package mmorpg.acciones.conexion;
 
+import java.io.Serializable;
 import java.util.List;
 
 import mmorpg.entes.actor.Actor;
 import mmorpg.entes.actor.ImpActor;
 import mmorpg.mundo.Mundo;
 
-public class Conexion implements AccionDeConexion {
+public class Conexion implements AccionDeConexion, Serializable {
 	//Metodos para poner el pj en la lista del mundo, y para ponerlo en algún lugar del mundo
 	
 

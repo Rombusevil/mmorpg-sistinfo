@@ -4,6 +4,7 @@ import java.util.List;
 
 import mmorpg.acciones.Accion;
 import mmorpg.acciones.iComando;
+import mmorpg.acciones.conexion.AccionDeConexion;
 import mmorpg.entes.actor.Actor;
 import mmorpg.mundo.Mundo;
 
@@ -47,8 +48,33 @@ public class CmdChat implements iComando {
 	}
 
 	@Override
-	public void ejecutarConexion(Actor pj, List<Actor> listaPj, Mundo mundo) {
+	public void ejecutarConexion(List<Actor> listaPj, Mundo mundo) {
 		// No lo implementa
+		
+	}
+
+	@Override
+	public void setAccion(AccionDeConexion aed) {
+		/*
+	    _-`````-,           ,- '- .
+	  .'   .- - |          | - -.  `.
+	 /.'  /                     `.   \
+	:/   :      _...   ..._      ``   :
+	::   :     /._ .`:'_.._\.    ||   :
+	::    `._ ./  ,`  :    \ . _.''   .
+	`:.      /   |  -.  \-. \\_      /
+	  \:._ _/  .'   .@)  \@) ` `\ ,.'
+	     _/,--'       .- .\,-.`--`.
+	       ,'/''     (( \ `  )    
+	        /'/'  \    `-'  (      
+	         '/''  `._,-----'
+	          ''/'    .,---'
+	           ''/'      ;:
+	             ''/''  ''/
+	               ''/''/''
+	                 '/'/'
+	                  `;		 
+		 */
 		
 	}
 

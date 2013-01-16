@@ -6,6 +6,9 @@ import java.net.Socket;
 import mmorpg.acciones.Accion;
 import mmorpg.acciones.CmdJugadorAccion;
 import mmorpg.acciones.iComando;
+import mmorpg.acciones.conexion.AccionDeConexion;
+import mmorpg.acciones.conexion.CmdJugadorConexion;
+import mmorpg.acciones.conexion.Desconexion;
 import mmorpg.acciones.enDireccion.ImpProveedorAtacadores;
 import mmorpg.acciones.enDireccion.ImpProveedorDeMovedores;
 import mmorpg.acciones.enDireccion.ProveedorDeEnDireccion;
@@ -117,6 +120,16 @@ public class DecodificadorTeclas implements Serializable {
 					//Mando el comando al gestor para que haga todo lo que 
 					gestorComandos.mandarComando(cmd, this.socketConectado);			
 				break;
+				
+			/** Desconexion **/
+			case '*':
+					cmd = new CmdJugadorConexion();
+					cmd.setPj(this.pj);
+					AccionDeConexion d = new Desconexion();
+					cmd.setAccion(d);
+					gestorComandos.mandarComando(cmd, this.socketConectado);
+				break;
+					
 		}
 	}
 }
