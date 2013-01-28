@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import mmorpg.acciones.iComando;
 import mmorpg.entes.actor.Actor;
 import mmorpg.entes.actor.ImpActor;
@@ -28,8 +28,10 @@ public class GestorComandos implements Runnable {
 										// con los clientes, forwardeando
 	private List<Actor> pjList; //Lista de Pjs para ejecutar comandos, que es diferente de la lIstaPJ del Mundo
 
-	private List<Actor> newPjList;	// Lista auxiliar con los nuevos pjs conectados
+	private List<Actor> newPjList;	// Lista auxiliar con los pjs a conectar
+	private List<Actor> killPjList; // Lista auxiliar con los pjs a desconectar
 	private Actor pjCliente;		// Guarda el PJ del Cliente, para saber quien sos vos
+	private List<Socket> killSocketList; // Cuando alguien se desconecta, lo sacamos de la lista de sockets con esta lista
 
 	// Estan bien usados los monitores?? y los synchronized¿?
 	private Object listMonitor; // Este monitor funcaba
@@ -47,6 +49,8 @@ public class GestorComandos implements Runnable {
 		monitor = new Object();
 		this.server = server;
 		this.mundo = mundo;
+		this.killPjList = new LinkedList<Actor>();
+		this.killSocketList = new LinkedList<Socket>();  
 
 		if (!server) {
 			newPjList = new LinkedList<Actor>();
@@ -77,7 +81,7 @@ public class GestorComandos implements Runnable {
 							Actor pjDelComando = cmd.getPj();
 							sendComando = true;
 
-							if ((isNewConnection(cmd) && !(server))) {
+							if ((isNewConnection(cmd) && !(this.server))) {
 								System.out.println("------>Se conecto alguien!!!");
 								this.pjList.add(cmd.getPj()); // <- Para que el GC pueda ejecutar comandos sobre este PJ
 								this.newPjList.add(cmd.getPj()); // <-- Para instanciarlos en el Mundo (del cliente)
@@ -87,21 +91,21 @@ public class GestorComandos implements Runnable {
 							while (it2.hasNext()) {								// Para comparar el PJ que vino en el cmd
 								Actor pjDeLaLista = it2.next();					// Con algun PJ de la Lista
 
-								// if(server){//guardo los datos del pj
-								// guardaPjBd((ImpActor)pjDeLaLista);
-								// }
-
+//								if(server){//guardo los datos del pj
+//									guardaPjBd((ImpActor)pjDeLaLista);
+//								}					
+								
 								// EJECUTA COMANDOS EN EL SERVER
-								if (server) {
+								if (this.server) {
 									if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
 										System.out.println("ENTRE A EJECUTAR - Server");
 										cmd.setPj(pjDeLaLista);
-										cmd.ejecutarEnDireccion();
-										cmd.ejecutarConexion(this.pjList, this.mundo);
+										cmd.ejecutarEnDireccion();	
+										cmd.ejecutarConexion(null ,this.killPjList, this.mundo);
 									}
 								}
 								// EJECUTA COMANDOS EN EL CLIENTE
-								if (!server && !(ejecutado)) {
+								if (!this.server && !(ejecutado)) {
 									if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
 										if (!(((PJ) pjDeLaLista).getUsr().equals(((PJ) this.pjCliente).getUsr()))) { // El PjLista != PjCliente
 											ejecutado = true;
@@ -109,19 +113,41 @@ public class GestorComandos implements Runnable {
 										System.out.println("ENTRE A EJECUTAR - Cliente");
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutarEnDireccion();
-										cmd.ejecutarConexion(this.pjList, this.mundo);	
+										cmd.ejecutarConexion(this.newPjList, this.killPjList, this.mundo);
 									}
 								}
+							}// end while it2
+							
+							this.pjList.removeAll(this.killPjList); // Borra de la lista a los que se desconectaron
+							this.killPjList.clear();
+							
+							
+							if(!this.server){							// Esto solo lo hace el cliente
+								this.pjList.addAll(this.newPjList);		// Agrego a la lista a los que se conectaron
+								this.newPjList.clear();
 							}
+							
+							
+							
+							
 						}
-
+						
+//						if(!this.killPjList.isEmpty()){
+//							this.killSocketList.add(skt); // Agrego el socket a la lista de sockets a ser borrados
+//							
+//						}
+						
+						
 						// if si es server
 						// Hacer--->forwardearComando(cmd);
-						if (server && sendComando) {
+						if (this.server && sendComando ) {
 							Iterator<Socket> itForward = this.getSocketList().iterator();
 							ObjectOutputStream out = null;
 
 							while (itForward.hasNext()) {
+//								if(this.killSocketList.contains(skt)){
+//									itForward.next();
+//								}
 								Socket sktForward = itForward.next();
 								out = new ObjectOutputStream(sktForward.getOutputStream());
 								out.writeObject(cmd);
@@ -248,5 +274,7 @@ public class GestorComandos implements Runnable {
 	public void setMundo(ImpMundo mundo2) {
 		this.mundo = mundo2;		
 	}
+	
+	
 
 }

@@ -13,9 +13,15 @@ public class Conexion implements AccionDeConexion, Serializable {
 
 
 	@Override
-	public void actuaEnListaPj(Actor pj, List<Actor> listaPj, Mundo mundo) {
-		listaPj.add(pj);
-		mundo.getPjList().add(pj);
+	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo) {
+		try{
+			newListaPj.add(pj);
+			mundo.getPjList().add(pj);
+		}catch(Exception e){
+			System.out.println("Server - recibi NULL en newListaPj (OK)");
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override

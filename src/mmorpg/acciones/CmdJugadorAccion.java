@@ -65,7 +65,7 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	}
 
 	@Override
-	public void ejecutarConexion(List<Actor> listaPj, Mundo mundo) {
+	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo) {
 		// No lo implementa
 		
 	}

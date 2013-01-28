@@ -17,9 +17,9 @@ public class CmdJugadorConexion implements iComando, Serializable {
 	
 	
 	// El método "ejecutate" de este comando
-	public void ejecutarConexion(List<Actor> listaPj, Mundo mundo) {
-		this.accion.actuaEnListaPj(this.pj, listaPj, mundo); 	//Lo pongo en las listas.
-		this.accion.actuaEnMundo(this.pj, mundo);						//Lo pongo en el mundo
+	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo) {
+		this.accion.actuaEnListaPj(this.pj, newPjList, killPjList, mundo); 		// Actuo en las listas.
+		this.accion.actuaEnMundo(this.pj, mundo);						// Actuo en el mundo.
 	}
 
 	

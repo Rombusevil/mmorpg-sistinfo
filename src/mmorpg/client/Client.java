@@ -118,18 +118,18 @@ public class Client implements Runnable {
 			System.out.println(listaDePjsExistentes);
 			gc.setPjList(listaDePjsExistentes);
 
-//			Accion nuevaConexion = new MovedorAbajo(); // No importa el tipo de accion
-//			nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
-//			iComando commandoConnection = new CmdJugadorAccion();
-//			commandoConnection.setAccion(nuevaConexion);
-//			commandoConnection.setPj(pj);
-//			gc.mandarComando(commandoConnection, connection);
+			Accion nuevaConexion = new MovedorAbajo(); // No importa el tipo de accion
+			nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
+			iComando commandoConnection = new CmdJugadorAccion();
+			commandoConnection.setAccion(nuevaConexion);
+			commandoConnection.setPj(pj);
+			gc.mandarComando(commandoConnection, connection);
 
-			AccionDeConexion nuevaConexion = new Conexion();
-			iComando cmdConexion = new CmdJugadorConexion();
-			cmdConexion.setAccion(nuevaConexion);
-			cmdConexion.setPj(pj);
-			gc.mandarComando(cmdConexion, connection);
+//			AccionDeConexion nuevaConexion = new Conexion();
+//			iComando cmdConexion = new CmdJugadorConexion();
+//			cmdConexion.setAccion(nuevaConexion);
+//			cmdConexion.setPj(pj);
+//			gc.mandarComando(cmdConexion, connection);
 			
 			
 			// Ventana con los Datos del PJ y el foco del teclado

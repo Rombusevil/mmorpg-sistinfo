@@ -15,7 +15,7 @@ import mmorpg.mundo.Mundo;
  */
 public interface iComando {
 	void ejecutarEnDireccion();
-	void ejecutarConexion(List<Actor> listaPj, Mundo mundo);
+	void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo);
 	//void mostrarEnChat(Ventana v); //Esto lo dejo comentado porque hay que resolver la GUI antes, capaz podríamos poner una interfaz y listo.
 	
 	

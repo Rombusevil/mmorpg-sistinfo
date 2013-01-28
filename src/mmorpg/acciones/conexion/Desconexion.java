@@ -11,9 +11,9 @@ public class Desconexion implements AccionDeConexion, Serializable {
 	
 
 	@Override
-	public void actuaEnListaPj(Actor pj, List<Actor> listaPj, Mundo mundo) {
+	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo) {
 		//Esto funca?
-		listaPj.remove(pj); 
+		killListaPj.add(pj); 
 		mundo.getPjList().remove(pj);
 	}
 
