@@ -31,6 +31,9 @@ import javax.swing.JTextField;
 import mmorpg.acciones.Accion;
 import mmorpg.acciones.CmdJugadorAccion;
 import mmorpg.acciones.iComando;
+import mmorpg.acciones.conexion.AccionDeConexion;
+import mmorpg.acciones.conexion.CmdJugadorConexion;
+import mmorpg.acciones.conexion.Conexion;
 import mmorpg.acciones.enDireccion.MovedorAbajo;
 import mmorpg.common.GestorComandos;
 import mmorpg.entes.actor.Actor;
@@ -115,13 +118,20 @@ public class Client implements Runnable {
 			System.out.println(listaDePjsExistentes);
 			gc.setPjList(listaDePjsExistentes);
 
-			Accion nuevaConexion = new MovedorAbajo(); // No importa el tipo de accion
-			nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
-			iComando commandoConnection = new CmdJugadorAccion();
-			commandoConnection.setAccion(nuevaConexion);
-			commandoConnection.setPj(pj);
-			gc.mandarComando(commandoConnection, connection);
+//			Accion nuevaConexion = new MovedorAbajo(); // No importa el tipo de accion
+//			nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true
+//			iComando commandoConnection = new CmdJugadorAccion();
+//			commandoConnection.setAccion(nuevaConexion);
+//			commandoConnection.setPj(pj);
+//			gc.mandarComando(commandoConnection, connection);
 
+			AccionDeConexion nuevaConexion = new Conexion();
+			iComando cmdConexion = new CmdJugadorConexion();
+			cmdConexion.setAccion(nuevaConexion);
+			cmdConexion.setPj(pj);
+			gc.mandarComando(cmdConexion, connection);
+			
+			
 			// Ventana con los Datos del PJ y el foco del teclado
 			ventana = new Ventana(pj, gc, connection);
 			// imprimidor = new ImpImprimidorMundosCLI();

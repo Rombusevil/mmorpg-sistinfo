@@ -230,13 +230,19 @@ public class GestorComandos implements Runnable {
 		this.pjCliente = pjCliente;
 	}
 
+	@Deprecated
 	public boolean isNewConnection(iComando cmd) {
-		System.out.println("isNewConnection:" + cmd.getAccion().getNewConnection());
-		if (cmd.getAccion().getNewConnection()) {
-			return true;
-		} else {
+		try{
+			System.out.println("isNewConnection:" + cmd.getAccion().getNewConnection());
+			if (cmd.getAccion().getNewConnection()) {
+				return true;
+			}else{
+				return false;
+			}
+		}catch (RuntimeException e){
+			System.out.println("IsNewConnection: False (Deprecado)");
 			return false;
-		}
+		}		
 	}
 
 	public void setMundo(ImpMundo mundo2) {
