@@ -157,7 +157,7 @@ public class Client implements Runnable {
 			agregarNuevosJugadores();
 
 			try {
-				Thread.sleep(3);
+				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
