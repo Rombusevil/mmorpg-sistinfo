@@ -166,5 +166,21 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 	public int dameXpPorGolpearte() {
 		return this.getFichaDePersonaje().dameXpPorGolpearte();
 	}
+	
+	@Override
+	public boolean estasMuerto(){
+		return this.getFichaDePersonaje().estasMuerto();
+	}
+	
+	@Override
+	public void morite(){
+		this.getFichaDePersonaje().morite();
+		System.out.println("ImpActor - morite!" );
+	}
+	
+	@Override
+	public void revivi(){
+		this.getFichaDePersonaje().revivi();
+	}
 
 }

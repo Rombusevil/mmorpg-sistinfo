@@ -36,4 +36,8 @@ public interface Actor {
 			double atkSpdItem);
 	
 	public double dameMovSpd();
+	
+	public boolean estasMuerto();
+	public void morite();
+	public void revivi();
 }

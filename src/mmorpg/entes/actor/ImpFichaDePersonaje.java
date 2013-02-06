@@ -118,7 +118,8 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	@Override
 	public void morite() {
 		this.matarPj();
-
+		this.setExpAlRecibirDmg(0);
+		System.out.println("Ficha PJ - isDead: "+this.dead+"¡Me mori!" );
 	}
 
 	@Override
@@ -289,9 +290,10 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		int hp = this.getCurrentHp();
 		hp -= dmgTaken;
 		this.setCurrentHp(hp);
-		if (this.getCurrentHp() >= 0) {
+		if (this.getCurrentHp() <= 0) {
 			// Estas muerto
-			this.matarPj();
+			System.out.println("FichaPJ: Mi vida es: "+this.getCurrentHp()+" por eso me mori");
+			this.morite();
 		}
 		return dmgTaken;
 	}
@@ -363,7 +365,9 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		this.setXp(xp);
 		this.setStr(str);
 		this.setDex(dex);
-		this.setVit(vit);		
+		this.setVit(vit);
+		
+		//this.setDead(false); // El PJ empieza vivo
 
 		// Creo un item con los atributos que recibi
 		ItemEquipable item = new Espada(dmgItem, armorItem, atkSpdItem, nombreItem);

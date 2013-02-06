@@ -1,6 +1,7 @@
 package mmorpg.mundo;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class ImpMundo implements Mundo, Serializable {
 	public void poneActorEn(int x, int y, ImpActor actor){
 		Celda celdaDestino = this.getCeldaPos(x,y);
 		
-		this.pjList.add(actor);
+		this.agregaPjListaMundo(actor);
 
 		celdaDestino.setEstado(celdaDestino.getEstadoInaccesible()); //Pongo como inaccesible la celda donde quiero ir.
 		celdaDestino.setDibujo(actor.getDibujo()); 	// Le pongo a la celda el dibujo del actor que se va a mover ahí.
@@ -100,6 +101,30 @@ public class ImpMundo implements Mundo, Serializable {
 //	public void ponerDibujableEn(int x, int y, Dibujable dibujable) {
 //		/**/
 //	}
+	
+	
+	/*
+	 * Este metodo recorre la lista de PJs y pregunta cual esta muerto. (Los Pjs se saben matar).
+	 * Cuando encuentra un muerto le manda un mensaje a ese PJ para que desactive su keyListener (provisional).
+	 * Podria agregarlo en la lista de PJs para desconectar.. o respawnearlo en algun lugar. Queda por definir.
+	 */
+	@Override
+	public void buscaYDestruyeMuertos(){
+		
+		Iterator<Actor> pjIt = this.pjList.iterator();
+		
+		while(pjIt.hasNext()) { 
+			Actor actorAux = (Actor) pjIt.next();
+			
+			// Si esta muerto lo remuevo de la lista
+			if (actorAux.estasMuerto()) {
+				System.out.println("Mundo - encontre un muerto!");
+				this.borraPjListaMundo(actorAux);
+				actorAux.exitMundo();
+			}			
+		}
+		
+	}
 	
 	public Celda dameCelda(int x, int y, Mundo mundo){		
 		return entradaMundo;
@@ -133,6 +158,18 @@ public class ImpMundo implements Mundo, Serializable {
 	@Override
 	public List<Actor> getPjList() {
 		return this.pjList;
+	}
+
+	@Override
+	public void borraPjListaMundo(Actor pj) {
+		System.out.println("Mundo - Estoy borrando un pj de ListaMundo");
+		this.getPjList().remove(pj);		
+	}
+
+	@Override
+	public void agregaPjListaMundo(Actor pj) {
+		System.out.println("Mundo - Estoy agregando un pj a ListaMundo");
+		this.getPjList().add(pj);		
 	}
 
 }

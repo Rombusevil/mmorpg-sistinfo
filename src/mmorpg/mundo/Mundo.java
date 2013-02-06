@@ -20,7 +20,16 @@ public interface Mundo{
 	int getAncho();
 	Celda[][] getMundo();
 	
-	public List<Actor> getPjList();
+	
+	public List<Actor> getPjList();	
+	public void borraPjListaMundo(Actor pj);
+	void agregaPjListaMundo(Actor pj);
+	
+	// Seek & Destroy
+	public void buscaYDestruyeMuertos();
+	
+	
+	
 	
 
 }

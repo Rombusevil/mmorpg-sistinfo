@@ -121,6 +121,7 @@ public class GestorComandos implements Runnable {
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutarEnDireccion();	
 										cmd.ejecutarConexion(null ,this.killPjList, this.mundo);
+										this.mundo.buscaYDestruyeMuertos();
 									}
 								}
 								// EJECUTA COMANDOS EN EL CLIENTE
@@ -133,8 +134,12 @@ public class GestorComandos implements Runnable {
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutarEnDireccion();
 										cmd.ejecutarConexion(this.newPjList, this.killPjList, this.mundo);
+										this.mundo.buscaYDestruyeMuertos();
 									}
 								}
+								
+								
+								
 							}// end while it2							
 							
 //							System.out.println("ANTES DEL REMOVEALL");
@@ -189,6 +194,7 @@ public class GestorComandos implements Runnable {
 					}
 				}// end iterator
 			} // end monitor
+			//this.mundo.buscaYDestruyeMuertos();
 		}// end while(true)
 	}
 
