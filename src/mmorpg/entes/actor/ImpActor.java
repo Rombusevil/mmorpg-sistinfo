@@ -69,6 +69,10 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 	
 	public void sosAtacado(int dmg, int lvlAtacante){
 		this.getFichaDePersonaje().recibiDmg(dmg, lvlAtacante);
+		
+		if(this.getFichaDePersonaje().estasMuerto()){
+			this.exitMundo();
+		}
 	}
 	
 	//El pj se sale del mundo
