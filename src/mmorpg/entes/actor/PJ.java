@@ -25,5 +25,5 @@ public class PJ extends ImpActor implements  Serializable {
 	public void setUsr(String usr) {
 		this.usr = usr;
 	}
-	
+
 }

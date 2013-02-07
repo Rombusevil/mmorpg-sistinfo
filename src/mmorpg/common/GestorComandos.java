@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,7 +37,7 @@ public class GestorComandos implements Runnable {
 	
 	// Listas-copia para iterar
 	private List<Actor> itPjList;		// Copia para iterar
-	private List<Socket> itSocketList;	// Copia para iterar
+//	private List<Socket> itSocketList;	// Copia para iterar
 
 	private Actor pjCliente;		// Guarda el PJ del Cliente, para saber quien sos vos
 	// Estan bien usados los monitores?? y los synchronized¿?
@@ -62,7 +63,7 @@ public class GestorComandos implements Runnable {
 		
 		// Inicio las copias para iterar
 		this.itPjList = new LinkedList<Actor>();
-		this.itSocketList = new LinkedList<Socket>();  
+//		this.itSocketList = new LinkedList<Socket>();  
 
 		if (!server) {
 			newPjList = new LinkedList<Actor>();
@@ -76,9 +77,9 @@ public class GestorComandos implements Runnable {
 	public void run() {
 		while (true) {
 			synchronized (this.socketList) {
-				//Copio la lista de sockets en la lista para iterar e itero sobre ella
-				this.itSocketList.clear();
-				this.itSocketList.addAll(this.getSocketList());
+//				//Copio la lista de sockets en la lista para iterar e itero sobre ella
+//				this.itSocketList.clear();
+//				this.itSocketList.addAll(this.getSocketList());
 				
 				Iterator<Socket> it = this.socketList.iterator(); // Iterador de sockets
 				ObjectInputStream in = null;
@@ -178,9 +179,13 @@ public class GestorComandos implements Runnable {
 						}
 
 						Thread.sleep(10);
-					} catch (RuntimeException e) {
+					} catch (ConcurrentModificationException e){
+						System.out.println("GC - ConcurrentModificationException it.remove()");
 						it.remove();	// Si falla algo (cliente desconectado), remuevo el cliente del iterador
+						e.printStackTrace();
+					} catch (RuntimeException e) {
 						System.out.println("GC - RuntimeException it.remove()");
+						it.remove();	// Si falla algo (cliente desconectado), remuevo el cliente del iterador
 						e.printStackTrace();
 					} catch (InterruptedException e) {
 						System.out.println("GC -  InterruptedException (Thread)");
