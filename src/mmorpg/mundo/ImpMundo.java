@@ -109,7 +109,7 @@ public class ImpMundo implements Mundo, Serializable {
 	 * Podria agregarlo en la lista de PJs para desconectar.. o respawnearlo en algun lugar. Queda por definir.
 	 */
 	@Override
-	public void buscaYDestruyeMuertos(){
+	public void buscaYDestruyeMuertos(List<Actor> killListaPj){
 		
 		Iterator<Actor> pjIt = this.pjList.iterator();
 		
@@ -119,7 +119,7 @@ public class ImpMundo implements Mundo, Serializable {
 			// Si esta muerto lo remuevo de la lista
 			if (actorAux.estasMuerto()) {
 				System.out.println("Mundo - encontre un muerto!");
-				this.borraPjListaMundo(actorAux);
+				this.borraPjListaMundo(actorAux, killListaPj);
 				actorAux.exitMundo();
 			}			
 		}
@@ -161,8 +161,9 @@ public class ImpMundo implements Mundo, Serializable {
 	}
 
 	@Override
-	public void borraPjListaMundo(Actor pj) {
+	public void borraPjListaMundo(Actor pj, List<Actor> killListaPj) {
 		System.out.println("Mundo - Estoy borrando un pj de ListaMundo");
+		killListaPj.add(pj);
 		this.getPjList().remove(pj);		
 	}
 

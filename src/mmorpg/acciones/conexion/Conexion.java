@@ -1,6 +1,7 @@
 package mmorpg.acciones.conexion;
 
 import java.io.Serializable;
+import java.net.Socket;
 import java.util.List;
 
 import mmorpg.entes.actor.Actor;
@@ -13,7 +14,7 @@ public class Conexion implements AccionDeConexion, Serializable {
 
 
 	@Override
-	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo) {
+	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo, Socket socket, List<Socket> socketList) {
 		try{
 			newListaPj.add(pj);
 			mundo.getPjList().add(pj);

@@ -22,11 +22,11 @@ public interface Mundo{
 	
 	
 	public List<Actor> getPjList();	
-	public void borraPjListaMundo(Actor pj);
+	public void borraPjListaMundo(Actor pj, List<Actor> killListaPj);
 	void agregaPjListaMundo(Actor pj);
 	
 	// Seek & Destroy
-	public void buscaYDestruyeMuertos();
+	public void buscaYDestruyeMuertos(List<Actor> killListaPj);
 	
 	
 	

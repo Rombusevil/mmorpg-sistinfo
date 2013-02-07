@@ -121,8 +121,8 @@ public class GestorComandos implements Runnable {
 										System.out.println("ENTRE A EJECUTAR - Server");
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutarEnDireccion();	
-										cmd.ejecutarConexion(null ,this.killPjList, this.mundo);
-										this.mundo.buscaYDestruyeMuertos();
+										cmd.ejecutarConexion(null ,this.killPjList, this.mundo, skt, null);
+										//this.mundo.buscaYDestruyeMuertos(this.killPjList);
 									}
 								}
 								// EJECUTA COMANDOS EN EL CLIENTE
@@ -134,8 +134,8 @@ public class GestorComandos implements Runnable {
 										System.out.println("ENTRE A EJECUTAR - Cliente");
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutarEnDireccion();
-										cmd.ejecutarConexion(this.newPjList, this.killPjList, this.mundo);
-										this.mundo.buscaYDestruyeMuertos();
+										cmd.ejecutarConexion(this.newPjList, this.killPjList, this.mundo, skt, null);
+										//this.mundo.buscaYDestruyeMuertos(this.killPjList);
 									}
 								}
 								
@@ -143,10 +143,10 @@ public class GestorComandos implements Runnable {
 								
 							}// end while it2							
 							
-//							System.out.println("ANTES DEL REMOVEALL");
-//							this.pjList.removeAll(this.killPjList); // Borra de la lista a los que se desconectaron
-//							System.out.println("DESPUES DEL REMOVEALL");
-//							this.killPjList.clear();						
+							System.out.println("ANTES DEL REMOVEALL");
+							this.pjList.removeAll(this.killPjList); // Borra de la lista a los que se desconectaron
+							System.out.println("DESPUES DEL REMOVEALL");
+							this.killPjList.clear();						
 							
 //							if(!this.server){							// Esto solo lo hace el cliente
 //								this.pjList.addAll(this.newPjList);		// Agrego a la lista a los que se conectaron

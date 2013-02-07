@@ -1,5 +1,6 @@
 package mmorpg.acciones;
 
+import java.net.Socket;
 import java.util.List;
 
 import mmorpg.acciones.conexion.AccionDeConexion;
@@ -15,7 +16,7 @@ import mmorpg.mundo.Mundo;
  */
 public interface iComando {
 	void ejecutarEnDireccion();
-	void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo);
+	void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Socket socket, List<Socket> socketList);
 	//void mostrarEnChat(Ventana v); //Esto lo dejo comentado porque hay que resolver la GUI antes, capaz podríamos poner una interfaz y listo.
 	
 	

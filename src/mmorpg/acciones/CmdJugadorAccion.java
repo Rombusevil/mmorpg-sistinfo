@@ -1,6 +1,7 @@
 package mmorpg.acciones;
 
 import java.io.Serializable;
+import java.net.Socket;
 import java.util.List;
 
 import mmorpg.acciones.conexion.AccionDeConexion;
@@ -65,7 +66,7 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	}
 
 	@Override
-	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo) {
+	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Socket socket, List<Socket> socketList) {
 		// No lo implementa
 		
 	}
