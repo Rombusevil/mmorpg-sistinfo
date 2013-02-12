@@ -2,7 +2,10 @@ package mmorpg.acciones.conexion;
 
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import mmorpg.acciones.Accion;
 import mmorpg.acciones.iComando;
@@ -18,7 +21,7 @@ public class CmdJugadorConexion implements iComando, Serializable {
 	
 	
 	// El método "ejecutate" de este comando
-	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Socket socket, List<Socket> socketList) {
+	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Map.Entry<Socket,Boolean> socket, Map.Entry<Socket,Boolean> socketList) {
 		this.accion.actuaEnListaPj(this.pj, newPjList, killPjList, mundo, socket, socketList); 		// Actuo en las listas.
 		this.accion.actuaEnMundo(this.pj, mundo);						// Actuo en el mundo.
 	}

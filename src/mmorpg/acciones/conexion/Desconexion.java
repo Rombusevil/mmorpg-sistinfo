@@ -3,7 +3,9 @@ package mmorpg.acciones.conexion;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mmorpg.entes.actor.Actor;
 import mmorpg.mundo.Mundo;
@@ -13,10 +15,20 @@ public class Desconexion implements AccionDeConexion, Serializable {
 	
 
 	@Override
-	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo, Socket socket, List<Socket> socketList) {
+	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo, Map.Entry<Socket,Boolean> socket, Map.Entry<Socket,Boolean> socketList) {
 		//Esto funca?
 		killListaPj.add(pj); 
 		mundo.getPjList().remove(pj);
+		
+		socket.setValue(false); //Marco la socketlist para que no se use el socket.
+		//Cierro el socket.
+		try {
+			socket.getKey().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 //		socketList.remove(socket);
 //		try {
 //			socket.close();

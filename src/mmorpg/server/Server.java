@@ -104,7 +104,7 @@ public class Server implements Runnable, Serializable {
 		gestorComandos.agregarPjSocket(pj, socket);	// Le pasa el PJ y el Socket al gestorComandos y lo agrega a las 2 listas		
 		
 		System.out.println("\n Te imprimo la lista de Sockets y PJs:");
-		gestorComandos.printList();
+		//gestorComandos.printList();
 	}
 	
 	/**

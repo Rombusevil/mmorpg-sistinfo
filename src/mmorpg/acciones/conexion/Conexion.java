@@ -2,7 +2,9 @@ package mmorpg.acciones.conexion;
 
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mmorpg.entes.actor.Actor;
 import mmorpg.entes.actor.ImpActor;
@@ -14,10 +16,10 @@ public class Conexion implements AccionDeConexion, Serializable {
 
 
 	@Override
-	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo, Socket socket, List<Socket> socketList) {
+	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo,Map.Entry<Socket,Boolean> socket, Map.Entry<Socket,Boolean> socketList) {
 		try{
 			newListaPj.add(pj);
-			mundo.getPjList().add(pj);
+			mundo.getPjList().add(pj);			
 		}catch(Exception e){
 			System.out.println("Server - recibi NULL en newListaPj (OK)");
 			e.printStackTrace();
