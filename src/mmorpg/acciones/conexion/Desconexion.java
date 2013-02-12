@@ -21,13 +21,21 @@ public class Desconexion implements AccionDeConexion, Serializable {
 		mundo.getPjList().remove(pj);
 		
 		socket.setValue(false); //Marco la socketlist para que no se use el socket.
-		//Cierro el socket.
+		
 		try {
-			socket.getKey().close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			socketList.setValue(false);	
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
+		//Cierro el socket.
+//		try {
+//			socket.getKey().close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 //		socketList.remove(socket);
 //		try {

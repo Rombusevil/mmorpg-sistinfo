@@ -19,7 +19,8 @@ public class Conexion implements AccionDeConexion, Serializable {
 	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo,Map.Entry<Socket,Boolean> socket, Map.Entry<Socket,Boolean> socketList) {
 		try{
 			newListaPj.add(pj);
-			mundo.getPjList().add(pj);			
+			mundo.getPjList().add(pj);	
+			socket.setValue(true);
 		}catch(Exception e){
 			System.out.println("Server - recibi NULL en newListaPj (OK)");
 			e.printStackTrace();

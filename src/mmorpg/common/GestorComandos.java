@@ -93,107 +93,112 @@ public class GestorComandos implements Runnable {
 						Map.Entry<Socket, Boolean> skt = it.next();
 						//Socket skt = it.next();
 						
-						if(skt.getValue()==true){	//Si el socket está activo
-							if (skt.getKey().getInputStream().available() > 0) {
-							//if (skt.getInputStream().available() > 0) {
-								//in = new ObjectInputStream(skt.getInputStream());
-								in = new ObjectInputStream(skt.getKey().getInputStream());
-								
-								// si metemos un if(in.avaiable() > 0 ) muere todo
-								cmd = (iComando) in.readObject();
-								Actor pjDelComando = cmd.getPj();
-								sendComando = true;
-	
-								if ((isNewConnection(cmd) && !(this.server))) {
-									System.out.println("Cliente - Me conecte!");
-									this.pjList.add(cmd.getPj()); // <- Para que el GC pueda ejecutar comandos sobre este PJ
-									this.newPjList.add(cmd.getPj()); // <-- Para instanciarlos en el Mundo (del cliente)
-								}
-								
-								//Copio la lista de Pjs en la lista para iterar e itero sobre ella
-								this.itPjList.clear();
-								this.itPjList.addAll(this.pjList);	
-								
-								Iterator<Actor> it2 = this.itPjList.iterator();	// Recorro la lista de PJs
-								while (it2.hasNext()) {								// Para comparar el PJ que vino en el cmd
-									Actor pjDeLaLista = it2.next();					// Con algun PJ de la Lista
-	
-	// Esto está comentado a propósito para safar un poco (?). No se están guardando los datos en la bd.
-	//								if(server){//guardo los datos del pj
-	//									guardaPjBd((ImpActor)pjDeLaLista);
-	//								}					
-									
-									// EJECUTA COMANDOS EN EL SERVER
-									if (this.server) {
-										if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
-											System.out.println("ENTRE A EJECUTAR - Server");
-											cmd.setPj(pjDeLaLista);
-											cmd.ejecutarEnDireccion();	
-											cmd.ejecutarConexion(null ,this.killPjList, this.mundo, skt, null);
-											//this.mundo.buscaYDestruyeMuertos(this.killPjList);
-										}
-									}
-									// EJECUTA COMANDOS EN EL CLIENTE
-									if (!this.server && !(ejecutado)) {
-										if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
-											if (!(((PJ) pjDeLaLista).getUsr().equals(((PJ) this.pjCliente).getUsr()))) { // El PjLista != PjCliente
-												ejecutado = true;
-											}
-											System.out.println("ENTRE A EJECUTAR - Cliente");
-											cmd.setPj(pjDeLaLista);
-											cmd.ejecutarEnDireccion();
-											cmd.ejecutarConexion(this.newPjList, this.killPjList, this.mundo, skt, null);
-											//this.mundo.buscaYDestruyeMuertos(this.killPjList);
-										}
-									}
-									
-									
-									
-								}// end while it2							
-								
-								System.out.println("ANTES DEL REMOVEALL");
-								this.pjList.removeAll(this.killPjList); // Borra de la lista a los que se desconectaron
-								System.out.println("DESPUES DEL REMOVEALL");
-								this.killPjList.clear();						
-								
-	//							if(!this.server){							// Esto solo lo hace el cliente
-	//								this.pjList.addAll(this.newPjList);		// Agrego a la lista a los que se conectaron
-	//								this.newPjList.clear();
-	//							}
-								
-							}
-						
-	//						if(!this.killPjList.isEmpty()){
-	//							this.killSocketList.add(skt); // Agrego el socket a la lista de sockets a ser borrados
-	//							
-	//						}
+					
+						if (skt.getKey().getInputStream().available() > 0) {
+						//if (skt.getInputStream().available() > 0) {
+							//in = new ObjectInputStream(skt.getInputStream());
+							in = new ObjectInputStream(skt.getKey().getInputStream());
 							
-							// if si es server
-							// Hacer--->forwardearComando(cmd);
-							if (this.server && sendComando ) {
-								
-								Iterator<Map.Entry<Socket, Boolean>> itForward = socketList.entrySet().iterator();
-								//Iterator<Socket> itForward = this.socketList.iterator();
-								ObjectOutputStream out = null;
-	
-								while (itForward.hasNext()) {									
-	//								if(this.killSocketList.contains(skt)){
-	//									itForward.next();
-	//								}
-									
-									Map.Entry<Socket, Boolean> sktForward = itForward.next();
-									if(sktForward.getValue()==true){ //Si está activo forwardeo
-										//Socket sktForward = itForward.next();
-										out = new ObjectOutputStream(sktForward.getKey().getOutputStream());
-										out.writeObject(cmd);
-										out.flush();
-									}
-								}
-								sendComando = false;
+							// si metemos un if(in.avaiable() > 0 ) muere todo
+							cmd = (iComando) in.readObject();
+							Actor pjDelComando = cmd.getPj();
+							sendComando = true;
+
+							if ((isNewConnection(cmd) && !(this.server))) {
+								System.out.println("Cliente - Me conecte!");
+								this.pjList.add(cmd.getPj()); // <- Para que el GC pueda ejecutar comandos sobre este PJ
+								this.newPjList.add(cmd.getPj()); // <-- Para instanciarlos en el Mundo (del cliente)
 							}
 							
-							Thread.sleep(10);
+							//Copio la lista de Pjs en la lista para iterar e itero sobre ella
+							this.itPjList.clear();
+							this.itPjList.addAll(this.pjList);	
+							
+							Iterator<Actor> it2 = this.itPjList.iterator();	// Recorro la lista de PJs
+							while (it2.hasNext()) {								// Para comparar el PJ que vino en el cmd
+								Actor pjDeLaLista = it2.next();					// Con algun PJ de la Lista
+
+// Esto está comentado a propósito para safar un poco (?). No se están guardando los datos en la bd.
+//								if(server){//guardo los datos del pj
+//									guardaPjBd((ImpActor)pjDeLaLista);
+//								}					
+								
+								// EJECUTA COMANDOS EN EL SERVER
+								if (this.server) {
+									if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
+										System.out.println("ENTRE A EJECUTAR - Server");
+										cmd.setPj(pjDeLaLista);
+										cmd.ejecutarEnDireccion();	
+										cmd.ejecutarConexion(null ,this.killPjList, this.mundo, skt, null);
+										//this.mundo.buscaYDestruyeMuertos(this.killPjList);
+									}
+								}
+								// EJECUTA COMANDOS EN EL CLIENTE
+								System.out.println("Ejecutado vale:" + ejecutado);
+								if (!this.server && !(ejecutado)) {
+									if ((((PJ) pjDeLaLista).getUsr().equals(((PJ) pjDelComando).getUsr())) && !(isNewConnection(cmd))) {
+										if (!(((PJ) pjDeLaLista).getUsr().equals(((PJ) this.pjCliente).getUsr()))) { // El PjLista != PjCliente
+											ejecutado = true;
+										}
+										System.out.println("ENTRE A EJECUTAR - Cliente");
+										cmd.setPj(pjDeLaLista);
+										cmd.ejecutarEnDireccion();
+										cmd.ejecutarConexion(this.newPjList, this.killPjList, this.mundo, skt, null);
+										//this.mundo.buscaYDestruyeMuertos(this.killPjList);
+									}
+								}
+								
+								
+								
+							}// end while it2							
+							
+							System.out.println("ANTES DEL REMOVEALL");
+							this.pjList.removeAll(this.killPjList); // Borra de la lista a los que se desconectaron
+							System.out.println("DESPUES DEL REMOVEALL");
+							this.killPjList.clear();						
+							
+//							if(!this.server){							// Esto solo lo hace el cliente
+//								this.pjList.addAll(this.newPjList);		// Agrego a la lista a los que se conectaron
+//								this.newPjList.clear();
+//							}
+							
 						}
+					
+//						if(!this.killPjList.isEmpty()){
+//							this.killSocketList.add(skt); // Agrego el socket a la lista de sockets a ser borrados
+//							
+//						}
+						
+						// if si es server
+						// Hacer--->forwardearComando(cmd);
+						if (this.server && sendComando ) {
+							
+							Iterator<Map.Entry<Socket, Boolean>> itForward = socketList.entrySet().iterator();
+							//Iterator<Socket> itForward = this.socketList.iterator();
+							ObjectOutputStream out = null;
+
+							while (itForward.hasNext()) {									
+//								if(this.killSocketList.contains(skt)){
+//									itForward.next();
+//								}
+								
+								Map.Entry<Socket, Boolean> sktForward = itForward.next();
+								if(sktForward.getValue()==true){ //Si está activo forwardeo
+									//Socket sktForward = itForward.next();
+									out = new ObjectOutputStream(sktForward.getKey().getOutputStream());
+									out.writeObject(cmd);
+									out.flush();
+									System.out.println("Forwardeo comando-SERVER SAYS");
+								}
+								else{
+									System.out.println("Socket Inact. no forwardeo-SERVER SAYS");
+								}
+							}
+							sendComando = false;
+						}
+						
+						Thread.sleep(10);
+
 					} catch (ConcurrentModificationException e){
 						System.out.println("GC - ConcurrentModificationException it.remove()");
 						
