@@ -1,4 +1,4 @@
-package mmorpg.common;
+package __papelera;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -61,9 +61,9 @@ public class Launcher {
 					System.out.println("Ejecutando el Cliente");
 					// frame.setVisible(false);
 					frame.dispose();
-					client = new Client("127.0.0.1");
-					Thread t = new Thread(client);
-					t.start();
+					//client = new Client("127.0.0.1", 1111);
+					//Thread t = new Thread(client);
+					//t.start();
 				}
 			}
 		});

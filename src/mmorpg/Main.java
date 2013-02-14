@@ -1,6 +1,9 @@
 package mmorpg;
 
-import mmorpg.common.Launcher;
+import javax.swing.SwingUtilities;
+
+
+import mmorpg.userInterface.output.GUI.LauncherWindow;
 
 public class Main {
 
@@ -12,7 +15,16 @@ public class Main {
 		// Si quiere lanzar el Cliente o el Server.
 		// Entonces se ejecuta el que corresponda.
 		
-		new Launcher();
+		// new Launcher();   // Viejo Launcher
+		
+		
+		// Nuevo Launcher 
+		
+		SwingUtilities.invokeLater(new Runnable(){  
+            public void run(){  
+                new LauncherWindow().setVisible(true);  
+            }  
+        });
 
 	}
 

@@ -53,6 +53,9 @@ public class Client implements Runnable {
 	private ObjectInputStream in;
 	private String serverIP;
 	private Socket connection;
+	private String user;
+	private String pass;
+	private String character;
 
 	private ImpMundo mundo;
 	private Actor pj;
@@ -63,8 +66,11 @@ public class Client implements Runnable {
 	ImpImprimidorMundosCLI imprimidor;
 	ImpImprimidorMundosCLIJframe impJframe;
 
-	public Client(String host) {
-		serverIP = host;
+	public Client(String host, Integer port, String user, String pass, String character) {
+		this.serverIP = host;
+		this.user = user;
+		this.pass = pass;
+		this.character = character;
 		Mundo mundoInicialAux = new ImpMundo(1, 1, null);
 		this.gc = new GestorComandos(false, mundoInicialAux);
 	}
@@ -81,17 +87,11 @@ public class Client implements Runnable {
 			conectarAlServer();
 			setupStreams();
 			escucharComandos();
-
-			String usr = JOptionPane.showInputDialog(null, "Ingrese un caracter:");
-			String pwd = JOptionPane.showInputDialog(null, "Ingrese password:");
-
-			System.out.println("usr: " + usr + "  pwd: " + pwd);
-
-			// Mando user y pass
+			
 			try {
-				out.writeObject(usr);
+				out.writeObject(this.user);
 				out.flush();
-				out.writeObject(pwd);
+				out.writeObject(this.pass);
 				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -136,8 +136,12 @@ public class Client implements Runnable {
 			ventana = new Ventana(pj, gc, connection);
 			// imprimidor = new ImpImprimidorMundosCLI();
 			impJframe = new ImpImprimidorMundosCLIJframe();
+			
+			Thread t = new Thread(ventana);
+			t.start();						
 
 			whileRunning();
+			
 		} catch (EOFException e) {
 			System.out.println("Cliente cerro la conexion");
 		} catch (IOException e) {
@@ -151,9 +155,8 @@ public class Client implements Runnable {
 	// Main loop
 	private void whileRunning() throws IOException {
 		do {
-			ventana.imprimeDatosPj();
-
-			ventana.imprimiMundo(impJframe.dameMundoString(mundo));
+			
+			ventana.setMundo(mundo);
 			agregarNuevosJugadores();
 
 			try {
@@ -220,6 +223,22 @@ public class Client implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public GestorComandos getGestorComandos(){
+		return this.gc;
+	}
+	
+	public Socket getSocket(){
+		return this.connection;
+	}
+	
+	public Actor getPj(){
+		return this.pj;
+	}
+	
+	public ImpMundo getMundo(){
+		return this.mundo;
 	}
 
 }

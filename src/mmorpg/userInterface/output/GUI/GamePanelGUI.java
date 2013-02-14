@@ -1,4 +1,4 @@
-package mmorpg.userInterface.output;
+package mmorpg.userInterface.output.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -6,8 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.Socket;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import mmorpg.common.GestorComandos;
 import mmorpg.entes.actor.Actor;
@@ -15,26 +15,21 @@ import mmorpg.entes.actor.ImpActor;
 import mmorpg.mundo.ImpMundo;
 import mmorpg.server.database.EstadoPjAGuardar;
 import mmorpg.userInterface.input.DecodificadorTeclas;
+import mmorpg.userInterface.output.ImpImprimidorMundosCLI;
+import mmorpg.userInterface.output.ImpImprimidorMundosCLIJframe;
 
-
-/**
- * Esta va a ser la ventana jframe que va a mostrar los datos del pj
- * y va a tener el controladorTeclado.
- * @author rombus
- * 
- * La clase cliente va a instanciar esta ventana y le va a pasr el pj levantado de la BD
- * y un gestor de comandos.
- *
- */
-
-public class Ventana extends JFrame implements KeyListener, Runnable{
+public class GamePanelGUI extends JPanel implements KeyListener{
+	
 	private DecodificadorTeclas decodificadorTeclas;
 	private JLabel j1;
 	private ImpActor pj; //Es un impActor pq necesitamos que tenga la ficha de personaje.
 	private Socket socketConectado;
 	private ImpMundo mundo;
 	
-	public Ventana(Actor pj, GestorComandos gc, Socket skt){
+	public GamePanelGUI(GestorComandos gc, Socket skt, Actor pj){
+		super();
+
+
 		this.socketConectado = skt;
 		j1= new JLabel("");
 		decodificadorTeclas = new DecodificadorTeclas(pj, gc, this.socketConectado);
@@ -43,18 +38,24 @@ public class Ventana extends JFrame implements KeyListener, Runnable{
 		this.pj = (ImpActor) pj;
 		
 		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		add(j1,BorderLayout.NORTH);
 
 		setSize(800,300);
 
 		setVisible(true);
 		setFocusable(true);
+		
+		ImpImprimidorMundosCLI imprimidor;
+		ImpImprimidorMundosCLIJframe impJframe;
+		
+		impJframe = new ImpImprimidorMundosCLIJframe();
+		
+		do{
+			this.imprimeDatosPj();
+			this.imprimiMundo(impJframe.dameMundoString(getMundo()));			
+		}while(true);
 	}
 	
-	/* El imprimidor de datos pj tiene que llamar a esta func. pasandole los datos
-	 * a imprimir 
-	 */
 	public void imprimeDatosPj(){
 		EstadoPjAGuardar estado = pj.getFichaDePersonaje().creaEstadoPjAGuardar();
 
@@ -97,6 +98,8 @@ public class Ventana extends JFrame implements KeyListener, Runnable{
 		j1.setText(datosPj);
 		
 	}
+
+
 	public void imprimiMundo(String mundo){
 		j1.setText(j1.getText()+mundo+"</html>"); 
 	}
@@ -106,7 +109,16 @@ public class Ventana extends JFrame implements KeyListener, Runnable{
 		decodificadorTeclas.identificaCharComoAccion(tecla.getKeyChar());
 		//j1.setText("la tecla pulsada es: "+ tecla.getKeyChar());//esto es temporal para verificar los controles
 	}
+	
+	private ImpMundo getMundo() {
+		return mundo;
+	}
 
+	public void setMundo(ImpMundo mundo) {
+		this.mundo = mundo;
+	}
+	
+	
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -118,26 +130,5 @@ public class Ventana extends JFrame implements KeyListener, Runnable{
 		
 	}
 
-	@Override
-	public void run() {
-		ImpImprimidorMundosCLI imprimidor;
-		ImpImprimidorMundosCLIJframe impJframe;
-		
-		impJframe = new ImpImprimidorMundosCLIJframe();
-		
-		do{
-			this.imprimeDatosPj();
-			this.imprimiMundo(impJframe.dameMundoString(getMundo()));			
-		}while(true);
-		
-	}	
-	
-	private ImpMundo getMundo() {
-		return mundo;
-	}
-
-	public void setMundo(ImpMundo mundo) {
-		this.mundo = mundo;
-	}
 	
 }
