@@ -74,7 +74,7 @@ public class DecodificadorTeclas implements Serializable {
 			case 'j': 
 				return pAtaques.dameIzq(); 
 			case 'l': 
-				return pMovedores.dameDer();
+				return pAtaques.dameDer();
 			default:
 				return null;
 		}

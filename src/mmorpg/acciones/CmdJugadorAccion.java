@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import mmorpg.acciones.conexion.AccionDeConexion;
 import mmorpg.entes.actor.Actor;
 import mmorpg.mundo.Mundo;
+import mmorpg.server.database.DataBaseManager;
 
 public class CmdJugadorAccion implements iComando, Serializable {
 	private Accion aed;
@@ -69,7 +69,7 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	}
 
 	@Override
-	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Entry<Socket, Boolean> socket, Map.Entry<Socket,Boolean> socketList) {
+	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Entry<Socket, Boolean> socket, DataBaseManager db) {
 		// No lo implementa
 		
 	}

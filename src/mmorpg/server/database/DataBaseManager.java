@@ -155,7 +155,7 @@ public class DataBaseManager {
 				
 				System.out.println(sql);
 				statement.executeUpdate(sql);
-				System.out.println("supuestamente guardó tu estado en la BD");
+				System.out.println("Estado guardado en la BD");
 			}
 
 		} catch (SQLException e) {

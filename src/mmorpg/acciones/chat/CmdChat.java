@@ -3,7 +3,6 @@ package mmorpg.acciones.chat;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import mmorpg.acciones.Accion;
@@ -11,6 +10,7 @@ import mmorpg.acciones.iComando;
 import mmorpg.acciones.conexion.AccionDeConexion;
 import mmorpg.entes.actor.Actor;
 import mmorpg.mundo.Mundo;
+import mmorpg.server.database.DataBaseManager;
 
 public class CmdChat implements iComando {
 	private MostrarEnChat mec; //Conoce a un mosrtar en chat 
@@ -52,7 +52,7 @@ public class CmdChat implements iComando {
 	}
 
 	@Override
-	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Entry<Socket, Boolean> socket, Map.Entry<Socket,Boolean> socketList) {
+	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Entry<Socket, Boolean> socket, DataBaseManager db) {
 		// No lo implementa
 		
 	}

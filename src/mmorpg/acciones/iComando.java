@@ -3,12 +3,12 @@ package mmorpg.acciones;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import mmorpg.acciones.conexion.AccionDeConexion;
 import mmorpg.entes.actor.Actor;
 import mmorpg.mundo.Mundo;
+import mmorpg.server.database.DataBaseManager;
 
 /**
  * Los comandos deben ejecutar siempre
@@ -19,7 +19,7 @@ import mmorpg.mundo.Mundo;
  */
 public interface iComando {
 	void ejecutarEnDireccion();
-	void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Entry<Socket, Boolean> socket, Map.Entry<Socket,Boolean> socketList);
+	void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Entry<Socket, Boolean> socket, DataBaseManager db);
 	//void mostrarEnChat(Ventana v); //Esto lo dejo comentado porque hay que resolver la GUI antes, capaz podríamos poner una interfaz y listo.
 	
 	

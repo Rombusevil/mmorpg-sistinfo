@@ -82,7 +82,7 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 		ca.setEnte(ca.getEnteNoAtacable());	//Le pongo un ente no atacable a la celda
 		ca.setEstado(ca.getEstadoLibre()); 	//Libero la celda
 		
-		/** @deprecated */
+		/** @ deprecated *///Mejor no la deprecamos
 		this.getCeldaActual().setDibujo(this.getCeldaActual().getVacio()); //Le limpio el dibujo.
 		//Fin deprecated
 	}
