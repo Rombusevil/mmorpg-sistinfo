@@ -29,8 +29,26 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	boolean dead;	// True-> Muerto; False-> Vivo
 	int BASE_EXP = 25; 	// Experiencie System Related
 	int FACTOR_EXP = 2; // Experiencie System Related
+	int xpos;	//posición x al momento de la desconexión
+	int ypos;	//Posición y al momento de la desconexión
 
 	/* OVERRIDE */
+
+	public int getXpos() {
+		return xpos;
+	}
+
+	public void setXpos(int xpos) {
+		this.xpos = xpos;
+	}
+
+	public int getYpos() {
+		return ypos;
+	}
+
+	public void setYpos(int ypos) {
+		this.ypos = ypos;
+	}
 
 	@SuppressWarnings("unused")
 	@Override
@@ -130,9 +148,9 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 
 	@Override
 	public void cargaFichaPj(String nombre, int lvl, int xp, int str, int dex, int vit, String nombreItem, int dmgItem,
-			int armorItem, double atkSpdItem) {
+			int armorItem, double atkSpdItem, int xpos, int ypos) {
 
-		this.cargaFicha(nombre, lvl, xp, str, dex, vit, nombreItem, dmgItem, armorItem, atkSpdItem);
+		this.cargaFicha(nombre, lvl, xp, str, dex, vit, nombreItem, dmgItem, armorItem, atkSpdItem, xpos, ypos);
 
 	}
 	
@@ -358,7 +376,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	}
 
 	private void cargaFicha(String nombre, int lvl, int xp, int str, int dex, int vit, String nombreItem, int dmgItem,
-			int armorItem, double atkSpdItem) {
+			int armorItem, double atkSpdItem, int xpos, int ypos) {
 
 		this.setNombre(nombre);
 		this.setLvl(lvl);
@@ -391,6 +409,9 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		this.calcDmg();
 		this.calcTotalArmor();
 		this.calcAtkSpd();
+		//Setea pos
+		this.setXpos(xpos);
+		this.setYpos(ypos);
 	}
 
 	/* UTILS */
@@ -542,6 +563,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	}
 
 	//FIXME revisar este mensaje en busca de errores de noob (?)
+	// recibe las coordenadas de posición del pj a la hora de desconexión
 	public EstadoPjAGuardar creaEstadoPjAGuardar() {
 		EstadoPjAGuardar estado = new EstadoPjAGuardar();
 		
@@ -555,6 +577,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		estado.setStr(getStr());
 		estado.setVit(getVit());
 		estado.setXp(getXp());
+		
 		
 		return estado;
 	}

@@ -33,11 +33,13 @@ public interface Actor {
 			String nombreItem,
 			int dmgItem, 
 			int armorItem, 
-			double atkSpdItem);
+			double atkSpdItem, int xpos, int ypos);
 	
 	public double dameMovSpd();
 	
 	public boolean estasMuerto();
 	public void morite();
 	public void revivi();
+	public int getYpos();
+	public int getXpos();
 }

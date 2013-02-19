@@ -17,6 +17,8 @@ public interface Celda {
 	OcupadorCeldaSegunEstado getEstado();
 	Celda getCelda();
 	void setMyPos(int x, int y);
+	int getXpos();
+	int getYpos();
 	void imprimeMyPos();
 	ProveedorEstadosCelda getProveedorEstados();
 	OcupadorCeldaSegunEstado getEstadoLibre();

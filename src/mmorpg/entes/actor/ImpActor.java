@@ -124,6 +124,7 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 		
 	}
 	
+
 	@Override
 	public void cargaFichaPj(String nombre, 
 			int lvl,
@@ -134,9 +135,10 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 			String nombreItem,
 			int dmgItem, 
 			int armorItem, 
-			double atkSpdItem){
+			double atkSpdItem, int xpos, int ypos){
+
 		
-		this.getFichaDePersonaje().cargaFichaPj(nombre, lvl, xp, str, dex, vit, nombreItem, dmgItem, armorItem, atkSpdItem);		
+		this.getFichaDePersonaje().cargaFichaPj(nombre, lvl, xp, str, dex, vit, nombreItem, dmgItem, armorItem, atkSpdItem, xpos, ypos);		
 	}
 	
 	@Override public double dameMovSpd(){
@@ -187,4 +189,11 @@ public abstract class ImpActor extends ImpEnteAtacable implements Actor, Seriali
 		this.getFichaDePersonaje().revivi();
 	}
 
+	public int getYpos(){
+		return this.getCeldaActual().getYpos();
+		
+	}
+	public int getXpos(){
+		return this.getCeldaActual().getXpos();
+	}
 }

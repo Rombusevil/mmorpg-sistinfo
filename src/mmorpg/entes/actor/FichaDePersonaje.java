@@ -115,7 +115,7 @@ public interface FichaDePersonaje {
 			String nombreItem,
 			int dmgItem, 
 			int armorItem, 
-			double atkSpdItem);
+			double atkSpdItem, int xpos, int ypos);
 	
 	/**
 	 * Da la velocidad de movimiento del PJ.
@@ -128,5 +128,8 @@ public interface FichaDePersonaje {
 	 * en la BD cuando el usuario se desconecta. Esto lo usa DataBaseManager
 	 */
 	public EstadoPjAGuardar creaEstadoPjAGuardar();
+	
+	public int getYpos();
+	public int getXpos();
 	
 }

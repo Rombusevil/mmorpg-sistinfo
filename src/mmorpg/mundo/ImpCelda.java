@@ -140,4 +140,13 @@ public class ImpCelda implements Celda, Serializable {
 	public Ente getEnteNoAtacable(){
 		return this.enteNoAtacable;
 	}
+	@Override
+	public int getXpos() {
+
+		return this.posX;
+	}
+	@Override
+	public int getYpos() {
+		return this.posY;
+	}
 }

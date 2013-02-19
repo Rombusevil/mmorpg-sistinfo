@@ -99,7 +99,7 @@ public class GestorSesiones {
 		ImpDibujo dibujoActor = new ImpDibujoChar( usr.charAt(0) );
 		pj.setDibujo(dibujoActor);
 		
-		mundo.poneActorEn( 1, 1, (ImpActor)pj); //Todos los PJs spawnean en 1;1
+		mundo.poneActorEn( pj.getFichaDePersonaje().getXpos(), pj.getFichaDePersonaje().getYpos(), (ImpActor)pj); //Todos los PJs spawnean en 1;1
 		
 		mandarMundoPj(mundo, pj);
 		mandarPjsExistentes(mundo);

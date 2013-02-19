@@ -21,6 +21,8 @@ public class Desconexion implements AccionDeConexion, Serializable {
 	@Override
 	public void actuaEnListaPj(Actor pj, List<Actor> newListaPj, List<Actor> killListaPj, Mundo mundo, Map.Entry<Socket,Boolean> socket, DataBaseManager db) {
 		try {
+			//Seteo la pos del pj antes de guardarlo.
+			
 			db.guardaPj((PJ) pj);
 		} catch (NullPointerException e) {
 			// Un cliente está mandando null pq no tiene bd. ;)

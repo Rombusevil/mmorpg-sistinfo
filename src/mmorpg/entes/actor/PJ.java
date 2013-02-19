@@ -26,4 +26,6 @@ public class PJ extends ImpActor implements  Serializable {
 		this.usr = usr;
 	}
 
+
+
 }

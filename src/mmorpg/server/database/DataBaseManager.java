@@ -70,7 +70,9 @@ public class DataBaseManager {
 								rs.getString("nombreItem"),
 								rs.getInt("dmgItem"),
 								rs.getInt("armorItem"),
-								rs.getDouble("atkSpdItem"));
+								rs.getDouble("atkSpdItem"), rs.getInt("xpos"),rs.getInt("ypos")
+						
+								);
 				
 				System.out.println("Usuario Recuperado.");
 			}
@@ -102,6 +104,7 @@ public class DataBaseManager {
 		String usr 	= pj.getUsr();
 		String pass = pj.getPass();
 		Connection connection = null;
+		int x, y; //variables locales para la xpos  ypos
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -116,13 +119,27 @@ public class DataBaseManager {
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
-			ResultSet rs = statement.executeQuery("select * from actor where usr = '" + usr + "' and pass = '" + pass + "'");
+			ResultSet rs = statement.executeQuery("select * from actor where usr = '" + usr + "' and pass = '" + pass + "'");			
+
+			//seteo la posición del pj
+			try {
+				x = pj.getXpos();
+				y = pj.getYpos();
+			} catch (NullPointerException e) {
+				//Si no existe la posición de spawn es 1,1
+				x = 1;
+				y = 1;
+			}
+			
+			System.out.println("DATABASE ------ x: "+x+" y: "+y);
+			
+			
 			//Agarro el estado que me interesa guardar del pj
 			EstadoPjAGuardar estado = pj.getFichaDePersonaje().creaEstadoPjAGuardar();
 			
 			if (!rs.next()) {
 			/**Si no existe es pq el pj es nuevo, entonces lo creo**/
-				String sql = "INSERT INTO actor (usr,pass,nombre,lvl,xp,str,dex,vit,nombreItem,dmgItem,armorItem,atkSpdItem)" +
+				String sql = "INSERT INTO actor (usr,pass,nombre,lvl,xp,str,dex,vit,nombreItem,dmgItem,armorItem,atkSpdItem,xpos,ypos)" +
 						"VALUES ('"+usr +"','"+ pass+"',"	+
 						"'" + estado.getNombre() 	+ "'," 	+ 
 						estado.getLvl() + "," +  
@@ -133,7 +150,9 @@ public class DataBaseManager {
 						"'" + estado.getNombreItem()	+"'," + 
 						estado.getDmgItem() 	+ "," + 
 						estado.getArmorItem() 	+ "," + 
-						estado.getAtkSpdItem() 	+ ")";
+						estado.getAtkSpdItem() 	+ "," +
+						x		+ "," +
+						y		+ ")";
 					
 				System.out.println(sql);
 					statement.executeUpdate(sql);
@@ -151,6 +170,8 @@ public class DataBaseManager {
 						", dmgItem=" + estado.getDmgItem() + 
 						", armorItem=" + estado.getArmorItem() + 
 						", atkSpdItem=" + estado.getAtkSpdItem() +
+						", xpos=" + x +
+						", ypos=" + y + 
 						" WHERE usr='"+ usr +"' and pass='"+ pass +"'";
 				
 				System.out.println(sql);
@@ -195,9 +216,9 @@ public class DataBaseManager {
 //			statement.executeUpdate("drop table if exists actor");
 //			statement.executeUpdate("create table actor (usr string, pass string, " +
 //					"nombre string, lvl integer, xp integer, str integer, dex integer, vit integer, " +
-//					"nombreItem string, dmgItem integer, armorItem integer, atkSpdItem integer)");
+//					"nombreItem string, dmgItem integer, armorItem integer, atkSpdItem integer, xpos integer, ypos integer)");
 //			
-//			statement.executeUpdate("insert into actor values('iber', 'iberpass', 'rofl', 1, 10, 10, 12, 15, 'espada', 20, 22, 30)");
+//			statement.executeUpdate("insert into actor values('iber', 'iberpass', 'rofl', 1, 10, 10, 12, 15, 'espada', 20, 22, 30,1,1)");
 			
 			
 
@@ -222,6 +243,8 @@ public class DataBaseManager {
 					System.out.print("armorItem = " + rs.getInt("armorItem") + " | ");
 					System.out.print("atkSpdItem = " + rs.getInt("atkSpdItem") + " | ");
 					System.out.print("nombreItem = " + rs.getString("nombreItem") + " | ");
+					System.out.print("xpos = " + rs.getString("xpos") + " | ");
+					System.out.print("ypos = " + rs.getString("ypos") + " | ");
 					System.out.println();
 				} while (rs.next());
 			}

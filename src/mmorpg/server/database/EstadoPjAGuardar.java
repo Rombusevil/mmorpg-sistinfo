@@ -9,6 +9,8 @@ import java.io.Serializable;
  *
  */
 public class EstadoPjAGuardar implements Serializable {
+	private int xpos;
+	private int ypos;
 	private int dex;
 	private int vit;
 	private int str;
@@ -79,5 +81,16 @@ public class EstadoPjAGuardar implements Serializable {
 	public void setNombreItem(String nombreItem) {
 		this.nombreItem = nombreItem;
 	}
-
+	public void setYpos(int ypos){
+		this.ypos = ypos;
+	}
+	public void setXpos(int xpos){
+		this.xpos = xpos;
+	}
+	public int getYpos(){
+		return this.ypos;
+	}
+	public int getXpos(){
+		return this.xpos;
+	}
 }
