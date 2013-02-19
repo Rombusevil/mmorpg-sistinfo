@@ -189,7 +189,7 @@ public class Client implements Runnable {
 			Actor pjNuevo = it.next();
 
 			if (!(((PJ) pjNuevo).getUsr().equals(((PJ) this.pj).getUsr()))) {
-				mundo.poneActorEn(1, 1, (ImpActor) pjNuevo);
+				mundo.poneActorEn(((ImpActor)pj).getFichaDePersonaje().getXpos(), ((ImpActor)pj).getFichaDePersonaje().getXpos(), (ImpActor) pjNuevo);
 			}
 			listAux.add(pjNuevo);
 		}
