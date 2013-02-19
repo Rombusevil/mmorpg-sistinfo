@@ -88,15 +88,101 @@ public class ImpMundo implements Mundo, Serializable {
 	
 	// Esto se usa para incializar un actor en el mapa, para mover se usan los estados de celda
 	public void poneActorEn(int x, int y, ImpActor actor){
-		Celda celdaDestino = this.getCeldaPos(x,y);
+		Celda celdaDestino;
+		int col,fil,aux,extremo1X,extremo1Y,extremo2X,extremo2Y,extremo3X,extremo3Y,extremo4X,extremo4Y;
+		boolean salir=false;
 		
+		celdaDestino=mundo[x][y];
 		this.agregaPjListaMundo(actor);
-
-		celdaDestino.setEstado(celdaDestino.getEstadoInaccesible()); //Pongo como inaccesible la celda donde quiero ir.
-		celdaDestino.setDibujo(actor.getDibujo()); 	// Le pongo a la celda el dibujo del actor que se va a mover ahí.
-		celdaDestino.setEnte(actor);				// Le pongo a la celda el actor
-		actor.setCeldaActual(celdaDestino);			// Le digo al actor que se movió de celda.
+		col=y;
+		fil=x;
+		aux=1;
 		
+		System.out.println("ubicando actor");
+		
+		while(!salir){
+			if(mundo[fil][col].getEstado().getClass().getName() == "mmorpg.mundo.CeldaLibre"){
+				celdaDestino= mundo[fil][col];
+				salir=true;
+			}
+			
+			//acomodo extremos para el recorrido
+			extremo1X=fil-aux;
+			extremo1Y=col+aux;
+			extremo2X=fil-aux;
+			extremo2Y=col-aux;
+			extremo3X=fil+aux;
+			extremo3Y=col-aux;
+			extremo4X=fil+aux;
+			extremo4Y=col+aux;
+			//-----------------------------------
+			
+			//compruebo los margenes
+			if(extremo1Y>ancho)
+				extremo1Y=ancho;
+			if(extremo1X<0)
+				extremo1X=0;
+			
+			if(extremo2Y<0)
+				extremo2Y=0;
+			if(extremo2X<0)
+				extremo2X=0;
+			
+			if(extremo3Y<0)
+				extremo3Y=0;
+			if(extremo3X>alto)
+				extremo1X=alto;
+			
+			if(extremo4Y>ancho)
+				extremo1Y=ancho;
+			if(extremo4X>alto)
+				extremo4X=alto;
+			
+			//----------------------------------------------
+			if(!salir)
+				for(y=extremo1Y;y>=extremo2Y;y--){
+					if(mundo[extremo1X][y].getEstado().getClass().getName() == "mmorpg.mundo.CeldaLibre"){
+						celdaDestino= mundo[extremo1X][y];
+						
+						salir=true;
+						extremo2Y=50;
+					}
+
+					
+				}
+			if(!salir)
+				for(x=extremo2X;x<=extremo3X;x++){
+					if(mundo[x][extremo2Y].getEstado().getClass().getName() == "mmorpg.mundo.CeldaLibre"){
+						celdaDestino= mundo[x][extremo2Y];
+						
+						salir=true;
+						extremo3X=-50;
+					}
+				}
+			if(!salir){
+				x--;
+				for(y=extremo3Y;y<=extremo4Y;y++){
+					if(mundo[extremo4X][y].getEstado().getClass().getName() == "mmorpg.mundo.CeldaLibre"){
+						celdaDestino= mundo[extremo4X][y];
+						salir=true;
+						extremo4Y=-50;
+					}
+				}
+			}
+			if(!salir)
+				for(x=extremo4X;x>=extremo1X;x--){
+					if(mundo[x][extremo1Y].getEstado().getClass().getName() == "mmorpg.mundo.CeldaLibre"){
+						celdaDestino= mundo[x][extremo1Y];
+						salir=true;
+						extremo1X=50;
+					}
+				}	
+			aux++;				
+		}
+		celdaDestino.setEstado(celdaDestino.getEstadoInaccesible()); //Pongo como inaccesible la celda donde quiero ir.
+		celdaDestino.setDibujo(actor.getDibujo()); 	// Le pongo a la celda el dibujo del actor que se va a mover ah�.
+		celdaDestino.setEnte(actor);
+		actor.setCeldaActual(celdaDestino);
 	}
 //	public void ponerDibujableEn(int x, int y, Dibujable dibujable) {
 //		/**/
