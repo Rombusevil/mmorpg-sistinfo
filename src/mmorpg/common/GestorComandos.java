@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Observable;
 import java.util.Set;
 import mmorpg.acciones.iComando;
 import mmorpg.entes.actor.Actor;
@@ -23,7 +24,7 @@ import mmorpg.mundo.Mundo;
 import mmorpg.server.database.DataBaseManager;
 import mmorpg.server.database.EstadoPjAGuardar;
 
-public class GestorComandos implements Runnable {
+public class GestorComandos extends Observable implements Runnable {
 
 	// Listas Principales
 	private HashMap<Socket, Boolean> socketList;	// Esta lista la usa el server para hablar
@@ -133,6 +134,11 @@ public class GestorComandos implements Runnable {
 										cmd.ejecutarEnDireccion();
 										cmd.ejecutarConexion(this.newPjList, this.killPjList, this.mundo, skt, null);
 										//this.mundo.buscaYDestruyeMuertos(this.killPjList);
+										
+										// Le aviso a los Observers que se modifico el mundo
+										// Asi que actualizan la GUI
+										setChanged();
+								    	notifyObservers();
 									}
 								}
 								
@@ -304,6 +310,10 @@ public class GestorComandos implements Runnable {
 
 	public void setMundo(ImpMundo mundo2) {
 		this.mundo = mundo2;		
+	}
+	
+	public Mundo getMundo(){
+		return this.mundo;
 	}
 	
 	

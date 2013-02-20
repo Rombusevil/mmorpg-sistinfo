@@ -44,6 +44,7 @@ import mmorpg.mundo.Mundo;
 import mmorpg.userInterface.output.ImpImprimidorMundosCLI;
 import mmorpg.userInterface.output.ImpImprimidorMundosCLIJframe;
 import mmorpg.userInterface.output.Ventana;
+import mmorpg.userInterface.output.GUI.GamePanelGUI;
 
 import java.util.Scanner;
 
@@ -56,15 +57,16 @@ public class Client implements Runnable {
 	private String user;
 	private String pass;
 	private String character;
+	
 
 	private ImpMundo mundo;
 	private Actor pj;
 
-	private Ventana ventana;
+	// private Ventana ventana;
 	private GestorComandos gc;
 	private Boolean isRunning = true;
-	ImpImprimidorMundosCLI imprimidor;
-	ImpImprimidorMundosCLIJframe impJframe;
+	//ImpImprimidorMundosCLI imprimidor;
+	//ImpImprimidorMundosCLIJframe impJframe;
 
 	public Client(String host, Integer port, String user, String pass, String character) {
 		this.serverIP = host;
@@ -73,6 +75,8 @@ public class Client implements Runnable {
 		this.character = character;
 		Mundo mundoInicialAux = new ImpMundo(1, 1, null);
 		this.gc = new GestorComandos(false, mundoInicialAux);
+		GamePanelGUI gamePanel = new GamePanelGUI();
+		gamePanel.setController(gc);
 	}
 
 	@Override
@@ -133,12 +137,9 @@ public class Client implements Runnable {
 			
 			
 			// Ventana con los Datos del PJ y el foco del teclado
-			ventana = new Ventana(pj, gc, connection);
+			//ventana = new Ventana(pj, gc, connection);
 			// imprimidor = new ImpImprimidorMundosCLI();
-			impJframe = new ImpImprimidorMundosCLIJframe();
-			
-			Thread t = new Thread(ventana);
-			t.start();						
+			//impJframe = new ImpImprimidorMundosCLIJframe();
 
 			whileRunning();
 			
@@ -155,10 +156,7 @@ public class Client implements Runnable {
 	// Main loop
 	private void whileRunning() throws IOException {
 		do {
-			
-			ventana.setMundo(mundo);
 			agregarNuevosJugadores();
-
 			try {
 				Thread.sleep(30);
 			} catch (InterruptedException e) {

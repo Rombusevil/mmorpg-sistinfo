@@ -5,9 +5,12 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.Socket;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import mmorpg.common.GestorComandos;
 import mmorpg.entes.actor.Actor;
@@ -18,46 +21,47 @@ import mmorpg.userInterface.input.DecodificadorTeclas;
 import mmorpg.userInterface.output.ImpImprimidorMundosCLI;
 import mmorpg.userInterface.output.ImpImprimidorMundosCLIJframe;
 
-public class GamePanelGUI extends JPanel implements KeyListener{
+public class GamePanelGUI extends JPanel implements Observer{
 	
-	private DecodificadorTeclas decodificadorTeclas;
+	private GestorComandos gc;
+	private ImpImprimidorMundosCLIJframe impJframe;
+	
 	private JLabel j1;
-	private ImpActor pj; //Es un impActor pq necesitamos que tenga la ficha de personaje.
-	private Socket socketConectado;
-	private ImpMundo mundo;
 	
-	public GamePanelGUI(GestorComandos gc, Socket skt, Actor pj){
+	public GamePanelGUI(){
 		super();
-
-
-		this.socketConectado = skt;
-		j1= new JLabel("");
-		decodificadorTeclas = new DecodificadorTeclas(pj, gc, this.socketConectado);
-		addKeyListener(this);
-		
-		this.pj = (ImpActor) pj;
-		
-		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
-		add(j1,BorderLayout.NORTH);
-
-		setSize(800,300);
-
-		setVisible(true);
-		setFocusable(true);
-		
-		ImpImprimidorMundosCLI imprimidor;
-		ImpImprimidorMundosCLIJframe impJframe;
-		
-		impJframe = new ImpImprimidorMundosCLIJframe();
-		
-		do{
-			this.imprimeDatosPj();
-			this.imprimiMundo(impJframe.dameMundoString(getMundo()));			
-		}while(true);
+		init();
 	}
 	
+	public void init(){
+		this.impJframe = new ImpImprimidorMundosCLIJframe();
+		j1= new JLabel("HOLA");
+		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
+		add(j1,BorderLayout.NORTH);
+	}
+	
+	// Este metodo se llama cada vez que hay un cambio en el mundo
+	// Aca se actuliza la pantalla.
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		SwingUtilities.invokeLater(new Runnable() {
+        	public void run() {
+        		System.out.println("ENTRE A IMPRIMIR");        		
+        		//imprimiTodo();
+        		j1.setText("asdasdasd");
+        	}
+		});
+		
+	}
+	
+	public void setController(GestorComandos c) {
+    	this.gc = c;
+    	this.gc.addObserver(this);    	
+    }
+	
 	public void imprimeDatosPj(){
-		EstadoPjAGuardar estado = pj.getFichaDePersonaje().creaEstadoPjAGuardar();
+		ImpActor pj = (ImpActor) this.gc.getPjCliente();
+		EstadoPjAGuardar estado = (pj.getFichaDePersonaje().creaEstadoPjAGuardar());
 
 		
 		String datosPj = 
@@ -98,36 +102,14 @@ public class GamePanelGUI extends JPanel implements KeyListener{
 		j1.setText(datosPj);
 		
 	}
-
-
+	
 	public void imprimiMundo(String mundo){
 		j1.setText(j1.getText()+mundo+"</html>"); 
 	}
-
-	public void keyPressed(KeyEvent tecla) {
-		//Mapeo tecla a char y lo paso al decodificador.
-		decodificadorTeclas.identificaCharComoAccion(tecla.getKeyChar());
-		//j1.setText("la tecla pulsada es: "+ tecla.getKeyChar());//esto es temporal para verificar los controles
-	}
 	
-	private ImpMundo getMundo() {
-		return mundo;
-	}
-
-	public void setMundo(ImpMundo mundo) {
-		this.mundo = mundo;
-	}
-	
-	
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void imprimiTodo(){
+		this.imprimeDatosPj();
+		this.imprimiMundo(this.impJframe.dameMundoString(this.gc.getMundo()));		
 	}
 
 	

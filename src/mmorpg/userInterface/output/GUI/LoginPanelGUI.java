@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.InetAddress;
+import java.net.Socket;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -21,13 +23,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
 import mmorpg.client.Client;
+import mmorpg.entes.actor.ImpActor;
 import mmorpg.userInterface.output.ImpImprimidorMundosCLIJframe;
 import mmorpg.userInterface.output.Ventana;
 import mmorpg.userInterface.output.GUI.utils.SpriteFactory;
 
 public class LoginPanelGUI extends JPanel {
 	
-	private JTextField user = new JTextField(".....................");
+	private JTextField user = new JTextField();
 	private JTextField pass = new JPasswordField(10);
 	private JTextField character = new JTextField("x");
 	
@@ -35,6 +38,10 @@ public class LoginPanelGUI extends JPanel {
 	
 	private String serverIp;
 	private Integer serverPort;
+	private Socket connection;
+	private ImpActor pj;
+	
+	private Client cliente;
 	
 	public LoginPanelGUI(String ip, Integer port){
 		super();
@@ -149,38 +156,22 @@ public class LoginPanelGUI extends JPanel {
 		
 		conectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
+				
 				SwingWorker sw = new SwingWorker() {
 					protected Object doInBackground() throws Exception {
-						// Borro el launcher    					
-    					
-						Client c = new Client(serverIp, serverPort, user.getText(), pass.getText(), character.getText());	
-
+						
+						System.out.println(serverIp);
+						System.out.println(serverPort);
+												
+						Client c = new Client(serverIp, serverPort, user.getText(), pass.getText(), character.getText());
+						
 						Thread t = new Thread(c);
-    					t.start(); 
-    					client = c;
-    					
-//    					javax.swing.SwingUtilities.invokeLater(new Runnable() {
-//    				         @Override
-//    				         public void run() {
-//    				        	GamePanelGUI gamePanel = new GamePanelGUI(client.getGestorComandos(), client.getSocket(), client.getPj());
-//    				        	 
-//    				        	// Abro el JFrame con el KeyListener
-//    				        	JFrame frame = (JFrame) getTopLevelAncestor();
-//		    					frame.getContentPane().removeAll();
-//		    					frame.invalidate();
-//		    					frame.setContentPane(gamePanel);
-//		    					frame.validate();
-//		    					
-//		    					ImpImprimidorMundosCLIJframe impJframe = new ImpImprimidorMundosCLIJframe();
-//		    					
-//		    					
-//		    					do{
-//		    						gamePanel.setMundo(client.getMundo());
-//		    					}while(true);
-//    				         }
-//    				      });
-    					
-    					
+						t.start();
+						
+						//connection = c.getSocket();
+						cliente = c;
                         return c;
                     };
                     protected void done() {
@@ -188,6 +179,29 @@ public class LoginPanelGUI extends JPanel {
                     };                        
                 };
                 sw.execute();
+                
+                System.out.println(getTopLevelAncestor());
+                
+                
+                // Esto es para darle tiempo al cliente de recibir
+                // El PJ y el Mundo - TROFLMAO                
+                while( (connection == null) || (pj == null)  ){
+                	try {
+                		System.out.println("Esperando");
+    					Thread.sleep(20);
+    					connection = cliente.getSocket();
+    					pj = (ImpActor) cliente.getPj();
+    				} catch (InterruptedException e1) {
+    					e1.printStackTrace();
+    				}
+                }
+                
+                LauncherWindow gameWindow = (LauncherWindow) getTopLevelAncestor();
+				gameWindow.getContentPane().removeAll();
+				gameWindow.invalidate();
+				gameWindow.setContentPane(new GamePanelGUI());
+				gameWindow.validate();
+				gameWindow.initClient(cliente.getPj(), cliente.getGestorComandos(), cliente.getSocket() ); 
 			}
 		});
 		
