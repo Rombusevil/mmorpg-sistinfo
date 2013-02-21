@@ -54,8 +54,6 @@ public class GamePanelGUI extends JPanel implements Observer{
         		System.out.println("ENTRE A IMPRIMIR");        		
         		updateLabelText();
         		j1.paintImmediately(j1.getVisibleRect());
-        		System.out.println(j1.getText());
-        		
 				//gameWindow.validate();
         	}
 		});
