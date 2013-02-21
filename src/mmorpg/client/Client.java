@@ -1,19 +1,11 @@
 package mmorpg.client;
 
-import java.awt.BorderLayout;
-import java.awt.ScrollPane;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 
-import java.io.BufferedReader;
-import java.io.Console;
+
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -21,19 +13,12 @@ import java.net.Socket;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
-import javax.swing.JFrame;
-
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import mmorpg.acciones.Accion;
 import mmorpg.acciones.CmdJugadorAccion;
 import mmorpg.acciones.iComando;
-import mmorpg.acciones.conexion.AccionDeConexion;
-import mmorpg.acciones.conexion.CmdJugadorConexion;
-import mmorpg.acciones.conexion.Conexion;
+
 import mmorpg.acciones.enDireccion.MovedorAbajo;
 import mmorpg.common.GestorComandos;
 import mmorpg.entes.actor.Actor;
@@ -41,12 +26,7 @@ import mmorpg.entes.actor.ImpActor;
 import mmorpg.entes.actor.PJ;
 import mmorpg.mundo.ImpMundo;
 import mmorpg.mundo.Mundo;
-import mmorpg.userInterface.output.ImpImprimidorMundosCLI;
-import mmorpg.userInterface.output.ImpImprimidorMundosCLIJframe;
-import mmorpg.userInterface.output.Ventana;
-import mmorpg.userInterface.output.GUI.GamePanelGUI;
 
-import java.util.Scanner;
 
 public class Client implements Runnable {
 
@@ -62,11 +42,8 @@ public class Client implements Runnable {
 	private ImpMundo mundo;
 	private Actor pj;
 
-	// private Ventana ventana;
 	private GestorComandos gc;
 	private Boolean isRunning = true;
-	//ImpImprimidorMundosCLI imprimidor;
-	//ImpImprimidorMundosCLIJframe impJframe;
 
 	public Client(String host, Integer port, String user, String pass, String character) {
 		this.serverIP = host;
@@ -75,8 +52,6 @@ public class Client implements Runnable {
 		this.character = character;
 		Mundo mundoInicialAux = new ImpMundo(1, 1, null);
 		this.gc = new GestorComandos(false, mundoInicialAux);
-		// GamePanelGUI gamePanel = new GamePanelGUI();
-		// gamePanel.setController(gc);
 	}
 
 	@Override
@@ -129,20 +104,7 @@ public class Client implements Runnable {
 			commandoConnection.setPj(pj);
 			gc.mandarComando(commandoConnection, connection);
 
-//			AccionDeConexion nuevaConexion = new Conexion();
-//			iComando cmdConexion = new CmdJugadorConexion();
-//			cmdConexion.setAccion(nuevaConexion);
-//			cmdConexion.setPj(pj);
-//			gc.mandarComando(cmdConexion, connection);
-			
-			
-			// Ventana con los Datos del PJ y el foco del teclado
-			//ventana = new Ventana(pj, gc, connection);
-			// imprimidor = new ImpImprimidorMundosCLI();
-			//impJframe = new ImpImprimidorMundosCLIJframe();
-
-			whileRunning();
-			
+			whileRunning();			
 		} catch (EOFException e) {
 			System.out.println("Cliente cerro la conexion");
 		} catch (IOException e) {
@@ -172,7 +134,6 @@ public class Client implements Runnable {
 	 * Inicia el run() del GestorComandos
 	 */
 	private void escucharComandos() {
-		// System.out.println("SV - GC - Estoy escuchando comandos");
 		Thread t = new Thread(gc);
 		t.start();
 	}

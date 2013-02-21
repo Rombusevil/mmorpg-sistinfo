@@ -28,7 +28,7 @@ public class GamePanelGUI extends JPanel implements Observer{
 	private ImpImprimidorMundosCLIJframe impJframe;
 	
 	private JLabel j1;
-	private LauncherWindow gameWindow;
+	private GameWindow gameWindow;
 	
 	public GamePanelGUI(){
 		super();
@@ -62,52 +62,60 @@ public class GamePanelGUI extends JPanel implements Observer{
     	this.gc.addObserver(this);   
     }
 	
-	public void setJFrame(LauncherWindow frame){
+	public void setJFrame(GameWindow frame){
 		this.gameWindow = frame;
 	}
 	
 	public void imprimeDatosPj(){
 		ImpActor pj = (ImpActor) this.gc.getPjCliente();
 		EstadoPjAGuardar estado = (pj.getFichaDePersonaje().creaEstadoPjAGuardar());
-
+		String datosPj;
+				
+		// Muerte del PJ, carece de elegancia, pero anda 
+		if(pj.dameHP() < 0){
+			this.gameWindow.getDecodificadorTeclas().identificaCharComoAccion('*');	
+			datosPj = "<HTML>  GAME OVER  </HTML>";
+		}else{
+			datosPj = 
+					"<HTML> <table border='1'" +
+					"<tr><td color=#FF0F00>" +
+					"Personaje" +
+					"</td><td>"+
+					"Salud: "+ pj.dameHP() +"  " +
+					"</td><td>"+
+					"Exp.: "+ pj.dameXP() +"  " +
+					"</td><td>"+
+					"Nivel: "+ pj.dameLvl() +"  " +
+					"</td><td>"+
+									
+					"</td></tr><td color=#FF0F00>" +
+					"Stats" +		
+					"</td><td>"+
+					"Fuerza: "+ estado.getStr()+"  " +
+					"</td><td>"+
+					"Destreza:	"+ estado.getDex() 	+"  " +
+					"</td><td>"+
+					"Vitalidad: "+ estado.getVit() +"  " +
+					"</td><td>"+
+									
+					"</td></tr><td color=#FF0F00>" +
+					"Item" +
+					"</td><td>"+
+					"Item: "+ estado.getNombreItem() 	+"  " +
+					"</td><td>"+
+					"Daño: "+ estado.getDmgItem() 			+"  "	+
+					"</td><td>"+
+					"Armadura: "+ estado.getArmorItem() 	+"  " +
+					"</td><td>"+
+					"Vel. Ataque: "+ estado.getAtkSpdItem()+"  " +
+					"</td></tr>"; //+
+					//"</HTML>";		
+		}
 		
-		String datosPj = 
-				"<HTML> <table border='1'" +
-				"<tr><td color=#FF0F00>" +
-				"Personaje" +
-				"</td><td>"+
-				"Salud: "+ pj.dameHP() +"  " +
-				"</td><td>"+
-				"Exp.: "+ pj.dameXP() +"  " +
-				"</td><td>"+
-				"Nivel: "+ pj.dameLvl() +"  " +
-				"</td><td>"+
-								
-				"</td></tr><td color=#FF0F00>" +
-				"Stats" +		
-				"</td><td>"+
-				"Fuerza: "+ estado.getStr()+"  " +
-				"</td><td>"+
-				"Destreza:	"+ estado.getDex() 	+"  " +
-				"</td><td>"+
-				"Vitalidad: "+ estado.getVit() +"  " +
-				"</td><td>"+
-								
-				"</td></tr><td color=#FF0F00>" +
-				"Item" +
-				"</td><td>"+
-				"Item: "+ estado.getNombreItem() 	+"  " +
-				"</td><td>"+
-				"Daño: "+ estado.getDmgItem() 			+"  "	+
-				"</td><td>"+
-				"Armadura: "+ estado.getArmorItem() 	+"  " +
-				"</td><td>"+
-				"Vel. Ataque: "+ estado.getAtkSpdItem()+"  " +
-				"</td></tr>"; //+
-				//"</HTML>";
+		
+		
 		
 		j1.setText(datosPj);
-		
 	}
 	
 	public void imprimiMundo(String mundo){

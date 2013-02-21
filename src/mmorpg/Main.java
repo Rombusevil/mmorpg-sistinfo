@@ -3,7 +3,7 @@ package mmorpg;
 import javax.swing.SwingUtilities;
 
 
-import mmorpg.userInterface.output.GUI.LauncherWindow;
+import mmorpg.userInterface.output.GUI.GameWindow;
 
 public class Main {
 
@@ -22,7 +22,7 @@ public class Main {
 		
 		SwingUtilities.invokeLater(new Runnable(){  
             public void run(){  
-                new LauncherWindow().setVisible(true);  
+                new GameWindow().setVisible(true);  
             }  
         });
 

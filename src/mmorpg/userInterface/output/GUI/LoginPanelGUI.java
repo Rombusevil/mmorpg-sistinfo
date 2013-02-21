@@ -1,6 +1,5 @@
 package mmorpg.userInterface.output.GUI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -10,24 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.net.InetAddress;
 import java.net.Socket;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
+
 import mmorpg.client.Client;
 import mmorpg.entes.actor.ImpActor;
-import mmorpg.userInterface.output.ImpImprimidorMundosCLIJframe;
-import mmorpg.userInterface.output.Ventana;
-import mmorpg.userInterface.output.GUI.utils.SpriteFactory;
 
 public class LoginPanelGUI extends JPanel {
 	
@@ -71,7 +64,6 @@ public class LoginPanelGUI extends JPanel {
 		add(title, gbcontraints);	
 		
 		// USER TEXT LABEL
-		//labelUser.setPreferredSize(new Dimension(300, 40));
 		labelUser.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
 		labelUser.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 		gbcontraints = new GridBagConstraints();
@@ -109,7 +101,6 @@ public class LoginPanelGUI extends JPanel {
 		
 		// PASS TEXT AREA
 		pass.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
-		//pass.setPreferredSize(new Dimension(70, 40));
 		gbcontraints = new GridBagConstraints();
 		gbcontraints.gridwidth = 200;
 		gbcontraints.gridx = 1;
@@ -134,7 +125,6 @@ public class LoginPanelGUI extends JPanel {
 		
 		// PASS TEXT AREA
 		character.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
-		//pass.setPreferredSize(new Dimension(70, 40));
 		gbcontraints = new GridBagConstraints();
 		gbcontraints.gridwidth = 200;
 		gbcontraints.gridx = 1;
@@ -182,7 +172,7 @@ public class LoginPanelGUI extends JPanel {
                 // El PJ y el Mundo - TROFLMAO                
                 while( (connection == null) || (pj == null)  ){
                 	try {
-                		System.out.println("Esperando");
+                		System.out.println("Esperando 20ms");
     					Thread.sleep(20);
     					connection = cliente.getSocket();
     					pj = (ImpActor) cliente.getPj();
@@ -191,14 +181,12 @@ public class LoginPanelGUI extends JPanel {
     				}
                 }
                 
-                LauncherWindow gameWindow = (LauncherWindow) getTopLevelAncestor();
+                GameWindow gameWindow = (GameWindow) getTopLevelAncestor();
 				gameWindow.getContentPane().removeAll();
-				//gameWindow.invalidate();
 				GamePanelGUI gamePanel = new GamePanelGUI();
 				gamePanel.setController(cliente.getGestorComandos());
 				gamePanel.setJFrame(gameWindow);
 				gameWindow.setContentPane(gamePanel);
-				
 				gameWindow.validate();
 				gameWindow.initClient(cliente.getPj(), cliente.getGestorComandos(), cliente.getSocket());
 			}
