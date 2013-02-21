@@ -33,9 +33,10 @@ public class Conexion implements AccionDeConexion, Serializable {
 	public void actuaEnMundo(Actor pj, Mundo mundo) {
 		//FIXME definir algorítmo de posicionamiento o celda respawn.
 		//Por el momento lo tiro en 1,1
-		int x, y;
-		x = y = 1;
+		/*int x, y;
+		x = y = 1;*/
 		
-		mundo.poneActorEn(x, y, (ImpActor)pj);
+		System.out.println("COMANDO conexión -- xpos: "+((ImpActor)pj).getFichaDePersonaje().getXpos()+" ypos: "+((ImpActor)pj).getFichaDePersonaje().getYpos());
+		mundo.poneActorEn(((ImpActor)pj).getFichaDePersonaje().getXpos(), ((ImpActor)pj).getFichaDePersonaje().getYpos(), (ImpActor)pj);
 	}	
 }
