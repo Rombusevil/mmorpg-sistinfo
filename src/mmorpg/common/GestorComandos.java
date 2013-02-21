@@ -102,6 +102,8 @@ public class GestorComandos extends Observable implements Runnable {
 								System.out.println("Cliente - Se conectó alguien! (puedo haber sido yo mismo)");
 								this.pjList.add(cmd.getPj()); 	// <- Para que el GC pueda ejecutar comandos sobre este PJ
 								this.newPjList.add(cmd.getPj());// <-- Para instanciarlos en el Mundo (del cliente)
+								setChanged();
+						    	notifyObservers();
 							}
 							
 							//Copio la lista de Pjs en la lista para iterar e itero sobre ella
@@ -120,6 +122,8 @@ public class GestorComandos extends Observable implements Runnable {
 										cmd.ejecutarEnDireccion();	
 										cmd.ejecutarConexion(null ,this.killPjList, this.mundo, skt, dataBase);
 										//this.mundo.buscaYDestruyeMuertos(this.killPjList);
+										setChanged();
+								    	notifyObservers();
 									}
 								}
 								// EJECUTA COMANDOS EN EL CLIENTE
@@ -182,6 +186,8 @@ public class GestorComandos extends Observable implements Runnable {
 									out.writeObject(cmd);
 									out.flush();
 									System.out.println("- SERVER - Forwardeo comando");
+									setChanged();
+							    	notifyObservers();
 								}
 								else{
 									System.out.println("- SERVER - Socket Inact. no forwardeo");

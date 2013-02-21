@@ -27,6 +27,7 @@ public class GamePanelGUI extends JPanel implements Observer{
 	private ImpImprimidorMundosCLIJframe impJframe;
 	
 	private JLabel j1;
+	private LauncherWindow gameWindow;
 	
 	public GamePanelGUI(){
 		super();
@@ -38,6 +39,10 @@ public class GamePanelGUI extends JPanel implements Observer{
 		j1= new JLabel("HOLA");
 		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
 		add(j1,BorderLayout.NORTH);
+		
+		System.out.println("--BUSCANDO JFRAME---");
+		System.out.println(SwingUtilities.getWindowAncestor(this));
+		LauncherWindow topFrame = (LauncherWindow) SwingUtilities.getRoot(this);
 	}
 	
 	// Este metodo se llama cada vez que hay un cambio en el mundo
@@ -47,8 +52,11 @@ public class GamePanelGUI extends JPanel implements Observer{
 		SwingUtilities.invokeLater(new Runnable() {
         	public void run() {
         		System.out.println("ENTRE A IMPRIMIR");        		
-        		//imprimiTodo();
-        		j1.setText("asdasdasd");
+        		updateLabelText();
+        		j1.paintImmediately(j1.getVisibleRect());
+        		System.out.println(j1.getText());
+        		
+				//gameWindow.validate();
         	}
 		});
 		
@@ -56,8 +64,12 @@ public class GamePanelGUI extends JPanel implements Observer{
 	
 	public void setController(GestorComandos c) {
     	this.gc = c;
-    	this.gc.addObserver(this);    	
+    	this.gc.addObserver(this);   
     }
+	
+	public void setJFrame(LauncherWindow frame){
+		this.gameWindow = frame;
+	}
 	
 	public void imprimeDatosPj(){
 		ImpActor pj = (ImpActor) this.gc.getPjCliente();
@@ -107,7 +119,7 @@ public class GamePanelGUI extends JPanel implements Observer{
 		j1.setText(j1.getText()+mundo+"</html>"); 
 	}
 	
-	public void imprimiTodo(){
+	public void updateLabelText(){
 		this.imprimeDatosPj();
 		this.imprimiMundo(this.impJframe.dameMundoString(this.gc.getMundo()));		
 	}

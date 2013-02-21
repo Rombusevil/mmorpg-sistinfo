@@ -155,34 +155,28 @@ public class LoginPanelGUI extends JPanel {
 		gbcontraints.insets = new Insets(10, 60, 10, 10);
 		
 		conectar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				
+			public void actionPerformed(ActionEvent e) {				
 				SwingWorker sw = new SwingWorker() {
-					protected Object doInBackground() throws Exception {
-						
+					
+					@Override
+					protected Object doInBackground() throws Exception {						
 						System.out.println(serverIp);
-						System.out.println(serverPort);
-												
-						Client c = new Client(serverIp, serverPort, user.getText(), pass.getText(), character.getText());
+						System.out.println(serverPort);	
 						
+						Client c = new Client(serverIp, serverPort, user.getText(), pass.getText(), character.getText());						
 						Thread t = new Thread(c);
 						t.start();
-						
-						//connection = c.getSocket();
+
 						cliente = c;
                         return c;
                     };
+                    
+                    @Override
                     protected void done() {
-
                     };                        
                 };
-                sw.execute();
-                
-                System.out.println(getTopLevelAncestor());
-                
-                
+                sw.execute();                
+                System.out.println(getTopLevelAncestor()); 
                 // Esto es para darle tiempo al cliente de recibir
                 // El PJ y el Mundo - TROFLMAO                
                 while( (connection == null) || (pj == null)  ){
@@ -198,10 +192,14 @@ public class LoginPanelGUI extends JPanel {
                 
                 LauncherWindow gameWindow = (LauncherWindow) getTopLevelAncestor();
 				gameWindow.getContentPane().removeAll();
-				gameWindow.invalidate();
-				gameWindow.setContentPane(new GamePanelGUI());
+				//gameWindow.invalidate();
+				GamePanelGUI gamePanel = new GamePanelGUI();
+				gamePanel.setController(cliente.getGestorComandos());
+				//gamePanel.setJFrame(gameWindow);
+				gameWindow.setContentPane(gamePanel);
+				
 				gameWindow.validate();
-				gameWindow.initClient(cliente.getPj(), cliente.getGestorComandos(), cliente.getSocket() ); 
+				gameWindow.initClient(cliente.getPj(), cliente.getGestorComandos(), cliente.getSocket() );
 			}
 		});
 		

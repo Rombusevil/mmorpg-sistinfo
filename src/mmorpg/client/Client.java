@@ -75,8 +75,8 @@ public class Client implements Runnable {
 		this.character = character;
 		Mundo mundoInicialAux = new ImpMundo(1, 1, null);
 		this.gc = new GestorComandos(false, mundoInicialAux);
-		GamePanelGUI gamePanel = new GamePanelGUI();
-		gamePanel.setController(gc);
+		// GamePanelGUI gamePanel = new GamePanelGUI();
+		// gamePanel.setController(gc);
 	}
 
 	@Override
