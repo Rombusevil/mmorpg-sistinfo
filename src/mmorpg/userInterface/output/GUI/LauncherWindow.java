@@ -31,28 +31,18 @@ public class LauncherWindow extends JFrame implements KeyListener  {
         setLocationRelativeTo(null);
         setContentPane(new LauncherPanelGUI());	//LLAMA AL LAUNCHER
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        // Construimos el repositorio de piezas
-        //spriteFactoryWorker.execute();
 	}
 	
 	public void initClient(Actor pj, GestorComandos gc, Socket socketConectado){		
 		this.decodificadorTeclas = new DecodificadorTeclas(pj, gc, socketConectado);
 		addKeyListener(this);	
-		setSize(800,300);
+		setSize(1024,768);
 		setFocusable(true);
 		
 		this.toFront();
 		this.setState(this.NORMAL);
 		this.requestFocus();
 	}
-	
-//	SwingWorker spriteFactoryWorker = new SwingWorker() {
-//		protected Object doInBackground() throws Exception {
-//			return SpriteFactory.get();
-//         }
-//         
-//	 };
 
 	@Override
 	public void keyPressed(KeyEvent tecla) {

@@ -40,7 +40,7 @@ public class Server implements Runnable, Serializable {
 		monitor = new Object();
 		dataBase = new DataBaseManager("actores"); // Crea la Base de Datos
 		
-		this.mundo = new ImpMundo(8, 8, new ImpDibujoCharVacio());
+		this.mundo = new ImpMundo(20, 10, new ImpDibujoCharVacio());
 		
 		gestorSesiones = new GestorSesiones();
 		gestorComandos = new GestorComandos(true, mundo);

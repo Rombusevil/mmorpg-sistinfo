@@ -1,6 +1,7 @@
 package mmorpg.userInterface.output.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -35,14 +36,12 @@ public class GamePanelGUI extends JPanel implements Observer{
 	}
 	
 	public void init(){
+		this.setBackground(new Color(0,0,0)); // Fondo negro
 		this.impJframe = new ImpImprimidorMundosCLIJframe();
 		j1= new JLabel("HOLA");
 		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
-		add(j1,BorderLayout.NORTH);
-		
-		System.out.println("--BUSCANDO JFRAME---");
-		System.out.println(SwingUtilities.getWindowAncestor(this));
-		LauncherWindow topFrame = (LauncherWindow) SwingUtilities.getRoot(this);
+		j1.setForeground(new Color(0,255,0)); // Verde caracter
+		add(j1,BorderLayout.CENTER);
 	}
 	
 	// Este metodo se llama cada vez que hay un cambio en el mundo
@@ -50,11 +49,9 @@ public class GamePanelGUI extends JPanel implements Observer{
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		SwingUtilities.invokeLater(new Runnable() {
-        	public void run() {
-        		System.out.println("ENTRE A IMPRIMIR");        		
+        	public void run() {   		
         		updateLabelText();
         		j1.paintImmediately(j1.getVisibleRect());
-				//gameWindow.validate();
         	}
 		});
 		

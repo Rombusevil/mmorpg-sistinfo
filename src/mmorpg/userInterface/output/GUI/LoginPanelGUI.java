@@ -1,5 +1,6 @@
 package mmorpg.userInterface.output.GUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -195,11 +196,11 @@ public class LoginPanelGUI extends JPanel {
 				//gameWindow.invalidate();
 				GamePanelGUI gamePanel = new GamePanelGUI();
 				gamePanel.setController(cliente.getGestorComandos());
-				//gamePanel.setJFrame(gameWindow);
+				gamePanel.setJFrame(gameWindow);
 				gameWindow.setContentPane(gamePanel);
 				
 				gameWindow.validate();
-				gameWindow.initClient(cliente.getPj(), cliente.getGestorComandos(), cliente.getSocket() );
+				gameWindow.initClient(cliente.getPj(), cliente.getGestorComandos(), cliente.getSocket());
 			}
 		});
 		
