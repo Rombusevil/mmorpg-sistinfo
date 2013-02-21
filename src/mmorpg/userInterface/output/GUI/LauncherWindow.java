@@ -35,8 +35,9 @@ public class LauncherWindow extends JFrame implements KeyListener  {
 	
 	public void initClient(Actor pj, GestorComandos gc, Socket socketConectado){		
 		this.decodificadorTeclas = new DecodificadorTeclas(pj, gc, socketConectado);
-		addKeyListener(this);	
-		setSize(1024,768);
+		addKeyListener(this);
+		
+		setSize(gc.getMundo().getAncho()*100,gc.getMundo().getAlto()*22);
 		setFocusable(true);
 		
 		this.toFront();
