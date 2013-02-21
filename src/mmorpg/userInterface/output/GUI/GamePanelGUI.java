@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -74,7 +75,36 @@ public class GamePanelGUI extends JPanel implements Observer{
 		// Muerte del PJ, carece de elegancia, pero anda 
 		if(pj.dameHP() < 0){
 			this.gameWindow.getDecodificadorTeclas().identificaCharComoAccion('*');	
-			datosPj = "<HTML>  GAME OVER  </HTML>";
+			datosPj = "<HTML>" +
+					"<br><center>You died!</center>" +
+					"<br>" +
+					"<br>" +
+					"<br><center>GAME OVER</center>" +
+					"<br>" +
+					"<br>" +
+					"<br>" +
+					"<br>" +
+					"<br>Press x to close." +
+					"</HTML>";
+			
+			
+			this.addKeyListener(new KeyListener() {
+				public void keyTyped(KeyEvent e) {
+				}
+
+				public void keyReleased(KeyEvent e) {
+				}
+
+				public void keyPressed(KeyEvent e) {
+					if (e.getKeyCode() == KeyEvent.VK_X) {
+						System.exit(0);
+					}
+				}
+			});
+			this.setFocusable(true);
+			this.requestFocus();
+			
+			
 		}else{
 			datosPj = 
 					"<HTML> <table border='1'" +

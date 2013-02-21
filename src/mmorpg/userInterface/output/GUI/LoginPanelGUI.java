@@ -167,7 +167,6 @@ public class LoginPanelGUI extends JPanel {
                     };                        
                 };
                 sw.execute();                
-                System.out.println(getTopLevelAncestor()); 
                 // Esto es para darle tiempo al cliente de recibir
                 // El PJ y el Mundo - TROFLMAO                
                 while( (connection == null) || (pj == null)  ){
