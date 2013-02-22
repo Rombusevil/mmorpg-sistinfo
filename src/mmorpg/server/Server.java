@@ -1,11 +1,15 @@
 package mmorpg.server;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Properties;
+
+import javax.swing.JTextField;
 
 import mmorpg.common.GestorComandos;
 import mmorpg.entes.actor.Actor;
@@ -19,7 +23,7 @@ import mmorpg.userInterface.output.ImpDibujoCharVacio;
 public class Server implements Runnable, Serializable {
 	
 	/* Sockets Related */
-	private int port = 3334;				// Puerto del server
+	private int port;				// Puerto del server
 	private ServerSocket serverSocket;		// A este socket se conectan los clientes
 	private Socket socket;					// Socket conectado que se envia al GestorSesiones
 	
@@ -35,6 +39,16 @@ public class Server implements Runnable, Serializable {
 	private Mundo mundo;
 	
 	public Server(){
+		
+		try {
+			
+	        Properties config = new Properties();
+	        config.load(new FileInputStream("config.properties"));
+	        this.port=Integer.parseInt(config.getProperty("serverPort"));
+	        
+	    } catch (IOException ex) {
+	        System.out.println("Error al leer puerto del server en config.properties"+ex);
+	    }
 		
 		
 		monitor = new Object();

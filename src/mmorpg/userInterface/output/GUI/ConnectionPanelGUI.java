@@ -1,6 +1,9 @@
 package mmorpg.userInterface.output.GUI;
 
 import java.awt.Dimension;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -25,8 +28,11 @@ import mmorpg.client.*;
 
 public class ConnectionPanelGUI extends JPanel {
 	
-	private JTextField iptextarea = new JTextField("127.0.0.1");
-	private JTextField puerto = new JTextField("9999");
+	
+	private JTextField iptextarea;
+	private JTextField puerto;
+       
+    
 	
 	public ConnectionPanelGUI(){
 		super();
@@ -74,6 +80,16 @@ public class ConnectionPanelGUI extends JPanel {
 		add(labelip, gbcontraints);
 
 		// IP TEXT AREA
+		try {
+			 
+	        Properties config = new Properties();
+	        config.load(new FileInputStream("config.properties"));
+	        iptextarea=new JTextField(config.getProperty("serverIp"));
+	        
+	    } catch (IOException ex) {
+	        System.out.println("Error al leer ip del server en config.properties"+ex);
+	    }
+		
 		iptextarea.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
 		iptextarea.setPreferredSize(new Dimension(250, 40));
 		gbcontraints = new GridBagConstraints();
@@ -84,6 +100,15 @@ public class ConnectionPanelGUI extends JPanel {
 		add(iptextarea, gbcontraints);
 		
 		// puerto TEXT AREA
+		try {
+			 
+	        Properties config = new Properties();
+	        config.load(new FileInputStream("config.properties"));
+	        puerto=new JTextField(config.getProperty("serverPort"));
+	        
+	    } catch (IOException ex) {
+	        System.out.println("Error al leer puerto del cliente en config.properties"+ex);
+	    }
 		puerto.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
 		puerto.setPreferredSize(new Dimension(70, 40));
 		gbcontraints = new GridBagConstraints();
