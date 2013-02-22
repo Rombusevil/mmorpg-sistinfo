@@ -74,7 +74,9 @@ public class GamePanelGUI extends JPanel implements Observer{
 				
 		// Muerte del PJ, carece de elegancia, pero anda 
 		if(pj.dameHP() < 0){
-			this.gameWindow.getDecodificadorTeclas().identificaCharComoAccion('*');	
+			this.gameWindow.getDecodificadorTeclas().identificaCharComoAccion('*');
+					
+			
 			datosPj = "<HTML>" +
 					"<br><center>You died!</center>" +
 					"<br>" +

@@ -3,6 +3,8 @@ package mmorpg.userInterface.output.GUI;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.Socket;
 
 import javax.swing.JFrame;
@@ -42,7 +44,16 @@ public class GameWindow extends JFrame implements KeyListener  {
 		this.toFront();
 		this.setState(this.NORMAL);
 		this.requestFocus();
+		
+		this.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent e){
+				decodificadorTeclas.identificaCharComoAccion('*');
+				System.exit(0);
+			}
+		});
 	}
+	
+	
 
 	@Override
 	public void keyPressed(KeyEvent tecla) {
