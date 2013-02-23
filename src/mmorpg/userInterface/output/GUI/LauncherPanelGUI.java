@@ -48,17 +48,18 @@ public class LauncherPanelGUI extends JPanel {
 		gbcontraints.anchor = GridBagConstraints.NORTH;
 		gbcontraints.weighty = 1.0;
 		gbcontraints.insets = new Insets(0, 0, 0, 0);
-		add(title, gbcontraints);
+		//add(title, gbcontraints);
 
 		// IMAGEN DEL LAUNCHER
-		ImageIcon image = new ImageIcon("src/images/image.jpg");
+		ImageIcon image = new ImageIcon("src/images/Launcher.jpg");
 		JLabel imageLabel = new JLabel("", (Icon) image, JLabel.CENTER);
 		gbcontraints = new GridBagConstraints();
 		gbcontraints.gridx = 0;
 		gbcontraints.gridy = 0;
 		gbcontraints.anchor = GridBagConstraints.CENTER;
 		gbcontraints.weighty = 2.0;
-		gbcontraints.insets = new Insets(50, 0, 0, 0);
+//		gbcontraints.insets = new Insets(50, 0, 0, 0);
+		gbcontraints.insets = new Insets(0, 0, 0, 0);
 		add(imageLabel, gbcontraints);
 
 		// Acciones del Boton Cliente (LLAMA AL CLIENTE)

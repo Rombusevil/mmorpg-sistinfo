@@ -58,15 +58,16 @@ public class ConnectionPanelGUI extends JPanel {
 		add(title, gbcontraints);
 
 		// IMAGEN DEL LAUNCHER
-		ImageIcon image = new ImageIcon("src/images/image.jpg");
+		ImageIcon image = new ImageIcon("src/images/Entrar.jpg");
 		JLabel imageLabel = new JLabel("", (Icon) image, JLabel.CENTER);
 		gbcontraints = new GridBagConstraints();
 		gbcontraints.gridx = 0;
 		gbcontraints.gridy = 0;
 		gbcontraints.anchor = GridBagConstraints.CENTER;
 		gbcontraints.weighty = 2.0;
-		gbcontraints.insets = new Insets(50, 0, 0, 0);
-		add(imageLabel, gbcontraints);
+//		gbcontraints.insets = new Insets(50, 0, 0, 0);
+		gbcontraints.insets = new Insets(0, 0, 0, 0);
+//		add(imageLabel, gbcontraints);
 
 		// IP TEXT LABEL
 		labelip.setPreferredSize(new Dimension(300, 40));
@@ -78,6 +79,7 @@ public class ConnectionPanelGUI extends JPanel {
 		gbcontraints.weighty = 5.0;
 		gbcontraints.insets = new Insets(0, 30, 10, 0);
 		add(labelip, gbcontraints);
+		
 
 		// IP TEXT AREA
 		try {
