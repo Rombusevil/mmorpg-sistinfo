@@ -51,7 +51,7 @@ public class LauncherPanelGUI extends JPanel {
 		add(title, gbcontraints);
 
 		// IMAGEN DEL LAUNCHER
-		ImageIcon image = new ImageIcon("G:/Documentos/Facultad/2012/Sistemas de Información II/EclipseWorkspace/mmorpg-sistinfo_test/res/launcher_splash.jpg");
+		ImageIcon image = new ImageIcon("src/images/image.jpg");
 		JLabel imageLabel = new JLabel("", (Icon) image, JLabel.CENTER);
 		gbcontraints = new GridBagConstraints();
 		gbcontraints.gridx = 0;
