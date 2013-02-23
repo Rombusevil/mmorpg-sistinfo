@@ -72,6 +72,8 @@ public class Client implements Runnable {
 				out.flush();
 				out.writeObject(this.pass);
 				out.flush();
+				out.writeObject(this.character);
+				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -91,11 +93,17 @@ public class Client implements Runnable {
 			// CREO GC una vez que recibi el mundo
 			this.gc.setMundo(mundo); // Crea el GC en el cliente (false es para indicar que no es Server)
 
+			System.out.println("Caracter de skin vale: "+character);
+			((ImpActor)pj).getFichaDePersonaje().setSkin(character);	//Seteo el caracter de skin
+			
+			
 			// Agrega el PJ recibido al GC para utilizarlo en la copia local del mundo
 			gc.agregarPjSocket(pj, connection);
 			gc.setPjCliente(this.pj);
 			System.out.println(listaDePjsExistentes);
 			gc.setPjList(listaDePjsExistentes);
+			
+		
 
 			Accion nuevaConexion = new MovedorAbajo(); // No importa el tipo de accion
 			nuevaConexion.setNewConnection(true);  // Lo que importa es mandar un comando con el campo en true

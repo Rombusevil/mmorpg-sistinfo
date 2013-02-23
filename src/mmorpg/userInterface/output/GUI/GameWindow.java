@@ -21,7 +21,7 @@ public class GameWindow extends JFrame implements KeyListener  {
 	private DecodificadorTeclas decodificadorTeclas;
 	
 	public GameWindow(){
-		super("MMORPG");
+		super("Code Wars");
 		init();
 	}
 	

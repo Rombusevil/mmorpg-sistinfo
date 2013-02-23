@@ -131,5 +131,7 @@ public interface FichaDePersonaje {
 	
 	public int getYpos();
 	public int getXpos();
+	public void setSkin(String skin);
+	public String getSkin();
 	
 }

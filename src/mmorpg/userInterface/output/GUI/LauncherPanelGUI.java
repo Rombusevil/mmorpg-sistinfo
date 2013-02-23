@@ -32,7 +32,7 @@ public class LauncherPanelGUI extends JPanel {
 	}
 
 	public void init() {
-		JLabel title = new JLabel("M M O R P G");
+		JLabel title = new JLabel("C O D E  W A R S");
 		JButton clientLaunch = new JButton("Entrar al mundo (Cliente)");
 		JButton netgame = new JButton("Crear un mundo (Servidor)");
 		JButton exit = new JButton("Salir");

@@ -16,6 +16,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	int vit; // produce HP
 	String primaryAtt; // Atributo primario, depende de cada pj, otorga dmg
 	String nombre;	// Nombre del personaje, no es el Login
+	String skin; //El skin del pj
 	int armor;		// Armadura total del PJ
 	int dmg;		// El DMG total, con arma incluido
 	int lvl; 		// Nivel del personaje
@@ -580,6 +581,17 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		
 		
 		return estado;
+	}
+
+	@Override
+	public void setSkin(String skin) {
+		this.skin = skin;
+		
+	}
+
+	@Override
+	public String getSkin() {
+		return this.skin;
 	}
 
 }

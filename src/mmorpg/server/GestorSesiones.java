@@ -63,6 +63,7 @@ public class GestorSesiones {
 		
 		String usr = null;
 		String pass = null;
+		String skin = null;
 		
 		try {
 			input = new ObjectInputStream(socketConectado.getInputStream());
@@ -77,6 +78,7 @@ public class GestorSesiones {
 		try{
 			usr = (String) input.readObject();
 			pass = (String) input.readObject();
+			skin = (String) input.readObject();
 		}catch(ClassNotFoundException e){
 			System.out.println("SV - GS - No entendi el comando");
 			e.printStackTrace();
@@ -96,7 +98,14 @@ public class GestorSesiones {
 		//char c = (char) randomChar;
 		
 		// Le asigno el Char del User, como "dibujo" en la consola
-		ImpDibujo dibujoActor = new ImpDibujoChar( usr.charAt(0) );
+		ImpDibujo dibujoActor = new ImpDibujoChar( skin.charAt(0));
+		
+		System.out.println("Caracter de skin vale: "+pj.getFichaDePersonaje().getSkin());
+		
+//		System.out.println("skin: "+pj.getFichaDePersonaje().getSkin());
+//		System.out.println("Skin: "+(pj.getFichaDePersonaje().getSkin()).charAt(0) );
+//		ImpDibujo dibujoActor = new ImpDibujoChar(pj.getFichaDePersonaje().getSkin().charAt(0) );
+		
 		pj.setDibujo(dibujoActor);
 		
 		System.out.println("GS-- xpos: "+pj.getFichaDePersonaje().getXpos()+" ypos: "+pj.getFichaDePersonaje().getYpos());
