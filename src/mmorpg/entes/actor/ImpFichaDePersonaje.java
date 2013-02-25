@@ -178,7 +178,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		this.setLvl(1); // Empieza en nivel 1
 		this.setXp(this.BASE_EXP); // Experiencia inicial
 		this.setDead(false); // El PJ empieza vivo
-		this.setExpAlRecibirDmg(5); // Exp base que da este Pj al recibir dmg
+		this.setExpAlRecibirDmg(15); // Exp base que da este Pj al recibir dmg
 
 		// TODO Agregar Clases de PJ y pasar por
 		// el tipo de clase al crear el PJ
@@ -209,12 +209,12 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	 */
 	private int getPrimaryAttValue() {
 		if (this.getPrimaryAtt() == "str") {
-			return this.getStr();
+			return this.getStr(); // Por ahora retorno siempre STR
 		}
 		if (this.getPrimaryAtt() == "dex") {
-			return this.getDex();
+			return this.getStr(); // Por ahora retorno siempre STR
 		} else {
-			return 0;
+			return this.getStr(); // Por ahora retorno siempre STR
 		}
 	}
 
@@ -243,7 +243,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	private int getDamageReduction(int attackerLevel) {
 		int dmgRed = 0;
 		int numerador = this.getArmor();
-		int denominador = 50 * attackerLevel;
+		int denominador = 10 * attackerLevel;
 		denominador += this.getArmor();
 		denominador *= 100;
 		dmgRed = numerador / denominador;
@@ -271,13 +271,15 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	 * @return
 	 */
 	private void calcDmg() {
-		int skillDamage = this.getSDmg();
-		int wpnDmg = getGear().dameDmgItem();
-		int damage = 0;
-
-		damage = skillDamage * wpnDmg;
-		damage *= (1 + (this.getPrimaryAttValue() / 100));
-		this.setDmg(damage);
+//		int skillDamage = this.getSDmg();
+//		int wpnDmg = getGear().dameDmgItem();
+//		int damage = 0;
+//
+//		damage = skillDamage * wpnDmg;
+//		damage *= (1 + (this.getPrimaryAttValue() / 100));
+//		this.setDmg(damage);
+		
+		this.setDmg( this.getPrimaryAttValue() );
 	}
 
 	/**
@@ -398,7 +400,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		this.setCurrentHp(getMaxHp());
 		
 		// Exp base que da este Pj al recibir dmg
-		this.setExpAlRecibirDmg(5); 
+		this.setExpAlRecibirDmg(15); 
 		
 		this.setPrimaryAtt("str");
 		this.calcSkillDamage(10);
