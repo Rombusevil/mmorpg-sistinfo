@@ -370,7 +370,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 
 		// Se recalcula la vida y se llena
 		this.setMaxHp();
-		this.setCurrentHp(getMaxHp());
+//		this.setCurrentHp(getMaxHp()); // <-- Esto puede llegar a estar bugueando cuando moris y lvleas a la vez por el lag
 
 		// Se recalcula el Dmg, armor y atkSpd
 		this.calcDmg();
