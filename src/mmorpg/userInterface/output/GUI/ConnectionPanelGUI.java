@@ -2,6 +2,7 @@ package mmorpg.userInterface.output.GUI;
 
 import java.awt.Dimension;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.awt.Font;
@@ -156,6 +157,21 @@ public class ConnectionPanelGUI extends JPanel {
 		
 		conectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//SET CONFIG.PROPERTIES
+				try { 
+			        Properties config = new Properties();
+			        config.load(new FileInputStream("config.properties"));
+			        config.setProperty("serverPort", puerto.getText());
+			        config.setProperty("serverIp", iptextarea.getText());
+			        config.store(new FileOutputStream("config.properties"), "ok");
+			        
+			        			        
+			    } catch (IOException ex) {
+			        System.out.println("Error al escribir archivo config.properties"+ex);
+			    }
+				//-----------------------------------------------------------------------
+				
 				JFrame frame = (JFrame) getTopLevelAncestor();
 				frame.getContentPane().removeAll();
 				frame.invalidate();
