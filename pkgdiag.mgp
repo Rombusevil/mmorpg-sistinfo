@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackageAnalysis>
+    <Package name="mmorpg.client" x="10" y="302">
+        <DependencyLink destination="mmorpg.acciones.enDireccion"/>
+        <DependencyLink destination="mmorpg.common"/>
+    </Package>
+    <Package name="mmorpg.common" x="217" y="181">
+        <DependencyLink destination="mmorpg.server.database"/>
+    </Package>
+    <Package name="mmorpg.server" x="9" y="74">
+        <DependencyLink destination="mmorpg.server.database"/>
+        <DependencyLink destination="mmorpg.common"/>
+        <DependencyLink destination="mmorpg.userInterface.output"/>
+    </Package>
+    <Package name="mmorpg.userInterface.output" x="297" y="8"/>
+    <Package name="mmorpg.userInterface.output.GUI" x="287" y="549">
+        <DependencyLink destination="mmorpg.server"/>
+        <DependencyLink destination="mmorpg.server.database"/>
+        <DependencyLink destination="mmorpg.userInterface.input"/>
+        <DependencyLink destination="mmorpg.common"/>
+        <DependencyLink destination="mmorpg.client"/>
+        <DependencyLink destination="mmorpg.userInterface.output"/>
+    </Package>
+    <Package name="mmorpg.userInterface.input" x="568" y="410">
+        <DependencyLink destination="mmorpg.acciones.conexion"/>
+        <DependencyLink destination="mmorpg.acciones.enDireccion"/>
+        <DependencyLink destination="mmorpg.common"/>
+    </Package>
+    <Package name="mmorpg.server.database" x="574" y="188"/>
+    <Package name="mmorpg.items" x="852" y="15">
+        <DependencyLink destination="mmorpg.entes"/>
+        <DependencyLink destination="mmorpg.userInterface.output"/>
+    </Package>
+    <Package name="mmorpg.entes" x="856" y="85">
+        <DependencyLink destination="mmorpg.userInterface.output"/>
+    </Package>
+    <Package name="mmorpg.acciones.enDireccion" x="774" y="554"/>
+    <Package name="mmorpg.acciones.conexion" x="662" y="333">
+        <DependencyLink destination="mmorpg.server.database"/>
+    </Package>
+    <Package name="mmorpg.acciones.chat" x="812" y="280">
+        <DependencyLink destination="mmorpg.server.database"/>
+        <DependencyLink destination="mmorpg.acciones.conexion"/>
+    </Package>
+    <Package name="mmorpg" x="46" y="547">
+        <DependencyLink destination="mmorpg.userInterface.output.GUI"/>
+    </Package>
+</PackageAnalysis>

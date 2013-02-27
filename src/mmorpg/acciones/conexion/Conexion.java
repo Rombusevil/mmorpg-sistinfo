@@ -2,7 +2,6 @@ package mmorpg.acciones.conexion;
 
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

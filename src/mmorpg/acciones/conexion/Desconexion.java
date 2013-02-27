@@ -3,16 +3,13 @@ package mmorpg.acciones.conexion;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import mmorpg.entes.actor.Actor;
-import mmorpg.entes.actor.ImpActor;
 import mmorpg.entes.actor.PJ;
 import mmorpg.mundo.Mundo;
 import mmorpg.server.database.DataBaseManager;
-import mmorpg.server.database.EstadoPjAGuardar;
 
 public class Desconexion implements AccionDeConexion, Serializable {
 	//Metodos para sacar el pj de la lista del mundo, y para sacarlo del mundo

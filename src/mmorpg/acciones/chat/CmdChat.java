@@ -1,7 +1,6 @@
 package mmorpg.acciones.chat;
 
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 

@@ -15,8 +15,6 @@ import mmorpg.acciones.enDireccion.ProveedorDeEnDireccion;
 import mmorpg.common.GestorComandos;
 import mmorpg.entes.actor.Actor;
 
-import sun.misc.GC;
-
 //La idea es apretar una tecla y no hablar con el jugador, sino crear un paquete ejecutable
 //con el actor y la acción para mandarseló al gestor de comandos.
 

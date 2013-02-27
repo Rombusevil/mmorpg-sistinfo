@@ -4,25 +4,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Observable;
-import java.util.Set;
 import mmorpg.acciones.iComando;
 import mmorpg.entes.actor.Actor;
-import mmorpg.entes.actor.ImpActor;
 import mmorpg.entes.actor.PJ;
 import mmorpg.mundo.ImpMundo;
 import mmorpg.mundo.Mundo;
 import mmorpg.server.database.DataBaseManager;
-import mmorpg.server.database.EstadoPjAGuardar;
 
 public class GestorComandos extends Observable implements Runnable {
 
