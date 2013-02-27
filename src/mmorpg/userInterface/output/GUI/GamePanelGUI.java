@@ -111,7 +111,7 @@ public class GamePanelGUI extends JPanel implements Observer{
 			datosPj = 
 					"<HTML> <table border='1'" +
 					"<tr><td color=#FF0F00>" +
-					"Personaje" +
+					"Personaje"+ estado.getNombre() +"  " +
 					"</td><td>"+
 					"Salud: "+ pj.dameHP() +"  " +
 					"</td><td>"+
@@ -125,7 +125,7 @@ public class GamePanelGUI extends JPanel implements Observer{
 					"</td><td>"+
 					"Fuerza: "+ estado.getStr()+"  " +
 					"</td><td>"+
-					"Destreza:	"+ estado.getDex() 	+"  " +
+					"Dmg Total:	"+ pj.dameDmg()+"  " +
 					"</td><td>"+
 					"Vitalidad: "+ estado.getVit() +"  " +
 					"</td><td>"+

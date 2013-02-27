@@ -138,7 +138,6 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	public void morite() {
 		this.matarPj();
 		this.setExpAlRecibirDmg(0);
-		System.out.println("Ficha PJ - isDead: "+this.dead+"¡Me mori!" );
 	}
 
 	@Override
@@ -169,7 +168,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	public ImpFichaDePersonaje() {
 
 		this.gear = new SlotGear(); // Inicializado el Gear
-		ItemEquipable armaInicial = new Espada(10, 50, 1, "Espada de Madera"); // Creo
+		ItemEquipable armaInicial = new Espada(2, 50, 1, "Espada de Madera"); // Creo
 																				 // el
 																				 // arma
 																				 // inicial
@@ -279,7 +278,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 //		damage *= (1 + (this.getPrimaryAttValue() / 100));
 //		this.setDmg(damage);
 		
-		this.setDmg( this.getPrimaryAttValue() );
+		this.setDmg( this.getPrimaryAttValue() + getGear().dameDmgItem() );
 	}
 
 	/**
