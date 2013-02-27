@@ -27,7 +27,6 @@ public class Server implements Runnable, Serializable {
 	private ServerSocket serverSocket;		// A este socket se conectan los clientes
 	private Socket socket;					// Socket conectado que se envia al GestorSesiones
 	
-	//Este monitor donde se usa?
 	private Object monitor;
 	
 	private Boolean isRunning = true;

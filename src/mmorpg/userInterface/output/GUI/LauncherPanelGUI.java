@@ -20,9 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import mmorpg.server.Server;
-import mmorpg.userInterface.output.GUI.utils.BufferedImageLoader;
-import mmorpg.userInterface.output.GUI.utils.Sprite;
-import mmorpg.userInterface.output.GUI.utils.SpriteFactory;
+
 
 public class LauncherPanelGUI extends JPanel {
 

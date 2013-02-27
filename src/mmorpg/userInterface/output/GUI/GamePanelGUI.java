@@ -39,7 +39,7 @@ public class GamePanelGUI extends JPanel implements Observer{
 	public void init(){
 		this.setBackground(new Color(0,0,0)); // Fondo negro
 		this.impJframe = new ImpImprimidorMundosCLIJframe();
-		j1= new JLabel("HOLA");
+		j1= new JLabel("Cargando");
 		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
 		j1.setForeground(new Color(0,255,0)); // Verde caracter
 		add(j1,BorderLayout.CENTER);

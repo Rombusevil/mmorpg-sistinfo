@@ -1,0 +1,177 @@
+<class-diagram version="1.0.11" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="mmorpg.userInterface.output.GUI.GamePanelGUI" 
+    project="mmorpg-sistinfo3" file="/mmorpg-sistinfo3/src/mmorpg/userInterface/output/GUI/GamePanelGUI.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="620" y="263"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="mmorpg.userInterface.output.GUI.LoginPanelGUI" 
+    project="mmorpg-sistinfo3" file="/mmorpg-sistinfo3/src/mmorpg/userInterface/output/GUI/LoginPanelGUI.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="160" y="590"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="mmorpg.userInterface.output.GUI.GameWindow" 
+    project="mmorpg-sistinfo3" file="/mmorpg-sistinfo3/src/mmorpg/userInterface/output/GUI/GameWindow.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="622" y="523"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="mmorpg.userInterface.output.GUI.LauncherPanelGUI" 
+    project="mmorpg-sistinfo3" file="/mmorpg-sistinfo3/src/mmorpg/userInterface/output/GUI/LauncherPanelGUI.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1096" y="192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="mmorpg.userInterface.output.GUI.ConnectionPanelGUI" 
+    project="mmorpg-sistinfo3" file="/mmorpg-sistinfo3/src/mmorpg/userInterface/output/GUI/ConnectionPanelGUI.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1100" y="313"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="mmorpg.client.Client" project="mmorpg-sistinfo3" 
+    file="/mmorpg-sistinfo3/src/mmorpg/client/Client.java" binary="false">    
+    <position height="465" width="218" x="39" y="-58"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="mmorpg.entes.actor.ImpActor" project="mmorpg-sistinfo3" 
+    file="/mmorpg-sistinfo3/src/mmorpg/entes/actor/ImpActor.java" binary="false">    
+    <position height="-1" width="-1" x="-149" y="577"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="mmorpg.common.GestorComandos" project="mmorpg-sistinfo3" 
+    file="/mmorpg-sistinfo3/src/mmorpg/common/GestorComandos.java" binary="false">    
+    <position height="-1" width="-1" x="879" y="-19"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="mmorpg.userInterface.output.ImpImprimidorMundosCLIJframe" 
+    project="mmorpg-sistinfo3" 
+    file="/mmorpg-sistinfo3/src/mmorpg/userInterface/output/ImpImprimidorMundosCLIJframe.java" binary="false">    
+    <position height="-1" width="-1" x="365" y="464"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="mmorpg.userInterface.input.DecodificadorTeclas" 
+    project="mmorpg-sistinfo3" file="/mmorpg-sistinfo3/src/mmorpg/userInterface/input/DecodificadorTeclas.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="964" y="532"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="11" corner="BOTTOM_RIGHT" language="java" name="mmorpg.mundo.Mundo" project="mmorpg-sistinfo3" 
+    file="/mmorpg-sistinfo3/src/mmorpg/mundo/Mundo.java" binary="false">    
+    <position height="-1" width="-1" x="443" y="-112"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <association id="12">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="13" name="gc"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="15">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="16" name="gameWindow"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="19" name="gc"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="21">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="22" name="mundo"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="25" name="gestorComandos"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="27">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="28" name="pj"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="30">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="31" name="impJframe"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="33">    
+    <bendpoint x="91" y="454"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="34" name="cliente"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="36">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="37" name="decodificadorTeclas"/>      
+      <multiplicity id="38" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

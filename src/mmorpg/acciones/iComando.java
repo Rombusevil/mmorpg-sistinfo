@@ -28,7 +28,7 @@ public interface iComando {
 	void setPj(Actor a);
 	void setAccion(Accion aed);
 	void setAccion(AccionDeConexion aed);
-	void mandarComando(iComando cmd); //FIXME validar validez
+	void mandarComando(iComando cmd); //FIXME validar validez; Creo que no estamos usando más esto
 	Actor getPj();
 	Accion getAccion();
 }

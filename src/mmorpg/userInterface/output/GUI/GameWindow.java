@@ -14,7 +14,7 @@ import javax.swing.SwingWorker;
 import mmorpg.common.GestorComandos;
 import mmorpg.entes.actor.Actor;
 import mmorpg.userInterface.input.DecodificadorTeclas;
-import mmorpg.userInterface.output.GUI.utils.SpriteFactory;
+
 
 public class GameWindow extends JFrame implements KeyListener  {
 	

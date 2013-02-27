@@ -28,7 +28,6 @@ public class LoginPanelGUI extends JPanel {
 	private JTextField pass = new JPasswordField(10);
 	private JTextField character = new JTextField("x");
 	
-	private Client client;
 	
 	private String serverIp;
 	private Integer serverPort;
