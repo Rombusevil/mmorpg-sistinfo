@@ -168,7 +168,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	public ImpFichaDePersonaje() {
 
 		this.gear = new SlotGear(); // Inicializado el Gear
-		ItemEquipable armaInicial = new Espada(2, 50, 1, "Espada de Madera"); // Creo
+		ItemEquipable armaInicial = new Espada(2, 50, 1, "EoF Sword"); 			 // Creo
 																				 // el
 																				 // arma
 																				 // inicial
@@ -187,7 +187,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 		// Y el PrimaryAtt depende de cada clase
 		this.setStr(10);
 		this.setDex(8);
-		this.setVit(9);
+		this.setVit(15);
 		this.setPrimaryAtt("str");
 		this.calcSkillDamage(10);
 		// Fin bloque HardCoded
@@ -324,7 +324,7 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 	 */
 	private void setMaxHp() {
 		int maxHp;
-		maxHp = 36 + (4 * this.getLvl() + (10 + this.getVit()));
+		maxHp = 40 + (4 * this.getLvl() + (10 + this.getVit()));
 		this.maxHp = maxHp;
 	}
 
@@ -358,6 +358,27 @@ public class ImpFichaDePersonaje implements FichaDePersonaje, Serializable {
 
 	private void LevelUp() {
 		this.setLvl(this.getLvl() + 1); // Sube de Nivel
+		
+		if (this.lvl == 2){
+			ItemEquipable wpn = new Espada(2, 50, 1, "Stack Overflow");		 
+			this.getGear().reemplazaItem(wpn);
+		}
+		if (this.lvl == 3){
+			ItemEquipable wpn = new Espada(4, 50, 1, "Logic Bomb");		 
+			this.getGear().reemplazaItem(wpn);
+		}
+		if (this.lvl == 4){
+			ItemEquipable wpn = new Espada(6, 50, 1, "Syntax Error");		 
+			this.getGear().reemplazaItem(wpn);
+		}
+		if (this.lvl == 5){
+			ItemEquipable wpn = new Espada(8, 50, 1, "Memory Leak");		 
+			this.getGear().reemplazaItem(wpn);
+		}
+		if (this.lvl == 6){
+			ItemEquipable wpn = new Espada(10, 50, 1, "BSOS Fists");		 
+			this.getGear().reemplazaItem(wpn);
+		}
 
 		// Suben los Atributos con el nivel
 		// PrimaryAtt +3

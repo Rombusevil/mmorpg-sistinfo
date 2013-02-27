@@ -113,9 +113,9 @@ public class GamePanelGUI extends JPanel implements Observer{
 					"<tr><td color=#FF0F00>" +
 					"Personaje"+ estado.getNombre() +"  " +
 					"</td><td>"+
-					"Salud: "+ pj.dameHP() +"  " +
+					"Hit Points: "+ pj.dameHP() +"  " +
 					"</td><td>"+
-					"Exp.: "+ pj.dameXP() +"  " +
+					"Code Lines: "+ pj.dameXP() +"  " +
 					"</td><td>"+
 					"Nivel: "+ pj.dameLvl() +"  " +
 					"</td><td>"+
@@ -123,11 +123,11 @@ public class GamePanelGUI extends JPanel implements Observer{
 					"</td></tr><td color=#FF0F00>" +
 					"Stats" +		
 					"</td><td>"+
-					"Fuerza: "+ estado.getStr()+"  " +
+					"Binary Damage: "+ estado.getStr()+"  " +
 					"</td><td>"+
-					"Dmg Total:	"+ pj.dameDmg()+"  " +
+					"Bug Shield: "+ estado.getVit() +"  " +
 					"</td><td>"+
-					"Vitalidad: "+ estado.getVit() +"  " +
+					"True Damage:	"+ pj.dameDmg()+"  " +
 					"</td><td>"+
 									
 					"</td></tr><td color=#FF0F00>" +
@@ -135,11 +135,11 @@ public class GamePanelGUI extends JPanel implements Observer{
 					"</td><td>"+
 					"Item: "+ estado.getNombreItem() 	+"  " +
 					"</td><td>"+
-					"Daño: "+ estado.getDmgItem() 			+"  "	+
+					"Item Dmg: "+ estado.getDmgItem() 			+"  "	+
 					"</td><td>"+
-					"Armadura: "+ estado.getArmorItem() 	+"  " +
+					"Item Armor: "+ estado.getArmorItem() 	+"  " +
 					"</td><td>"+
-					"Vel. Ataque: "+ estado.getAtkSpdItem()+"  " +
+					"Item Atk.Spd: "+ estado.getAtkSpdItem()+"  " +
 					"</td></tr>"; //+
 					//"</HTML>";		
 		}
