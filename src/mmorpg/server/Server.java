@@ -119,7 +119,7 @@ public class Server implements Runnable, Serializable {
 	/**
 	 * Cierra el SV, etc etc..
 	 */
-	private void closeCrap() {
+	public void closeCrap() {
 		try {
 			if(socket !=null){
 				this.socket.close();
