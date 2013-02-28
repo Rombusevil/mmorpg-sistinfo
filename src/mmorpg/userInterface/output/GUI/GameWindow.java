@@ -38,7 +38,7 @@ public class GameWindow extends JFrame implements KeyListener  {
 		this.decodificadorTeclas = new DecodificadorTeclas(pj, gc, socketConectado);
 		addKeyListener(this);
 		
-		setSize(gc.getMundo().getAncho()*100,gc.getMundo().getAlto()*22); // Ancho dinamico segun ancho del mundo
+		setSize(gc.getMundo().getAncho()*120,gc.getMundo().getAlto()*22); // Ancho dinamico segun ancho del mundo
 		setFocusable(true);
 		
 		this.toFront();
