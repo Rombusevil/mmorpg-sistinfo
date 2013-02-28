@@ -1,5 +1,6 @@
 package mmorpg.userInterface.output.GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -17,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
-
+import mmorpg.acciones.chat.ImpMostrarEnChat;
 
 import mmorpg.client.Client;
 import mmorpg.entes.actor.ImpActor;
@@ -33,6 +34,8 @@ public class LoginPanelGUI extends JPanel {
 	private Integer serverPort;
 	private Socket connection;
 	private ImpActor pj;
+	ImpMostrarEnChat mostrador;
+	ChatGUI chat;
 	
 	private Client cliente;
 	
@@ -180,13 +183,22 @@ public class LoginPanelGUI extends JPanel {
                 }
                 
                 GameWindow gameWindow = (GameWindow) getTopLevelAncestor();
-				gameWindow.getContentPane().removeAll();
-				GamePanelGUI gamePanel = new GamePanelGUI();
-				gamePanel.setController(cliente.getGestorComandos());
-				gamePanel.setJFrame(gameWindow);
-				gameWindow.setContentPane(gamePanel);
-				gameWindow.validate();
-				gameWindow.initClient(cliente.getPj(), cliente.getGestorComandos(), cliente.getSocket());
+                gameWindow.getContentPane().removeAll();
+                gameWindow.setLayout(new BorderLayout());
+                GamePanelGUI gamePanel = new GamePanelGUI();
+                gamePanel.setController(cliente.getGestorComandos());
+                gamePanel.setJFrame(gameWindow);
+                //gameWindow.setContentPane(gamePanel);
+                gameWindow.add(gamePanel, BorderLayout.CENTER);
+                chat=new ChatGUI(cliente,cliente.getGestorComandos());
+                mostrador= new ImpMostrarEnChat();
+                mostrador.setChat(chat);
+                cliente.getGestorComandos().setMchat(mostrador);
+                chat.setjFmundo(gameWindow);
+                
+                gameWindow.add(chat, BorderLayout.EAST);
+                gameWindow.validate();
+                gameWindow.initClient(cliente.getPj(), cliente.getGestorComandos(),cliente.getSocket());
 			}
 		});
 		

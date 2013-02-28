@@ -12,11 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import mmorpg.acciones.iComando;
+import mmorpg.acciones.chat.MostrarEnChat;
 import mmorpg.entes.actor.Actor;
 import mmorpg.entes.actor.PJ;
 import mmorpg.mundo.ImpMundo;
 import mmorpg.mundo.Mundo;
 import mmorpg.server.database.DataBaseManager;
+import mmorpg.userInterface.output.GUI.ChatGUI;
 
 public class GestorComandos extends Observable implements Runnable {
 
@@ -40,6 +42,7 @@ public class GestorComandos extends Observable implements Runnable {
 	private Object monitor;
 	private Boolean server; 	// Si es server forwardea comandos
 	private DataBaseManager dataBase;
+	private MostrarEnChat mchat;
 	
 	private Mundo mundo;
 
@@ -88,6 +91,7 @@ public class GestorComandos extends Observable implements Runnable {
 							in = new ObjectInputStream(skt.getKey().getInputStream());
 							
 							// si metemos un if(in.avaiable() > 0 ) muere todo
+							
 							cmd = (iComando) in.readObject();
 							Actor pjDelComando = cmd.getPj();
 							sendComando = true;
@@ -131,6 +135,9 @@ public class GestorComandos extends Observable implements Runnable {
 										cmd.setPj(pjDeLaLista);
 										cmd.ejecutarEnDireccion();
 										cmd.ejecutarConexion(this.newPjList, this.killPjList, this.mundo, skt, null);
+										cmd.ejecutarChat(getMchat());
+										System.out.println("cmd: "+cmd.getPj());
+										//Thread.sleep(1000000);
 										//this.mundo.buscaYDestruyeMuertos(this.killPjList);
 										
 										// Le aviso a los Observers que se modifico el mundo
@@ -138,6 +145,7 @@ public class GestorComandos extends Observable implements Runnable {
 										setChanged();
 								    	notifyObservers();
 									}
+									System.out.println("Ejecutado vale cliente:" + ejecutado);
 								}
 								
 								
@@ -314,6 +322,15 @@ public class GestorComandos extends Observable implements Runnable {
 	
 	public Mundo getMundo(){
 		return this.mundo;
+	}
+
+
+	public MostrarEnChat getMchat() {
+		return mchat;
+	}
+
+	public void setMchat(MostrarEnChat mchat) {
+		this.mchat = mchat;
 	}
 	
 	

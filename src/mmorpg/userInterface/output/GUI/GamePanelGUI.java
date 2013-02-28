@@ -2,6 +2,7 @@ package mmorpg.userInterface.output.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -43,6 +44,7 @@ public class GamePanelGUI extends JPanel implements Observer{
 		j1.setFont(new Font("Courier New", Font.PLAIN, 12));
 		j1.setForeground(new Color(0,255,0)); // Verde caracter
 		add(j1,BorderLayout.CENTER);
+		
 	}
 	
 	// Este metodo se llama cada vez que hay un cambio en el mundo

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import mmorpg.acciones.Accion;
 import mmorpg.acciones.iComando;
+import mmorpg.acciones.chat.MostrarEnChat;
 import mmorpg.entes.actor.Actor;
 import mmorpg.mundo.Mundo;
 import mmorpg.server.database.DataBaseManager;
@@ -82,6 +83,22 @@ public class CmdJugadorConexion implements iComando, Serializable {
 
 	public void ejecutarEnDireccion() {
 		//No implementa accionesEnDirección.
+	}
+
+
+
+	
+	public void setMensaje(String m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void ejecutarChat(MostrarEnChat mostrarEnChat) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

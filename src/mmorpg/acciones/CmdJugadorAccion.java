@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.List;
 import java.util.Map.Entry;
 
+import mmorpg.acciones.chat.MostrarEnChat;
 import mmorpg.acciones.conexion.AccionDeConexion;
 import mmorpg.entes.actor.Actor;
 import mmorpg.mundo.Mundo;
@@ -70,6 +71,17 @@ public class CmdJugadorAccion implements iComando, Serializable {
 	@Override
 	public void ejecutarConexion(List<Actor> newPjList, List<Actor> killPjList, Mundo mundo, Entry<Socket, Boolean> socket, DataBaseManager db) {
 		// No lo implementa
+		
+	}
+
+	public void setMensaje(String m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ejecutarChat(MostrarEnChat mostrarEnChat) {
+		// TODO Auto-generated method stub
 		
 	}
 
